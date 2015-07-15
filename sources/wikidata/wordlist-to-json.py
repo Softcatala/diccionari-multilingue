@@ -80,14 +80,16 @@ def get_en_ca_descriptions(description):
 def _show_statistics(stats, json_file):
     cnt = stats["entries"]
     entries = stats["entries"]
+    words = stats["words"]
+    entries = stats["entries"]
     selected = stats["selected"]
     ca_labels = stats["ca_labels"]
     en_labels = stats["en_labels"]
     ca_descs = stats["ca_descs"]
     en_descs = stats["en_descs"]
 
-    print ("Total words: " + str(entries))
-    print ("Total entries: " + str(stats["entries"]))
+    print ("Total words: " + str(words))
+    print ("Total entries: " + str(entries))
     print ("Selected: {0} ({1}%)".format(str(selected), str(percentage(selected, cnt))))
     print ("ca labels: {0} ({1}%)".format(str(ca_labels), str(percentage(ca_labels, cnt))))
     print ("en labels: {0} ({1}%)".format(str(en_labels), str(percentage(en_labels, cnt))))

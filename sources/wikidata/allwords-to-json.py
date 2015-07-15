@@ -96,8 +96,8 @@ def _show_statistics(stats, json_file):
     ca_descs = stats["ca_descs"]
     en_descs = stats["en_descs"]
 
-    print ("Total words: " + str(entries))
-    print ("Total entries: " + str(stats["entries"]))
+    print ("Total words: " + str(words))
+    print ("Total entries: " + str(entries))
     print ("Selected: {0} ({1}%)".format(str(selected), str(percentage(selected, cnt))))
     print ("ca descriptions: {0} ({1}%)".format(str(ca_descs), str(percentage(ca_descs, cnt))))
     print ("en descriptions: {0} ({1}%)".format(str(en_descs), str(percentage(en_descs, cnt))))
@@ -148,19 +148,18 @@ def _process_json():
         descriptions = item.get('descriptions')
         en_description, ca_description = get_en_ca_descriptions(descriptions)
 
-        if en_description is None or ca_description is None:
-            continue
-
         selected = selected + 1
         data = {}
         data['en'] = en_label
         data['ca'] = ca_label
 
-        data['en_description'] = en_description
-        en_descs = en_descs + 1
+        if en_description is not None:
+            data['en_description'] = en_description
+            en_descs = en_descs + 1
 
-        data['ca_description'] = ca_description
-        ca_descs = ca_descs + 1
+        if ca_description is not None:
+            data['ca_description'] = ca_description
+            ca_descs = ca_descs + 1
 
         data['comment'] = item_id
 
