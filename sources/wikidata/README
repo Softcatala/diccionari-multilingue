@@ -1,0 +1,35 @@
+Getting started
+===============
+
+1. Importing dataset into Mongodb
+
+mongoimport --db local --collection wikidata 20150629.json --jsonArray
+
+2. Use RoboMongo as GUI 
+
+Stats
+=====
+
+With 20150629 Wikidata dump:
+
+wordlist-to-json.py
+
+    Total words: 9997
+    Total entries: 9997
+    Selected: 9997 (100.0%)
+    ca labels: 4004 (40.0520156047%)
+    en labels: 9997 (100.0%)
+    ca descriptions: 649 (6.49194758428%)
+    en descriptions: 8044 (80.4641392418%)
+    Time 0:00:11.848905
+
+allwords-to-json.py
+
+    Total words: 9649084
+    Total entries: 9649084
+    Selected: 9634491 (99.8487628463%)
+    ca labels: 8979713 (93.0628544637%)
+    en labels: 9634491 (99.8487628463%)
+    ca descriptions: 8979713 (93.0628544637%)
+    en descriptions: 0 (0.0%)
+

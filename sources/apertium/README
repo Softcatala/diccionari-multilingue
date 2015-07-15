@@ -1,0 +1,4 @@
+Generate plain English word list
+
+1. cat apertium-en-ca.en-ca.dix  | sed -e 's/^.*<p><l>//' -e 's!<s.*!!'
+2. Replace <b/> by ' '
