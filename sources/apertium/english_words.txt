@@ -124,8 +124,7 @@ His Highness
 His Majesty
 His Majesty the King
 His Royal Highness
-<!-- NOMS -->
-House<g> of Representatives</g>
+House of Representatives
 IBM
 ID badge
 ID card
@@ -201,7 +200,6 @@ PKK
 PM
 PNB
 POW camp
-<!-- més acrònims -->
 PP
 PSC
 PSOE
@@ -236,7 +234,7 @@ Scorpio
 Scottish
 Scottish
 Secretary-General
-Secretary<g> General</g>
+Secretary General
 Semitism
 September
 Spaniard
@@ -297,8 +295,6 @@ abaca
 abacus
 abampere
 abandonment
-<!-- FI NOMS BCN 1-1 -->
-<!-- Novembre-->
 abandonment
 abatement
 abbey
@@ -309,7 +305,6 @@ abdomen
 abdomen
 abduction
 aberration
-<!--NOMS: paquet de llista Oxford -->
 ability
 abiogenesis
 abjuration
@@ -352,7 +347,7 @@ absurdity
 abulia
 abundance
 abuse
-abuse<g> of power</g>
+abuse of power
 abvolt
 abyss
 academician
@@ -440,8 +435,8 @@ acrylic
 acrylic
 act
 act
-act<g> of God</g>
-act<g> of nature</g>
+act of God
+act of nature
 actin
 actinide
 actinium
@@ -1508,7 +1503,7 @@ balance
 balance
 balance bridge
 balance sheet
-balance<g> of payments</g>
+balance of payments
 balancemeter
 balancing
 balcony
@@ -1739,7 +1734,7 @@ bibliomaniac
 bibliometrics
 bicameralism
 bicarbonate
-bicarbonate<g> of soda</g>
+bicarbonate of soda
 biceps
 biceps
 bicuspid
@@ -1955,7 +1950,7 @@ boa
 board
 board
 board game
-board<g> of directors</g>
+board of directors
 boarding
 boaster
 boastfulness
@@ -2351,7 +2346,7 @@ cancrinite
 candela
 candidate
 candidate
-candidate<g> for the presidency</g>
+candidate for the presidency
 candidature
 candidiasis
 candle
@@ -2625,7 +2620,7 @@ cerium
 cermet
 certainty
 certificate
-certificate<g> of conformity</g>
+certificate of conformity
 certification
 ceruminosis
 cesium
@@ -3066,7 +3061,7 @@ coercitivity
 coexistence
 coextrusion
 coffee
-coffee<g> with milk</g>
+coffee with milk
 coffer
 cofferdam
 coffin
@@ -3630,8 +3625,8 @@ countryside
 county
 coup
 coup
-coup<g> d'état</g>
-coup<g> d'état</g>
+coup d'état
+coup d'état
 couple
 couple
 couple
@@ -4077,7 +4072,7 @@ degradation
 degreasing
 degree
 degree
-degree<g> Celcius</g>
+degree Celcius
 dehardening
 dehumidifier
 dehydration
@@ -5894,7 +5889,7 @@ footstool
 footwear
 force
 occupying force
-force<g> of occupation</g>
+force of occupation
 force majeure
 forceps
 forceps
@@ -5977,7 +5972,7 @@ fraudulence
 free access
 free share
 freedom
-freedom<g> of religion</g>
+freedom of religion
 freelance
 freelance
 freemasonry
@@ -6028,7 +6023,7 @@ frog
 front
 battlefront
 audacity
-president<g> of the Basque Country</g>
+president of the Basque Country
 frontier
 frontis
 frontis
@@ -6331,8 +6326,6 @@ glycine
 glycocoll
 glycogen
 glycogenesis
-<!--Fi NOMS: paquet de llista Oxford -->
-<!-- NOMS BCN 1-1 -->
 glycol
 glycolipid
 glycolysis
@@ -6676,8 +6669,8 @@ hazel
 hazelnut
 head
 head office
-head<g> of government</g>
-head<g> of state</g>
+head of government
+head of state
 headache
 headband
 headcount
@@ -7528,7 +7521,7 @@ institute
 institution
 institutionalisation
 instruction
-instruction<g> for use</g>
+instruction for use
 instructor
 instructor
 instrument
@@ -7960,7 +7953,7 @@ kneepad
 knicknack
 knife
 knight
-knight<g> of the Round Table</g>
+knight of the Round Table
 knock
 knock
 knot
@@ -7999,7 +7992,7 @@ labrocyte
 labyrinth
 lace
 lack
-lack<g> of respect</g>
+lack of respect
 lacquer
 lacrimotomy
 lactation
@@ -8346,8 +8339,8 @@ lithuanian
 lithuanian
 litotes
 litre
-litre<g> of alcohol</g>
-litre<g> of spirits</g>
+litre of alcohol
+litre of spirits
 little finger
 little finger
 liturgy
@@ -8808,8 +8801,8 @@ melomaniac
 melon
 member
 member
-member<g> of parliament</g>
-member<g> of parliament</g>
+member of parliament
+member of parliament
 membership
 membrane
 memorandum
@@ -8914,7 +8907,7 @@ metonymy
 metope
 metopion
 metre
-metre<g> above sea level</g>
+metre above sea level
 metrics
 metrology
 metronome
@@ -10855,7 +10848,7 @@ pie
 pie
 piece
 piece
-piece<g> of furniture</g>
+piece of furniture
 piedmont
 pieing
 piemontite
@@ -11078,7 +11071,7 @@ poetry
 pogrom
 poikilocytosis
 point
-point<g> of view</g>
+point of view
 pointer
 poison
 poisoner
@@ -11266,7 +11259,7 @@ potter
 pouch
 pouffe
 pound
-pound<g> sterling</g>
+pound sterling
 poverty
 poverty
 powder
@@ -12755,7 +12748,6 @@ scribbling
 scribe
 scribe
 scriber
-<!--MG: no he simplificat slr/srl -->
 script
 scrollwork
 scrotum
@@ -13362,7 +13354,7 @@ soundproofing
 soundtrack
 soup
 source
-source<g> of inflation</g>
+source of inflation
 south
 southerner
 southwest
@@ -13436,7 +13428,7 @@ speculum
 speech
 speech
 speed
-speed<g> of light</g>
+speed of light
 spell
 spell
 spelling
@@ -13643,8 +13635,8 @@ stencil
 stenosis
 step
 step
-step<g> forward</g>
-step<g> forward</g>
+step forward
+step forward
 stepbrother
 stepbrother
 stepdaughter
@@ -14314,7 +14306,7 @@ terbium
 tercet
 term
 term
-term<g> of office</g>
+term of office
 terminal
 terminal
 terminism
@@ -14579,7 +14571,7 @@ top economist
 top level domain
 topazolite
 topic
-topic<g> of conversation</g>
+topic of conversation
 topmast
 topographer
 topographer
@@ -15376,7 +15368,7 @@ wax
 way
 way
 way
-way<g> of life</g>
+way of life
 waystation
 weakening
 weakling
@@ -19670,7 +19662,7 @@ abduct
 abet
 abhor
 abide
-abide<g> by</g>
+abide by
 abjure
 abolish
 abort
@@ -19727,7 +19719,7 @@ advertise
 advise
 advocate
 advocate
-fight<g> tooth and nail</g>
+fight tooth and nail
 affect
 affiliate
 affirm
@@ -19744,9 +19736,9 @@ agree
 agree
 agree
 <!--Fi Primer paquet Verbs -->
-<!--Verbs que són multiparaules amb <g> -->
-agree<g> with</g>
-go<g> along with</g>
+<!--Verbs que són multiparaules amb  -->
+agree with
+go along with
 aim
 aim
 air-condition
@@ -19793,7 +19785,7 @@ appear
 appease
 applaud
 apply
-apply<g> for</g>
+apply for
 appoint
 appoint
 appraise
@@ -19819,7 +19811,7 @@ ascertain
 ascribe
 ask
 ask
-ask<g> for</g>
+ask for
 asphalt
 assault
 assemble
@@ -19833,8 +19825,8 @@ associate
 assume
 assume
 assure
-assure<g> the media</g>
-assure<g> the media</g>
+assure the media
+assure the media
 astonish
 atomise
 attach
@@ -19880,24 +19872,24 @@ bark
 base
 bathe
 be
-be<g> ablaze</g>
-be<g> abreast</g>
-be<g> afraid of</g>
-be<g> born</g>
-be<g> distant</g>
-be<g> dying</g>
-be<g> equidistant</g>
-be<g> hungry</g>
-be<g> hungry</g>
-be<g> in decline</g>
-be<g> left</g>
-be<g> missing</g>
-be<g> shipwrecked</g>
-be<g> sorry</g>
-be<g> used to</g>
-be<g> very sorry</g>
-be<g> worth</g>
-be<g> worthwhile</g>
+be ablaze
+be abreast
+be afraid of
+be born
+be distant
+be dying
+be equidistant
+be hungry
+be hungry
+be in decline
+be left
+be missing
+be shipwrecked
+be sorry
+be used to
+be very sorry
+be worth
+be worthwhile
 bead
 bear
 bear
@@ -19963,7 +19955,7 @@ bow
 bow
 bow
 box
-box<g> off</g>
+box off
 boycott
 brake
 brave
@@ -19975,8 +19967,8 @@ bribe
 brief
 bring
 bring
-bring<g> down</g>
-bring<g> together</g>
+bring down
+bring together
 broadcast
 broaden
 bronze
@@ -19990,7 +19982,7 @@ burgeon
 burn
 burnish
 burst
-burst<g> into</g>
+burst into
 bury
 buy
 buzz
@@ -20000,7 +19992,7 @@ calibrate
 calk
 call
 call
-call<g> for</g>
+call for
 calm
 camp
 campaign
@@ -20019,10 +20011,10 @@ caricature
 carpet
 carry
 carry
-carry<g> out</g>
-carry<g> out</g>
-clog<g> up</g>
-clog<g> up</g>
+carry out
+carry out
+clog up
+clog up
 unclog
 unclog
 cast
@@ -20055,7 +20047,7 @@ chat
 chat
 cheat
 check
-check<g> out</g>
+check out
 cheer
 cheer
 chew
@@ -20101,13 +20093,13 @@ comb
 combat
 combine
 come
-come<g> across</g>
-come<g> back</g>
-come<g> close</g>
-come<g> close</g>
-come<g> in</g>
-come<g> into force</g>
-go<g> into force</g>
+come across
+come back
+come close
+come close
+come in
+come into force
+go into force
 comfort
 command
 commence
@@ -20163,8 +20155,8 @@ confiscate
 conform
 confront
 confuse
-confuse<g> the heck out of</g>
-confuse<g> the hell out of</g>
+confuse the heck out of
+confuse the hell out of
 congeal
 congratulate
 connect
@@ -20212,7 +20204,7 @@ cooperate
 coordinate
 cope
 cope
-cope<g> with</g>
+cope with
 copy
 correct
 correlate
@@ -20254,7 +20246,7 @@ cure
 curse
 curve
 cut
-cut<g> across</g>
+cut across
 damage
 damascene
 dampen
@@ -20266,7 +20258,7 @@ darken
 date
 dazzle
 deal
-deal<g> with</g>
+deal with
 debate
 debit
 debug
@@ -20353,7 +20345,7 @@ derogate
 descend
 describe
 describe
-describe<g> as</g>
+describe as
 desecrate
 deselect
 desensitise
@@ -20484,13 +20476,13 @@ dredge
 dress
 drift
 drink
-drink<g> like a fish</g>
+drink like a fish
 drip
 drive
 drive
 drop
 drop
-drop<g> across</g>
+drop across
 drown
 drown
 drug
@@ -20615,8 +20607,8 @@ exile
 exist
 exit
 exit
-come<g> out</g>
-come<g> out</g>
+come out
+come out
 expand
 expand
 expect
@@ -20648,7 +20640,7 @@ fade
 fail
 fake
 fall
-fall<g> down</g>
+fall down
 falsify
 familiarise
 fan
@@ -20669,14 +20661,14 @@ figure
 figure
 file
 fill
-fill<g> up</g>
+fill up
 film
 filter
 finalise
 finance
 find
 find
-find<g> out</g>
+find out
 fine
 fine-tune
 finish
@@ -20712,8 +20704,8 @@ force
 foresee
 forge
 forget
-forget<g> about</g>
-forget<g> about</g>
+forget about
+forget about
 forgive
 fork
 fork
@@ -20753,46 +20745,46 @@ get
 get
 get
 get
-get<g> angry</g>
-get<g> across</g>
-get<g> across</g>
-get<g> across</g>
-get<g> along</g>
-get<g> along</g>
-get<g> along with</g>
-get<g> away</g>
-get<g> back</g>
-get<g> better</g>
-get<g> bigger</g>
-get<g> dark</g>
-get<g> dirty</g>
-get<g> down</g>
-get<g> dressed</g>
-get<g> hold of</g>
-get<g> in</g>
-get<g> in trouble</g>
-get<g> married</g>
-get<g> off</g>
-get<g> on</g>
-get<g> out of a fix</g>
-get<g> out of a fix</g>
-get<g> out of a jam</g>
-get<g> out of a jam</g>
-get<g> out of a tight spot</g>
-get<g> out of a tight spot</g>
-get<g> out of trouble</g>
-get<g> out of trouble</g>
-get<g> started</g>
-get<g> up</g>
-get<g> worse</g>
-get<g> worse</g>
+get angry
+get across
+get across
+get across
+get along
+get along
+get along with
+get away
+get back
+get better
+get bigger
+get dark
+get dirty
+get down
+get dressed
+get hold of
+get in
+get in trouble
+get married
+get off
+get on
+get out of a fix
+get out of a fix
+get out of a jam
+get out of a jam
+get out of a tight spot
+get out of a tight spot
+get out of trouble
+get out of trouble
+get started
+get up
+get worse
+get worse
 gild
 give
 give
 give
-give<g> back</g>
-give<g> up</g>
-give<g> up</g>
+give back
+give up
+give up
 gladden
 glance
 glaze
@@ -20803,19 +20795,19 @@ glisten
 glorify
 gloss
 go
-go<g> Dutch</g>
-go<g> along</g>
-go<g> along to</g>
-go<g> back</g>
-go<g> down</g>
-go<g> in</g>
-go<g> on</g>
-go<g> out</g>
-go<g> out</g>
-get<g> out</g>
-get<g> out</g>
-go<g> through</g>
-go<g> up</g>
+go Dutch
+go along
+go along to
+go back
+go down
+go in
+go on
+go out
+go out
+get out
+get out
+go through
+go up
 govern
 graduate
 grant
@@ -20860,11 +20852,11 @@ have
 have
 have
 have got
-have<g> a feeling that</g>
-have<g> got</g>
+have a feeling that
+have got
 head
-head<g> to</g>
-head<g> towards</g>
+head to
+head towards
 heal
 hear
 heat
@@ -20877,13 +20869,13 @@ hide
 highlight
 hinder
 hire
-hire<g> out</g>
+hire out
 hit
 hit
 hit
 hit
 hold
-hold<g> responsible</g>
+hold responsible
 homogenise
 honour
 hope
@@ -21019,8 +21011,8 @@ juxtapose
 keep
 keep
 keep
-keep<g> on</g>
-keep<g> watch</g>
+keep on
+keep watch
 kick
 kick
 kid
@@ -21034,7 +21026,7 @@ knit
 knock
 knock
 knock
-knock<g> down</g>
+knock down
 know
 know
 label
@@ -21049,7 +21041,7 @@ launch
 lay
 lead
 lead
-lead<g> to</g>
+lead to
 leak
 leak
 lean
@@ -21074,7 +21066,7 @@ limit
 limp
 line
 line
-line<g> up</g>
+line up
 link
 liquefy
 list
@@ -21089,18 +21081,18 @@ lock
 lodge
 look
 look
-look<g> after</g>
-look<g> for</g>
-look<g> for</g>
-look<g> like</g>
+look after
+look for
+look for
+look like
 loom
 lose
-lose<g> the joke</g>
+lose the joke
 love
 love
 lower
 lubricate
-lumber<g> with</g>
+lumber with
 lunch
 lynch
 madden
@@ -21108,12 +21100,12 @@ magnetise
 maintain
 make
 make
-make<g> a mistake</g>
-make<g> money</g>
-make<g> possible</g>
-make<g> public</g>
-make<g> up</g>
-make<g> up</g>
+make a mistake
+make money
+make possible
+make public
+make up
+make up
 manacle
 manage
 manage
@@ -21207,7 +21199,7 @@ not have
 notarise
 notch
 note
-note<g> down</g>
+note down
 notice
 notify
 nourish
@@ -21264,7 +21256,7 @@ part
 participate
 pass
 pass
-pass<g> off as</g>
+pass off as
 pasteurise
 patent
 pause
@@ -21272,15 +21264,15 @@ pave
 pawn
 pay
 pay
-pay<g> attention</g>
-pay<g> cash</g>
+pay attention
+pay cash
 peel
 peer
 penetrate
 perceive
 perfect
 perform
-perform<g> fellatio</g>
+perform fellatio
 perfume
 permit
 perpetuate
@@ -21295,7 +21287,7 @@ photocopy
 photograph
 pick
 pick
-pick<g> up</g>
+pick up
 pilot
 pin
 pinch
@@ -21407,8 +21399,8 @@ provide
 provoke
 publish
 pull
-pull<g> down</g>
-pull<g> out</g>
+pull down
+pull out
 pump
 punch
 punch
@@ -21424,7 +21416,7 @@ push
 push
 put
 put
-put<g> across</g>
+put across
 qualify
 qualify
 qualify
@@ -21446,7 +21438,7 @@ ratify
 re-create
 reach
 reach
-reach<g> for</g>
+reach for
 react
 reactivate
 read
@@ -21628,7 +21620,7 @@ roll
 root
 rot
 round
-round<g> off</g>
+round off
 row
 row
 rub
@@ -21674,8 +21666,8 @@ scream
 seal
 search
 search
-search<g> for</g>
-search<g> for</g>
+search for
+search for
 season
 seat
 second
@@ -21683,7 +21675,7 @@ secrete
 secure
 seduce
 see
-see<g> the joke</g>
+see the joke
 seed
 seek
 seek
@@ -21693,22 +21685,22 @@ seize
 select
 sell
 send
-send<g> back</g>
-send<g> in</g>
+send back
+send in
 sense
 sensitise
 sentence
 separate
 serve
 set
-set<g> fire</g>
-set<g> fire to</g>
-set<g> up</g>
-set<g> up</g>
-set<g> up</g>
+set fire
+set fire to
+set up
+set up
+set up
 settle
 settle
-settle<g> down</g>
+settle down
 sew
 shade
 shake
@@ -21718,7 +21710,7 @@ shatter
 shave
 shear
 shed
-shed<g> light on</g>
+shed light on
 shell
 shift
 shift
@@ -21733,13 +21725,13 @@ shorten
 shout
 show
 show
-show<g> up</g>
+show up
 shower
 shrink
 shudder
 shun
 shut
-shut<g> down</g>
+shut down
 sieve
 sift
 sigh
@@ -21751,7 +21743,7 @@ sin
 sing
 sink
 sit
-sit<g> down</g>
+sit down
 situate
 skate
 skew
@@ -21763,7 +21755,7 @@ sling
 slip
 slip
 slow
-slow<g> down</g>
+slow down
 smash
 smash
 smell
@@ -21790,9 +21782,9 @@ speak
 specialise
 specify
 speed
-speed<g> up</g>
-speed<g> up</g>
-speed<g> up</g>
+speed up
+speed up
+speed up
 spell
 spend
 spend
@@ -21822,15 +21814,15 @@ stamp
 stamp
 stand
 stand
-stand<g> up to</g>
+stand up to
 standardise
-star<g> in</g>
+star in
 stare
 start
 start
 start
-start<g> afresh</g>
-start<g> anew</g>
+start afresh
+start anew
 state
 state
 staunch
@@ -21838,17 +21830,17 @@ stay
 steal
 steel
 step
-step<g> into</g>
+step into
 stew
 stick
-stick<g> to</g>
+stick to
 stiffen
 stigmatise
 stimulate
 stink
 stipulate
 stir
-stir<g> up</g>
+stir up
 stop
 stop
 stop
@@ -21935,8 +21927,8 @@ switch
 symbolise
 synchronise
 systematise
-table<g> a motion</g>
-table<g> the motion</g>
+table a motion
+table the motion
 tabulate
 tackle
 take
@@ -21945,20 +21937,20 @@ take
 take
 take
 take
-take<g> advantage of</g>
-take<g> away</g>
-take<g> care</g>
-take<g> for granted</g>
-take<g> into account</g>
-take<g> off</g>
-take<g> out</g>
-take<g> part</g>
+take advantage of
+take away
+take care
+take for granted
+take into account
+take off
+take out
+take part
 <!-- FI Tercer Paquet Verbs -->
-take<g> part</g>
-take<g> place</g>
-take<g> refuge</g>
-take<g> responsibility</g>
-take<g> to</g>
+take part
+take place
+take refuge
+take responsibility
+take to
 talk
 tamp
 tap
@@ -21989,19 +21981,19 @@ thin
 think
 think
 think
-think<g> so</g>
-think<g> that</g>
+think so
+think that
 thread
 threaten
 thrill
 thrive
 throw
-throw<g> off balance</g>
+throw off balance
 thrust
 thrust
 thunder
 tick
-tick<g> away</g>
+tick away
 tie
 tighten
 tighten
@@ -22021,7 +22013,7 @@ tour
 tow
 trace
 trace
-trace<g> back</g>
+trace back
 track
 trade
 train
@@ -22039,7 +22031,7 @@ transport
 transpose
 trap
 travel
-travel<g> across</g>
+travel across
 tread
 treasure
 treat
@@ -22057,10 +22049,10 @@ tube
 tuck
 turn
 turn
-turn<g> into</g>
-turn<g> off</g>
-turn<g> out</g>
-turn<g> up</g>
+turn into
+turn off
+turn out
+turn up
 twin
 twist
 twist
@@ -22119,11 +22111,11 @@ vote
 vow
 wait
 wake
-wake<g> up</g>
+wake up
 walk
 wall
-wall<g> in</g>
-wall<g> off</g>
+wall in
+wall off
 wander
 wane
 want
@@ -22138,7 +22130,7 @@ wash
 waste
 watch
 watch
-watch<g> after</g>
+watch after
 water
 wave
 wave
@@ -22161,8 +22153,8 @@ wonder
 wonder
 work
 work
-work<g> out</g>
-work<g> out</g>
+work out
+work out
 worry
 worsen
 wrap
@@ -35387,19 +35379,14 @@ your
 your
 your
 your
-    <!-- ******************************
-          group prn_symbol
-      ****************************** -->
-</l><r>en
-</l><r>hi
-</l><r>es
-</l><r>en
-</l><r>hi
-</l><r>es
+en
+hi
+es
+en
+hi
+es
 a few
 a few
-<!--Fi Preposicions -->
-<!--PRN i REL-->
 all
 all
 all
@@ -35664,47 +35651,47 @@ zero
     <!-- ******************************
           group num
       ****************************** -->
-a</l><r></r></p><par n="one__num"/></e>
-eight</l><r>vuit</r></p><par n="three__num"/></e>
-eighty</l><r>vuitanta</r></p><par n="twenty__num"/></e>
-eighty</l><r>vuit</r></p><par n="thirty_hundred__num"/></e>
-fifty</l><r>cinquanta</r></p><par n="twenty__num"/></e>
-fifty</l><r>cinc</r></p><par n="thirty_hundred__num"/></e>
-five</l><r>cinc</r></p><par n="three__num"/></e>
-forty</l><r>quaranta</r></p><par n="twenty__num"/></e>
-forty</l><r>quatre</r></p><par n="thirty_hundred__num"/></e>
-four</l><r>quatre</r></p><par n="three__num"/></e>
-nine</l><r>nou</r></p><par n="three__num"/></e>
-ninety</l><r>noranta</r></p><par n="twenty__num"/></e>
-ninety</l><r>nou</r></p><par n="thirty_hundred__num"/></e>
-one</l><r></r></p><par n="one__num"/></e>
-seven</l><r>set</r></p><par n="three__num"/></e>
-seventy</l><r>setanta</r></p><par n="twenty__num"/></e>
-seventy</l><r>set</r></p><par n="thirty_hundred__num"/></e>
-six</l><r>sis</r></p><par n="three__num"/></e>
-sixty</l><r>seixanta</r></p><par n="twenty__num"/></e>
-sixty</l><r>sis</r></p><par n="thirty_hundred__num"/></e>
-thirty</l><r>trenta</r></p><par n="twenty__num"/></e>
-thirty</l><r>tres</r></p><par n="thirty_hundred__num"/></e>
-three</l><r>tres</r></p><par n="three__num"/></e>
-twenty</l><r>vint</r></p><par n="twenty__num"/></e>
-twenty</l><r>dos</r></p><par n="twenty_hundred__num"/></e>
-two</l><r>dos</r></p><par n="two__num"/></e>
+a</r></p><par n="one__num"/></e>
+eightvuit</r></p><par n="three__num"/></e>
+eightyvuitanta</r></p><par n="twenty__num"/></e>
+eightyvuit</r></p><par n="thirty_hundred__num"/></e>
+fiftycinquanta</r></p><par n="twenty__num"/></e>
+fiftycinc</r></p><par n="thirty_hundred__num"/></e>
+fivecinc</r></p><par n="three__num"/></e>
+fortyquaranta</r></p><par n="twenty__num"/></e>
+fortyquatre</r></p><par n="thirty_hundred__num"/></e>
+fourquatre</r></p><par n="three__num"/></e>
+ninenou</r></p><par n="three__num"/></e>
+ninetynoranta</r></p><par n="twenty__num"/></e>
+ninetynou</r></p><par n="thirty_hundred__num"/></e>
+one</r></p><par n="one__num"/></e>
+sevenset</r></p><par n="three__num"/></e>
+seventysetanta</r></p><par n="twenty__num"/></e>
+seventyset</r></p><par n="thirty_hundred__num"/></e>
+sixsis</r></p><par n="three__num"/></e>
+sixtyseixanta</r></p><par n="twenty__num"/></e>
+sixtysis</r></p><par n="thirty_hundred__num"/></e>
+thirtytrenta</r></p><par n="twenty__num"/></e>
+thirtytres</r></p><par n="thirty_hundred__num"/></e>
+threetres</r></p><par n="three__num"/></e>
+twentyvint</r></p><par n="twenty__num"/></e>
+twentydos</r></p><par n="twenty_hundred__num"/></e>
+twodos</r></p><par n="two__num"/></e>
  
     <!-- ******************************
           group vbmod_symbol
       ****************************** -->
-be<g> likely</g>
-be<g> necessary</g>
-be<g> unlikely</g>
+be likely
+be necessary
+be unlikely
 can
 <!--Fi verbs multiparaula -->
-have<g> to</g>
+have to
 may
 might
 must
 should
-want<g> to</g>
+want to
     <!-- ******************************
           group NPCOG
       ****************************** -->
@@ -35809,9 +35796,9 @@ coastal fishing
 sprint
 abstemiousness
 sobriety
-list<g> of winners</g>
-list<g> of winners</g>
-list<g> of winners</g>
+list of winners
+list of winners
+list of winners
 boat race
 batch
 race
@@ -35830,9 +35817,9 @@ caution
 applicant
 damage
 series
-authorisation<g> for therapeutic use</g>
+authorisation for therapeutic use
 council chamber
-rowing association<g> of the Bay of Biscay</g>
+rowing association of the Bay of Biscay
 time trial
 time trial
 consolidation
