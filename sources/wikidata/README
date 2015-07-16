@@ -14,14 +14,15 @@ With 20150629 Wikidata dump:
 
 wordlist-to-json.py
 
-    Total words: 9997
+    Total words: 30464
     Total entries: 9997
     Selected: 9997 (100.0%)
     ca labels: 4004 (40.0520156047%)
     en labels: 9997 (100.0%)
     ca descriptions: 649 (6.49194758428%)
     en descriptions: 8044 (80.4641392418%)
-    Time 0:00:11.848905
+    Time 0:00:48.684286
+
 
 allwords-to-json.py
 
