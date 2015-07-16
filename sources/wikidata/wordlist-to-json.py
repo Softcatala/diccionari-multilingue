@@ -137,7 +137,6 @@ def _process_json():
             en_label, ca_label = get_en_ca_labels(label)
 
             if en_label is None:
-                en_label += en_label + 1
                 continue
 
             if _is_segment_valid(en_label) is False:
