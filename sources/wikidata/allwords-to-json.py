@@ -59,8 +59,6 @@ def findClaim(db, claim):
     record = db.wikidata.find_one({'id':'{0}'.format(claim)})
     return record['labels']['en']['value']
 
-def read_english_word_list():
-    return set(line.lower() for line in open('../apertium/english_words.txt'))
 
 def get_en_ca_labels(label):
     en_label = label.get('en')
@@ -96,7 +94,6 @@ def _show_statistics(stats, json_file):
     ca_descs = stats["ca_descs"]
     en_descs = stats["en_descs"]
 
-    print ("Total words: " + str(words))
     print ("Total entries: " + str(entries))
     print ("Selected: {0} ({1}%)".format(str(selected), str(percentage(selected, cnt))))
     print ("ca descriptions: {0} ({1}%)".format(str(ca_descs), str(percentage(ca_descs, cnt))))
@@ -115,8 +112,6 @@ def _process_json():
 
     json_file = open('wikidata.json', 'w')
     db = _create_collection()
-    words = read_english_word_list()
-
     items = db.wikidata.find({})
 
     for item in items:
@@ -136,9 +131,6 @@ def _process_json():
         en_label, ca_label = get_en_ca_labels(label)
 
         if en_label is None or ca_label is None:
-            continue
-
-        if ca_label is None:
             continue
 
         cnt = cnt + 1
@@ -174,7 +166,6 @@ def _process_json():
         json.dump(data, json_file, indent=4, separators=(',', ': '))
 
     stats = {
-        "words" : len(words),
         "entries" : cnt,
         "selected" : selected,
         "ca_descs" : ca_descs,
@@ -202,12 +193,8 @@ def main():
     # I tried using commons and mediawiki categories without great results
     # instead we choose a word if this appears on Softcatalà memories.
     print ("Reads all the Wikidata entries from Mongo and generates a JSON")
-  
+
     start_time = datetime.datetime.now()
-
-    #create_index()
-    #return
-
     _process_json()
     print ('Time {0}'.format(datetime.datetime.now() - start_time))
 
