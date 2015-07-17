@@ -21,6 +21,7 @@
 import datetime
 import json
 from pymongo import MongoClient
+from mongorecords import MongoRecords
 
 def percentage(part, whole):
     return 100 * float(part)/float(whole)
@@ -31,8 +32,9 @@ def _is_segment_valid(string, description):
     if string.isdigit():
         return False
 
-    if description is not None and 'Wikipedia disambiguation page' in description:
-        return False
+    if description is not None:
+        if 'disambiguation page' in description or 'category page' in description:
+            return False
 
     return True
 
@@ -41,44 +43,8 @@ def _create_collection():
     db = client['local']
     return db
 
-def findEntry(db, entry):
-    s = '{0}'.format(entry)
-    records = db.wikidata.find({'labels.en.value': s})
-    return records
-
-def findClaim(db, claim):
-    record = db.wikidata.find_one({'id': '{0}'.format(claim)})
-    return record['labels']['en']['value']
-
 def read_english_word_list():
     return set(line.lower() for line in open('../freelist/words.txt'))
-
-def get_en_ca_labels(label):
-    en_label = label.get('en')
-    ca_label = label.get('ca')
-
-    if en_label is not None:
-        en_label = en_label.get('value')
-
-    if ca_label is not None:
-        ca_label = ca_label.get('value')
-
-    return en_label, ca_label
-
-def get_en_ca_descriptions(description):
-    if description is None:
-        return None, None
-
-    en_description = description.get('en')
-    ca_description = description.get('ca')
-
-    if en_description is not None:
-        en_description = en_description.get('value')
-
-    if ca_description is not None:
-        ca_description = ca_description.get('value')
-
-    return en_description, ca_description
 
 def _show_statistics(stats, json_file):
     cnt = stats["entries"]
@@ -114,15 +80,16 @@ def _process_json():
     json_file = open('wordlist-wikidata.json', 'w')
     db = _create_collection()
     words = read_english_word_list()
+    mongo_records = MongoRecords(db)
 
     for word in words:
         word = word.strip()
-        items = findEntry(db, word)
+        items = mongo_records.findEntry(word)
 
         if items is None:
             if len(word) > 2:
                 word = word[0].upper() + word[1:]
-                items = findEntry(db, word)
+                items = mongo_records.findEntry(word)
 
         if items is None:
             continue
@@ -143,13 +110,13 @@ def _process_json():
             articles.add(item_id) 
 
             cnt = cnt + 1
-            en_label, ca_label = get_en_ca_labels(label)
+            en_label, ca_label = mongo_records.get_en_ca_labels(label)
 
             if en_label is None:
                 continue
 
             descriptions = item.get('descriptions')
-            en_description, ca_description = get_en_ca_descriptions(descriptions)
+            en_description, ca_description = mongo_records.get_en_ca_descriptions(descriptions)
 
             if _is_segment_valid(en_label, en_description) is False:
                 continue

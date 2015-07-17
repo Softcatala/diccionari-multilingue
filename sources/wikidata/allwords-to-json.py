@@ -18,14 +18,12 @@
 # Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
-# yajl2 has 25% better performance than ijson default backend
-import ijson.backends.yajl2 as ijson
 import datetime
 import json
-import urllib
 import operator
 from pymongo import MongoClient
-from pymongo import ASCENDING, DESCENDING
+from mongorecords import MongoRecords
+
 
 def percentage(part, whole):
     return 100 * float(part)/float(whole)
@@ -34,60 +32,15 @@ def percentage(part, whole):
 def _is_segment_valid(string):
     # Discard numeric strings only (like years)
     if string.isdigit():
-        #print ("Discarded: " + string.encode('utf-8'))
         return False
 
-    # On char only (like 'A')
-    #if len(string) < 2:
-    #    print ("Discarded: " + string.encode('utf-8'))
-    #    return False
-
     return True
+
 
 def _create_collection():
     client = MongoClient('mongodb://localhost:27017/')
     db = client['local']
-    collection = db['wikidata']
     return db
-
-def findEntry(db, entry):
-    s = '{0}'.format(entry)
-    records = db.wikidata.find({'labels.en.value': s})
-    return records
-
-def findClaim(db, claim):
-    record = db.wikidata.find_one({'id':'{0}'.format(claim)})
-    try:
-        return record['labels']['en']['value']
-    except:
-        return ''
-
-def get_en_ca_labels(label):
-    en_label = label.get('en')
-    ca_label = label.get('ca')
-
-    if en_label is not None:
-        en_label = en_label.get('value')
-
-    if ca_label is not None:
-        ca_label = ca_label.get('value')
-
-    return en_label, ca_label
-
-def get_en_ca_descriptions(description):
-    if description is None:
-        return None, None
-
-    en_description = description.get('en')
-    ca_description = description.get('ca')
-
-    if en_description is not None:
-        en_description = en_description.get('value')
-
-    if ca_description is not None:
-        ca_description = ca_description.get('value')
-
-    return en_description, ca_description
 
 def _show_statistics(stats, json_file):
     cnt = stats["entries"]
@@ -107,6 +60,7 @@ def _show_statistics(stats, json_file):
 
     json.dump(stats, json_file, indent=4, separators=(',', ': '))
 
+
 def _process_json():
 
     cnt = 0
@@ -119,6 +73,8 @@ def _process_json():
 
     json_file = open('allwords-wikidata.json', 'w')
     db = _create_collection()
+    mongo_records = MongoRecords(db)
+
     items = db.wikidata.find({})
 
     for item in items:
@@ -136,7 +92,7 @@ def _process_json():
             continue
 
         cnt = cnt + 1
-        en_label, ca_label = get_en_ca_labels(label)
+        en_label, ca_label = mongo_records.get_en_ca_labels(label)
 
         if en_label is None:
             continue
@@ -145,7 +101,7 @@ def _process_json():
             continue
 
         descriptions = item.get('descriptions')
-        en_description, ca_description = get_en_ca_descriptions(descriptions)
+        en_description, ca_description = mongo_records.get_en_ca_descriptions(descriptions)
 
         selected = selected + 1
         data = {}
@@ -183,19 +139,19 @@ def _process_json():
         json.dump(data, json_file, indent=4, separators=(',', ': '))
 
     stats = {
-        "entries" : cnt,
-        "selected" : selected,
+        "entries": cnt,
+        "selected": selected,
         "ca_labels": ca_labels,
         "en_labels": en_labels,
-        "ca_descs" : ca_descs,
-        "en_descs" : en_descs
+        "ca_descs": ca_descs,
+        "en_descs": en_descs
     }
 
     _show_statistics(stats, json_file)
 
     sorted_keys = sorted(claims_stats.items(), key=operator.itemgetter(1), reverse=True)
     for item in sorted_keys:
-        mean = findClaim(db, item[0])
+        mean = mongo_records.findClaim(item[0])
         print '{0}({1}) = {2}'.format(item[0], mean.encode('utf-8'), str(item[1]))
 
 def create_index():
