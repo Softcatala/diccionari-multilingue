@@ -17,11 +17,11 @@ wordlist-to-json.py
     Total words: 30451
     Total entries: 10013
     Selected: 10013 (100.0%)
-    ca labels: 4010 (40.047937681%)
+    ca labels: 6003 (59.952062319%)
     en labels: 10013 (100.0%)
     ca descriptions: 650 (6.49156097074%)
     en descriptions: 8055 (80.4454209528%)
-    Time 0:00:33.456156
+    Time 0:00:20.519529
 
 
 allwords-to-json.py

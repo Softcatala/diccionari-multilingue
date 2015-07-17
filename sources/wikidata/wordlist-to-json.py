@@ -107,7 +107,7 @@ def _process_json():
     en_descs = 0
     ca_descs = 0
 
-    json_file = open('worldlist-wikidata.json', 'w')
+    json_file = open('wordlist-wikidata.json', 'w')
     db = _create_collection()
     words = read_english_word_list()
 
@@ -150,7 +150,7 @@ def _process_json():
             data['en'] = en_label
             en_labels = en_labels + 1
 
-            if ca_label is None:
+            if ca_label is not None:
                 data['ca'] = ca_label
                 ca_labels = ca_labels + 1
 
@@ -191,7 +191,7 @@ def main():
     # I tried using commons and mediawiki categories without great results
     # instead we choose a word if this appears on Softcatalà memories.
     print ("Reads a list of English words and generates a JSON file")
-    print ("with the entries found in MongoDb with label and description")
+    print ("with the entries found in MongoDb with labels and descriptions")
 
     start_time = datetime.datetime.now()
     _process_json()
