@@ -170,6 +170,12 @@ def _process_json():
             text = ''
             for claim in claims:
                 text += claim + " "
+                times = claims_stats.get(claim)
+                if times == None:
+                    times = 0
+                
+                times = times + 1
+                claims_stats[claim] = times
 
             data['claims'] = text
 
@@ -186,10 +192,10 @@ def _process_json():
 
     _show_statistics(stats, json_file)
 
-    #sorted_keys = sorted(claims_stats.items(), key=operator.itemgetter(1), reverse=True)
-    #for item in sorted_keys:
-    #    mean = findClaim(db, item[0])
-    #    print '{0}({1}) = {2}'.format(item[0], mean.encode('utf-8'), str(item[1]))
+    sorted_keys = sorted(claims_stats.items(), key=operator.itemgetter(1), reverse=True)
+    for item in sorted_keys:
+        mean = findClaim(db, item[0])
+        print '{0}({1}) = {2}'.format(item[0], mean.encode('utf-8'), str(item[1]))
 
 def create_index():
     db = _create_collection()
