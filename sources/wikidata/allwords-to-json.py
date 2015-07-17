@@ -116,7 +116,7 @@ def _process_json():
     PO_NAME = 'wikidata.po'
     claims_stats = {}
 
-    json_file = open('wikidata.json', 'w')
+    json_file = open('allwords-wikidata.json', 'w')
     db = _create_collection()
     items = db.wikidata.find({})
 
