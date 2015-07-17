@@ -151,7 +151,7 @@ def _process_json():
         data['en'] = en_label
         en_labels = en_labels + 1
 
-        if ca_label is None:
+        if ca_label is not None:
             data['ca'] = ca_label
             ca_labels = ca_labels + 1
 
