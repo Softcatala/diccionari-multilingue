@@ -26,9 +26,12 @@ def percentage(part, whole):
     return 100 * float(part)/float(whole)
 
 
-def _is_segment_valid(string):
+def _is_segment_valid(string, description):
     # Discard numeric strings only (like years)
     if string.isdigit():
+        return False
+
+    if description is not None and 'Wikipedia disambiguation page' in description:
         return False
 
     return True
@@ -48,7 +51,7 @@ def findClaim(db, claim):
     return record['labels']['en']['value']
 
 def read_english_word_list():
-    return set(line.lower() for line in open('../apertium/english_words.txt'))
+    return set(line.lower() for line in open('../freelist/words.txt'))
 
 def get_en_ca_labels(label):
     en_label = label.get('en')
@@ -106,6 +109,7 @@ def _process_json():
     ca_labels = 0
     en_descs = 0
     ca_descs = 0
+    articles = set()
 
     json_file = open('wordlist-wikidata.json', 'w')
     db = _create_collection()
@@ -133,17 +137,22 @@ def _process_json():
             if item_id.startswith("Q") is False:
                 continue
 
+            if item_id in articles:
+                continue
+
+            articles.add(item_id) 
+
             cnt = cnt + 1
             en_label, ca_label = get_en_ca_labels(label)
 
             if en_label is None:
                 continue
 
-            if _is_segment_valid(en_label) is False:
-                continue
-
             descriptions = item.get('descriptions')
             en_description, ca_description = get_en_ca_descriptions(descriptions)
+
+            if _is_segment_valid(en_label, en_description) is False:
+                continue
 
             selected = selected + 1
             data = {}
