@@ -57,8 +57,10 @@ def findEntry(db, entry):
 
 def findClaim(db, claim):
     record = db.wikidata.find_one({'id':'{0}'.format(claim)})
-    return record['labels']['en']['value']
-
+    try:
+        return record['labels']['en']['value']
+    except:
+        return ''
 
 def get_en_ca_labels(label):
     en_label = label.get('en')
@@ -113,7 +115,6 @@ def _process_json():
     ca_labels = 0
     en_descs = 0
     ca_descs = 0
-    PO_NAME = 'wikidata.po'
     claims_stats = {}
 
     json_file = open('allwords-wikidata.json', 'w')
@@ -171,7 +172,7 @@ def _process_json():
             for claim in claims:
                 text += claim + " "
                 times = claims_stats.get(claim)
-                if times == None:
+                if times is None:
                     times = 0
                 
                 times = times + 1
