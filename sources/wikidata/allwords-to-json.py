@@ -91,11 +91,15 @@ def _show_statistics(stats, json_file):
     cnt = stats["entries"]
     entries = stats["entries"]
     selected = stats["selected"]
+    ca_labels = stats["ca_labels"]
+    en_labels = stats["en_labels"]
     ca_descs = stats["ca_descs"]
     en_descs = stats["en_descs"]
 
     print ("Total entries: " + str(entries))
     print ("Selected: {0} ({1}%)".format(str(selected), str(percentage(selected, cnt))))
+    print ("ca labels: {0} ({1}%)".format(str(ca_labels), str(percentage(ca_labels, cnt))))
+    print ("en labels: {0} ({1}%)".format(str(en_labels), str(percentage(en_labels, cnt))))
     print ("ca descriptions: {0} ({1}%)".format(str(ca_descs), str(percentage(ca_descs, cnt))))
     print ("en descriptions: {0} ({1}%)".format(str(en_descs), str(percentage(en_descs, cnt))))
 
@@ -105,6 +109,8 @@ def _process_json():
 
     cnt = 0
     selected = 0
+    en_labels = 0
+    ca_labels = 0
     en_descs = 0
     ca_descs = 0
     PO_NAME = 'wikidata.po'
@@ -128,12 +134,12 @@ def _process_json():
         if item_id.startswith("Q") is False:
             continue
 
+        cnt = cnt + 1
         en_label, ca_label = get_en_ca_labels(label)
 
-        if en_label is None or ca_label is None:
+        if en_label is None:
             continue
 
-        cnt = cnt + 1
         if _is_segment_valid(en_label) is False:
             continue
 
@@ -143,7 +149,11 @@ def _process_json():
         selected = selected + 1
         data = {}
         data['en'] = en_label
-        data['ca'] = ca_label
+        en_labels = en_labels + 1
+
+        if ca_label is None:
+            data['ca'] = ca_label
+            ca_labels = ca_labels + 1
 
         if en_description is not None:
             data['en_description'] = en_description
@@ -168,6 +178,8 @@ def _process_json():
     stats = {
         "entries" : cnt,
         "selected" : selected,
+        "ca_labels": ca_labels,
+        "en_labels": en_labels,
         "ca_descs" : ca_descs,
         "en_descs" : en_descs
     }

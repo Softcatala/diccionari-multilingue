@@ -14,23 +14,24 @@ With 20150629 Wikidata dump:
 
 wordlist-to-json.py
 
-    Total words: 30464
-    Total entries: 9997
-    Selected: 9997 (100.0%)
-    ca labels: 4004 (40.0520156047%)
-    en labels: 9997 (100.0%)
-    ca descriptions: 649 (6.49194758428%)
-    en descriptions: 8044 (80.4641392418%)
-    Time 0:00:48.684286
+    Total words: 30451
+    Total entries: 10013
+    Selected: 10013 (100.0%)
+    ca labels: 4010 (40.047937681%)
+    en labels: 10013 (100.0%)
+    ca descriptions: 650 (6.49156097074%)
+    en descriptions: 8055 (80.4454209528%)
+    Time 0:00:33.456156
 
 
 allwords-to-json.py
 
-    Total words: 9649084
-    Total entries: 9649084
-    Selected: 9634491 (99.8487628463%)
-    ca labels: 8979713 (93.0628544637%)
-    en labels: 9634491 (99.8487628463%)
-    ca descriptions: 8979713 (93.0628544637%)
-    en descriptions: 0 (0.0%)
+    Total entries: 18186461
+    Selected: 9634491 (52.9761727694%)
+    ca labels: 8979713 (49.3758131392%)
+    en labels: 9634491 (52.9761727694%)
+    ca descriptions: 1249011 (6.8678067712%)
+    en descriptions: 3826954 (21.042873597%)
+    Time 0:43:23.776038
+
 
