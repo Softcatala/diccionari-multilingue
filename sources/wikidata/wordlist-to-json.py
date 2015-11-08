@@ -154,9 +154,10 @@ def _process_json():
     _show_statistics(stats, json_file)
 
 def create_index():
+    print "Index creation started"
     db = _create_collection()
-    db.wikidata.create_index("labels.en.value")
-    print "End"
+    db.wikidata.ensure_index("labels.en.value", background=True)
+    print "Index creation completed"
     return
 
 
@@ -170,6 +171,7 @@ def main():
     print ("with the entries found in MongoDb with labels and descriptions")
 
     start_time = datetime.datetime.now()
+    create_index()
     _process_json()
     print ('Time {0}'.format(datetime.datetime.now() - start_time))
 
