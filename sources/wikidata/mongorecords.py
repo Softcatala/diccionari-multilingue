@@ -48,6 +48,14 @@ class MongoRecords():
 
         return en_label, ca_label
 
+    def get_label(self, label, language):
+        label = label.get(language)
+
+        if label is not None:
+            label = label.get('value')
+
+        return label
+
     def get_en_ca_descriptions(self, description):
         if description is None:
             return None, None
@@ -62,3 +70,14 @@ class MongoRecords():
             ca_description = ca_description.get('value')
 
         return en_description, ca_description
+
+    def get_description(self, description, language):
+        if description is None:
+            return None
+
+        description = description.get(language)
+
+        if description is not None:
+            description = description.get('value')
+
+        return description

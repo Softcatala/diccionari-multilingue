@@ -20,8 +20,24 @@
 
 import datetime
 import json
+import pystache
 from pymongo import MongoClient
 from mongorecords import MongoRecords
+from indexcreator import IndexCreator
+from commonsimage import CommonsImage
+
+
+def process_template(template, filename, ctx):
+    # Load template and process it.
+    template = open(template, 'r').read()
+    parsed = pystache.Renderer()
+    s = parsed.render(unicode(template, "utf-8"), ctx)
+
+    # Write output.
+    f = open(filename, 'w')
+    f.write(s.encode("utf-8"))
+    f.close()
+
 
 def percentage(part, whole):
     return 100 * float(part)/float(whole)
@@ -44,7 +60,7 @@ def _create_collection():
     return db
 
 def read_english_word_list():
-    return set(line.lower() for line in open('../freelist/words.txt'))
+    return list(line.lower() for line in open('../freelist/words.txt'))
 
 def _show_statistics(stats, json_file):
     cnt = stats["entries"]
@@ -57,6 +73,13 @@ def _show_statistics(stats, json_file):
     ca_descs = stats["ca_descs"]
     en_descs = stats["en_descs"]
 
+    fr_labels = stats["fr_labels"]
+    de_labels = stats["de_labels"]
+    es_labels = stats["es_labels"]
+    fr_descs = stats["fr_descs"]
+    de_descs = stats["de_descs"]
+    es_descs = stats["es_descs"]
+
     print ("Total words: " + str(words))
     print ("Total entries: " + str(entries))
     print ("Selected: {0} ({1}%)".format(str(selected), str(percentage(selected, cnt))))
@@ -65,7 +88,22 @@ def _show_statistics(stats, json_file):
     print ("ca descriptions: {0} ({1}%)".format(str(ca_descs), str(percentage(ca_descs, cnt))))
     print ("en descriptions: {0} ({1}%)".format(str(en_descs), str(percentage(en_descs, cnt))))
 
+    print ("fr labels: {0} ({1}%)".format(str(fr_labels), str(percentage(fr_labels, cnt))))
+    print ("de labels: {0} ({1}%)".format(str(de_labels), str(percentage(de_labels, cnt))))
+    print ("es labels: {0} ({1}%)".format(str(es_labels), str(percentage(es_labels, cnt))))
+
+    print ("fr descriptions: {0} ({1}%)".format(str(fr_descs), str(percentage(fr_descs, cnt))))
+    print ("de descriptions: {0} ({1}%)".format(str(de_descs), str(percentage(de_descs, cnt))))
+    print ("es descriptions: {0} ({1}%)".format(str(es_descs), str(percentage(es_descs, cnt))))
+
     json.dump(stats, json_file, indent=4, separators=(',', ': '))
+
+def _get_image(item):
+    claims = item['claims']
+    if 'P18' not in claims:
+        return None
+    claim = claims['P18']
+    return claim[0]['mainsnak']['datavalue']['value']
 
 def _process_json():
 
@@ -73,52 +111,80 @@ def _process_json():
     selected = 0
     en_labels = 0
     ca_labels = 0
+    fr_labels = 0
+    de_labels = 0
+    es_labels = 0
+  
     en_descs = 0
     ca_descs = 0
+    fr_descs = 0
+    de_descs = 0
+    es_descs = 0
+    images = 0
     articles = set()
+    index = IndexCreator()
 
     json_file = open('wordlist-wikidata.json', 'w')
     db = _create_collection()
     words = read_english_word_list()
     mongo_records = MongoRecords(db)
 
+    index.create()
+
     for word in words:
         word = word.strip()
+        #print "Search: " + word
         items = mongo_records.findEntry(word)
 
         if items is None:
             if len(word) > 2:
                 word = word[0].upper() + word[1:]
+                #print "Search (upper): " + word
                 items = mongo_records.findEntry(word)
 
         if items is None:
+            #print "Not found: " + word
             continue
 
+        #print "{0} items for word".format(items.count(), word)
         for item in items:
 
             label = item.get('labels')
             if label is None:
+                #print "No label: " + word
                 continue
 
             item_id = item['id']
             if item_id.startswith("Q") is False:
+                #print "ID does not start with Q: " + word
                 continue
 
             if item_id in articles:
+                #print "Already in articles: " + word
                 continue
 
             articles.add(item_id) 
 
             cnt = cnt + 1
-            en_label, ca_label = mongo_records.get_en_ca_labels(label)
+            en_label = mongo_records.get_label(label, 'en') 
+            ca_label = mongo_records.get_label(label, 'ca') 
+            fr_label = mongo_records.get_label(label, 'fr')
+            de_label = mongo_records.get_label(label, 'de')
+            es_label = mongo_records.get_label(label, 'es')
 
             if en_label is None:
+                #print "No en_label: " + word
                 continue
 
             descriptions = item.get('descriptions')
-            en_description, ca_description = mongo_records.get_en_ca_descriptions(descriptions)
+            en_description = mongo_records.get_description(descriptions, 'en')
+            ca_description = mongo_records.get_description(descriptions, 'ca')
+            fr_description = mongo_records.get_description(descriptions, 'fr')
+            de_description = mongo_records.get_description(descriptions, 'de')
+            es_description = mongo_records.get_description(descriptions, 'es')
 
             if _is_segment_valid(en_label, en_description) is False:
+                #print "Invalid segment: " + word
                 continue
 
             selected = selected + 1
@@ -130,6 +196,18 @@ def _process_json():
                 data['ca'] = ca_label
                 ca_labels = ca_labels + 1
 
+            if fr_label is not None:
+                data['fr'] = fr_label
+                fr_labels = fr_labels + 1
+
+            if de_label is not None:
+                data['de'] = de_label
+                de_labels = de_labels + 1
+
+            if es_label is not None:
+                data['es'] = es_label
+                es_labels = es_labels + 1
+
             if en_description is not None:
                 data['en_description'] = en_description
                 en_descs = en_descs + 1
@@ -138,8 +216,41 @@ def _process_json():
                 data['ca_description'] = ca_description
                 ca_descs = ca_descs + 1
 
+            if fr_description is not None:
+                data['fr_description'] = fr_description
+                fr_descs = fr_descs + 1
+
+            if de_description is not None:
+                data['de_description'] = de_description
+                de_descs = de_descs + 1
+
+            if es_description is not None:
+                data['es_description'] = es_description
+                es_descs = es_descs + 1
+
+            image = _get_image(item)
+
+            if image is not None:
+                commons_image = CommonsImage(image)
+                image = commons_image.get_url()
+                if image is not None:
+                    data['image'] = image
+                    images = images + 1
+
             data['comment'] = item_id
             json.dump(data, json_file, indent=4, separators=(',', ': '))
+
+            index.write_entry(word_en=en_label,
+                             word_ca=ca_label,
+                             word_fr=fr_label,
+                             word_de=de_label,
+                             word_es=es_label,
+                             definition_en=en_description,
+                             definition_ca=ca_description,
+                             definition_fr=fr_description,
+                             definition_de=de_description,
+                             definition_es=es_description,
+                             image=image)
 
     stats = {
         "words": len(words),
@@ -147,11 +258,22 @@ def _process_json():
         "selected": selected,
         "ca_labels": ca_labels,
         "en_labels": en_labels,
+        "es_labels": es_labels,
         "ca_descs": ca_descs,
-        "en_descs": en_descs
+        "en_descs": en_descs,
+        "fr_labels": fr_labels,
+        "de_labels": de_labels,
+        "fr_descs": fr_descs,
+        "de_descs": de_descs,
+        "es_descs": es_descs,
+        "images" : images,
+        'date': datetime.date.today().strftime("%d/%m/%Y"),
     }
 
     _show_statistics(stats, json_file)
+    index.save()
+
+    process_template("statistics.mustache", "statistics.html", stats)
 
 def create_index():
     print "Index creation started"
@@ -171,7 +293,7 @@ def main():
     print ("with the entries found in MongoDb with labels and descriptions")
 
     start_time = datetime.datetime.now()
-    create_index()
+    #create_index()
     _process_json()
     print ('Time {0}'.format(datetime.datetime.now() - start_time))
 

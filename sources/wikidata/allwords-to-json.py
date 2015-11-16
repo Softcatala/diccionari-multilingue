@@ -61,6 +61,29 @@ def _show_statistics(stats, json_file):
     json.dump(stats, json_file, indent=4, separators=(',', ': '))
 
 
+def _write_claims(mongo_records, claims_stats):
+    claims = open('claims.txt', 'w')
+    sorted_keys = sorted(claims_stats.items(), key=operator.itemgetter(1), reverse=True)
+    for item in sorted_keys:
+        mean = mongo_records.findClaim(item[0])
+        claims.write('{0}({1}) = {2}\n'.format(item[0], mean.encode('utf-8'), str(item[1])))
+
+    claims.close()
+
+def _excluded_claims(claims):
+
+    excluded_list = {"P1566",
+               "P301",
+               "P19"
+    }
+
+    for excluded in excluded_list:
+        if excluded in claims:
+            return True 
+
+    return False
+
+
 def _process_json():
 
     cnt = 0
@@ -70,6 +93,7 @@ def _process_json():
     en_descs = 0
     ca_descs = 0
     claims_stats = {}
+    ca_labels_text = []
 
     json_file = open('allwords-wikidata.json', 'w')
     db = _create_collection()
@@ -103,7 +127,15 @@ def _process_json():
         descriptions = item.get('descriptions')
         en_description, ca_description = mongo_records.get_en_ca_descriptions(descriptions)
 
-        selected = selected + 1
+        if ca_label is None or ca_description is None:
+            continue
+
+        if en_description is not None:
+            if "disambiguation page" in en_description or \
+               "template" in en_description or \
+               "category" in en_description:
+                continue
+
         data = {}
         data['en'] = en_label
         en_labels = en_labels + 1
@@ -123,6 +155,10 @@ def _process_json():
         data['comment'] = item_id
 
         claims = item.get('claims')
+
+        if _excluded_claims(claims):
+            continue
+
         if claims is not None:
             text = ''
             for claim in claims:
@@ -136,7 +172,22 @@ def _process_json():
 
             data['claims'] = text
 
+        ca_labels_text.append(ca_label)
+        selected = selected + 1
         json.dump(data, json_file, indent=4, separators=(',', ': '))
+        #print selected
+
+        #if selected > 100:
+        #    break
+
+    _write_claims(mongo_records, claims_stats)
+
+    sorted_keys = sorted(ca_labels_text)
+    words = open('words.txt', 'w')
+    for item in sorted_keys:
+        words.write('{0}\n'.format(item.encode('utf-8')))
+
+    words.close()
 
     stats = {
         "entries": cnt,
@@ -146,18 +197,15 @@ def _process_json():
         "ca_descs": ca_descs,
         "en_descs": en_descs
     }
-
     _show_statistics(stats, json_file)
 
-    sorted_keys = sorted(claims_stats.items(), key=operator.itemgetter(1), reverse=True)
-    for item in sorted_keys:
-        mean = mongo_records.findClaim(item[0])
-        print '{0}({1}) = {2}'.format(item[0], mean.encode('utf-8'), str(item[1]))
 
 def create_index():
+    print "Index creation started"
     db = _create_collection()
-    db.wikidata.create_index("labels.en.value")
-    print "End"
+    db.wikidata.ensure_index("labels.en.value", background=True)
+    db.wikidata.ensure_index("id", background=True)
+    print "Index creation completed"
     return
 
 
@@ -169,6 +217,7 @@ def main():
     # instead we choose a word if this appears on Softcatalà memories.
     print ("Reads all the Wikidata entries from Mongo and generates a JSON")
 
+    create_index()
     start_time = datetime.datetime.now()
     _process_json()
     print ('Time {0}'.format(datetime.datetime.now() - start_time))
