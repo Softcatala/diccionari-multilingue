@@ -94,7 +94,20 @@
         {% if result.image %}
         <td><img src="images/{{ result.image }}"></td>
         {% endif %}
+
+        {% if result.gec %}
+        <tr>
+        <td>
+            <p><u>Referències</u></p>
+            <p>Vegeu l'entrada a <a href="http://www.enciclopedia.cat/EC-GEC-{{ result.gec }}.xml">l'Enciclopèdia Catalana</td> 
+            </p>
+         </td>
+        </tr>        
+        {% endif %}
+
       </table>
+
+    
     </div>
     {% endfor %}
     {% include "templates/pagination.html" %}

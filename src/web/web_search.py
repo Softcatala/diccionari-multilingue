@@ -60,7 +60,8 @@ class WebView(object):
             'word_es': self._get_result(result, "word_es"),
             'definition_es' : self._get_result(result, "definition_es"),
             'image' : image,
-            'permission' : permission
+            'permission' : permission,
+            'gec' : self._get_result(result, "gec"),
         }
 
         return result_dict

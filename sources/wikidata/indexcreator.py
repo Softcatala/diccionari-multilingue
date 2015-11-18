@@ -33,7 +33,7 @@ class IndexCreator(object):
 
     def write_entry(self, word_en, word_ca, word_fr, word_de, word_es,
                     definition_en, definition_ca, definition_fr, 
-                    definition_de, definition_es, image, permission):
+                    definition_de, definition_es, image, permission, gec):
 
         self.writer.add_document(word_en=word_en,
                                  word_ca=word_ca,
@@ -46,7 +46,8 @@ class IndexCreator(object):
                                  definition_de=definition_de,
                                  definition_es=definition_es,
                                  image=image,
-                                 permission=permission)
+                                 permission=permission,
+                                 gec=gec)
 
     def save(self):
         self.writer.commit()
@@ -63,7 +64,8 @@ class IndexCreator(object):
                         definition_de=TEXT(stored=True),
                         definition_es=TEXT(stored=True),
                         image=TEXT(stored=True),
-                        permission=TEXT(stored=True))
+                        permission=TEXT(stored=True),
+                        gec=TEXT(stored=True))
 
         if not os.path.exists(self.dir_name):
             os.mkdir(self.dir_name)

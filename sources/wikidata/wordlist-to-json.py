@@ -107,6 +107,12 @@ def _get_image(item):
     claim = claims['P18']
     return claim[0]['mainsnak']['datavalue']['value']
 
+def _get_GEC(item):
+    claims = item['claims']
+    if 'P1296' not in claims:
+        return None
+    claim = claims['P1296']
+    return claim[0]['mainsnak']['datavalue']['value']
 
 def init_logging():
     logfile = 'wordlist-to-json.log'
@@ -245,6 +251,10 @@ def _process_json():
                 if permission is not None:
                     data['permission'] = permission
 
+            gec = _get_GEC(item)
+            if gec is not None:
+                data['gec'] = gec
+
             data['comment'] = item_id
             json.dump(data, json_file, indent=4, separators=(',', ': '))
 
@@ -259,7 +269,8 @@ def _process_json():
                              definition_de=de_description,
                              definition_es=es_description,
                              image=image,
-                             permission=permission)
+                             permission=permission,
+                             gec=gec)
 
     stats = {
         "words": len(words),
