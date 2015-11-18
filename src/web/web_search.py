@@ -27,6 +27,7 @@ import urllib
 from jinja2 import Environment, FileSystemLoader
 from urlparse import urlparse
 
+
 sys.path.append('models/')
 from pagination import Pagination
 from search import Search
@@ -42,6 +43,10 @@ class WebView(object):
 
     def get_result(self, result):
         image = self._get_result(result, "image")
+        if 'permission' in result:
+            permission = result["permission"]
+        else:
+            permission = None
 
         result_dict = {
             'word_ca': self._get_result(result, "word_ca"),
@@ -55,6 +60,7 @@ class WebView(object):
             'word_es': self._get_result(result, "word_es"),
             'definition_es' : self._get_result(result, "definition_es"),
             'image' : image,
+            'permission' : permission
         }
 
         return result_dict
@@ -107,7 +113,6 @@ class WebView(object):
 
         env = Environment(loader=FileSystemLoader('./'))
         template = env.get_template('templates/search_results.html')
-
         r = template.render(ctx).encode('utf-8')
         return r
 

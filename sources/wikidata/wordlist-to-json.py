@@ -21,6 +21,8 @@
 import datetime
 import json
 import pystache
+import logging
+import os
 from pymongo import MongoClient
 from mongorecords import MongoRecords
 from indexcreator import IndexCreator
@@ -105,6 +107,17 @@ def _get_image(item):
     claim = claims['P18']
     return claim[0]['mainsnak']['datavalue']['value']
 
+
+def init_logging():
+    logfile = 'wordlist-to-json.log'
+
+    if os.path.isfile(logfile):
+        os.remove(logfile)
+
+    logging.basicConfig(filename=logfile, level=logging.DEBUG)
+    logger = logging.getLogger('')
+
+
 def _process_json():
 
     cnt = 0
@@ -133,34 +146,27 @@ def _process_json():
 
     for word in words:
         word = word.strip()
-        #print "Search: " + word
         items = mongo_records.findEntry(word)
 
         if items is None:
             if len(word) > 2:
                 word = word[0].upper() + word[1:]
-                #print "Search (upper): " + word
                 items = mongo_records.findEntry(word)
 
         if items is None:
-            #print "Not found: " + word
             continue
 
-        #print "{0} items for word".format(items.count(), word)
         for item in items:
 
             label = item.get('labels')
             if label is None:
-                #print "No label: " + word
                 continue
 
             item_id = item['id']
             if item_id.startswith("Q") is False:
-                #print "ID does not start with Q: " + word
                 continue
 
             if item_id in articles:
-                #print "Already in articles: " + word
                 continue
 
             articles.add(item_id) 
@@ -184,7 +190,6 @@ def _process_json():
             es_description = mongo_records.get_description(descriptions, 'es')
 
             if _is_segment_valid(en_label, en_description) is False:
-                #print "Invalid segment: " + word
                 continue
 
             selected = selected + 1
@@ -230,12 +235,15 @@ def _process_json():
 
             image = _get_image(item)
 
+            permission = None
             if image is not None:
                 commons_image = CommonsImage(image)
-                image = commons_image.get_url()
+                image, permission = commons_image.get_url_permission()
                 if image is not None:
                     data['image'] = image
                     images = images + 1
+                if permission is not None:
+                    data['permission'] = permission
 
             data['comment'] = item_id
             json.dump(data, json_file, indent=4, separators=(',', ': '))
@@ -250,7 +258,8 @@ def _process_json():
                              definition_fr=fr_description,
                              definition_de=de_description,
                              definition_es=es_description,
-                             image=image)
+                             image=image,
+                             permission=permission)
 
     stats = {
         "words": len(words),
@@ -292,10 +301,13 @@ def main():
     print ("Reads a list of English words and generates a JSON file")
     print ("with the entries found in MongoDb with labels and descriptions")
 
+    init_logging()
     start_time = datetime.datetime.now()
     #create_index()
     _process_json()
-    print ('Time {0}'.format(datetime.datetime.now() - start_time))
+    msg = 'Time {0}'.format(datetime.datetime.now() - start_time)
+    logging.info(msg)
+
 
 if __name__ == "__main__":
     main()

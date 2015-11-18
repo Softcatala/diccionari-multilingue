@@ -32,4 +32,5 @@ class BaseModel(Model):
 class Image(BaseModel):
     name = CharField(max_length=255, index=True)
     url = CharField(max_length=255, index=False)
+    permission = CharField(max_length=255, index=False)
 

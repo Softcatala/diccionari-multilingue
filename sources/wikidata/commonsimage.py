@@ -22,7 +22,7 @@ import os
 import sys
 import urllib
 import urllib2
-
+import logging
 
 from xml.etree import ElementTree
 from imagesql import * 
@@ -46,7 +46,8 @@ class CommonsImage(object):
             url = 'http://tools.wmflabs.org/magnus-toolserver/commonsapi.php?image={0}&thumbwidth=250&thumbheight=250&versions&meta'.format(image)
             return urllib2.urlopen(url).read()
         except Exception as e:
-            print("Error downloading {0} - {1}".format(url, e))
+            msg = "Error downloading {0} - {1}".format(url, e)
+            logging.error(msg)
             return None
 
     def get_file(self, url, filename):
@@ -55,10 +56,12 @@ class CommonsImage(object):
         output.write(infile.read())
         output.close()
 
-    def get_url(self):
-        #if CommonsImage.images > 100:
-        #    return None
-        
+    # Returns image, permission
+    def get_url_permission(self):
+
+        #if CommonsImage.images > 300:
+        #    return None, None
+
         try:
             image = Image.select().where(Image.name==self.image).get()
   
@@ -66,31 +69,39 @@ class CommonsImage(object):
             image = None
     
         if image is not None:
-            print "Exists {0}".format(image.url)
-            return image.url
+            msg = "Exists {0}".format(image.url)
+            logging.debug(msg)
+            return image.url, image.permission
 
         result = self.download()
 
         if result is None:
-            return None
+            return None, None
 
         try:
             xml = ElementTree.fromstring(result)
             image = xml.findtext(".//file//urls//thumbnail")
             if image is None:
-                return None
-            
+                print "Image is none"
+                return None, None
+
             self.get_file(image, "images/" + self.image)
             CommonsImage.images = CommonsImage.images + 1
-            
-            url = "images/" + urllib.quote(self.image)
-            saved_image = Image(name = self.image, 
-                                url = url)
+            url = urllib.quote(self.image)
 
+            permission = xml.findtext(".//file//permission")
+            if permission is not None:
+                permission = unicode(permission)
+
+            saved_image = Image(name = self.image,  url = url,
+                                permission = permission)
             saved_image.save()
-            print "saved {0}".format(self.image)
-            return self.image
+            msg = "Saved {0}".format(self.image)
+            logging.debug(msg)
+            print msg
+            return self.image, permission
 
         except Exception as e:
-            print("Cannot parse result for {0}".format(self.image))
-            return None
+            msg = "Cannot parse result for {0} - {1}".format(self.image, e)
+            logging.error(msg)
+            return None, None
