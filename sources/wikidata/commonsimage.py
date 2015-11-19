@@ -34,6 +34,7 @@ class CommonsImage(object):
 
     def __init__(self, image):
         self.image = image
+        self.cached = True
 
         if CommonsImage.Init is False:
             Image.create_table(fail_silently=True)
@@ -72,6 +73,9 @@ class CommonsImage(object):
             msg = "Exists {0}".format(image.url)
             logging.debug(msg)
             return image.url, image.permission
+
+        if self.cached is True:
+            return None, None
 
         result = self.download()
 

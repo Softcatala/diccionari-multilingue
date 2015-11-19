@@ -114,6 +114,16 @@ def _get_GEC(item):
     claim = claims['P1296']
     return claim[0]['mainsnak']['datavalue']['value']
 
+def _get_sitelink(item, link):
+    if 'sitelinks' not in item:
+        return None
+
+    sitelinks = item['sitelinks']
+    if link not in sitelinks:
+        return None
+
+    return sitelinks[link]['title']
+
 def init_logging():
     logfile = 'wordlist-to-json.log'
 
@@ -255,7 +265,11 @@ def _process_json():
             if gec is not None:
                 data['gec'] = gec
 
-            data['comment'] = item_id
+            ca_wikiquote = _get_sitelink(item, 'cawikiquote')
+            if ca_wikiquote is not None:
+                data['cawikiquote'] = ca_wikiquote
+
+            data['WikidataId'] = item_id
             json.dump(data, json_file, indent=4, separators=(',', ': '))
 
             index.write_entry(word_en=en_label,
@@ -270,7 +284,9 @@ def _process_json():
                              definition_es=es_description,
                              image=image,
                              permission=permission,
-                             gec=gec)
+                             gec=gec,
+                             wikidata_id=item_id,
+                             ca_wikiquote=ca_wikiquote)
 
     stats = {
         "words": len(words),

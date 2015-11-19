@@ -4,7 +4,7 @@
     <title>Resultats de la cerca</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta name="robots" content="noindex, nofollow" />
-    <link type="text/css" rel="stylesheet" media="screen" href="css/recursos.css" />
+    <link type="text/css" rel="stylesheet" media="screen" href="css/dict.css" />
 
     <link type="text/css" rel="stylesheet" media="all" href="/css/sc.css?g" />
     <link type="text/css" rel="stylesheet" href="/css/cookies/cookiecuttr.css" />
@@ -92,19 +92,22 @@
         {% endif %}
 
         {% if result.image %}
-        <td><img src="images/{{ result.image }}"></td>
+        <td><img src="images/{{result.image}}"></td>
         {% endif %}
 
-        {% if result.gec %}
         <tr>
         <td>
             <p><u>Referències</u></p>
-            <p>Vegeu l'entrada a <a href="http://www.enciclopedia.cat/EC-GEC-{{ result.gec }}.xml">l'Enciclopèdia Catalana</td> 
-            </p>
-         </td>
-        </tr>        
+            <p>Vegeu l'entrada a <a href="https://www.wikidata.org/wiki/{{result.wikidata_id}}">Wikidata</a></p>
+        {% if result.gec %}
+            <p>Vegeu l'entrada a <a href="http://www.enciclopedia.cat/EC-GEC-{{result.gec}}.xml">l'Enciclopèdia Catalana</a></p>
         {% endif %}
-
+        {% if result.ca_wikiquote %}
+            <p>Vegeu l'entrada a <a href="https://ca.wikiquote.org/wiki/{{result.ca_wikiquote}}">Viquidites</a></p>
+        {% endif %}
+        </td>
+        </tr>
+       
       </table>
 
     

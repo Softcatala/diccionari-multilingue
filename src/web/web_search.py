@@ -62,6 +62,8 @@ class WebView(object):
             'image' : image,
             'permission' : permission,
             'gec' : self._get_result(result, "gec"),
+            'wikidata_id' : self._get_result(result, "wikidata_id"),
+            'ca_wikiquote' : self._get_result(result, "ca_wikiquote"),
         }
 
         return result_dict
