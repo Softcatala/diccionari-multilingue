@@ -32,6 +32,7 @@ class Search(object):
         self._word_ca = word_ca
         self.searcher = None
         self.query = None
+        self.Index = False
 
     @property
     def has_invalid_search_term(self):
@@ -45,7 +46,7 @@ class Search(object):
         if self.searcher is None:
             self.search()
 
-        results = self.searcher.search(self.query, limit=None)
+        results = self.searcher.search(self.query, limit=None, sortedby='word_ca')
         results.fragmenter = WholeFragmenter()
         return results
 
@@ -61,9 +62,14 @@ class Search(object):
 
         # We use parenthesis to prevent operators like OR used in source
         # to affect target
-        if self.word_ca is not None and len(self.word_ca) > 0:
-            qs += u' word_ca:({0})'.format(self.word_ca)
-            fields.append("word_ca")
+        if self.Index is True:
+            if self.word_ca is not None and len(self.word_ca) > 0:
+                qs += u' index_letter:({0})'.format(self.word_ca)
+                fields.append("index_letter")
+        else:
+            if self.word_ca is not None and len(self.word_ca) > 0:
+                qs += u' word_ca:({0})'.format(self.word_ca)
+                fields.append("word_ca")
 
         self.query = MultifieldParser(fields, ix.schema).parse(qs)
 

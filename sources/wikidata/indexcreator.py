@@ -23,7 +23,7 @@ import sys
 
 from whoosh.fields import BOOLEAN, TEXT, Schema
 from whoosh.index import create_in
-
+from whoosh.analysis import StandardAnalyzer
 
 class IndexCreator(object):
 
@@ -36,6 +36,20 @@ class IndexCreator(object):
                     definition_de, definition_es, image, permission, gec,
                     wikidata_id, ca_wikiquote):
 
+        s = ''
+        if word_ca is not None:
+            try:
+                s = str(word_ca.encode('latin-1'))
+                s = s[0].lower()
+                if s == 'à':
+                    s = 'a'
+
+                if s < 'a' or s > 'z':
+                    s = ' '
+            except:
+                print "Error in: " + word_ca
+
+        index_letter = unicode(s, 'latin-1')
         self.writer.add_document(word_en=word_en,
                                  word_ca=word_ca,
                                  word_fr=word_fr,
@@ -50,14 +64,16 @@ class IndexCreator(object):
                                  permission=permission,
                                  gec=gec,
                                  wikidata_id=wikidata_id,
-                                 ca_wikiquote=ca_wikiquote)
+                                 ca_wikiquote=ca_wikiquote,
+                                 index_letter=index_letter)
 
     def save(self):
         self.writer.commit()
 
     def create(self):
+        analyzer = StandardAnalyzer(minsize=1, stoplist=None)
         schema = Schema(word_en=TEXT(stored=True),
-                        word_ca=TEXT(stored=True),
+                        word_ca=TEXT(stored=True, sortable=True),
                         word_fr=TEXT(stored=True),
                         word_de=TEXT(stored=True),
                         word_es=TEXT(stored=True),
@@ -70,7 +86,8 @@ class IndexCreator(object):
                         permission=TEXT(stored=True),
                         gec=TEXT(stored=True),
                         wikidata_id=TEXT(stored=True),
-                        ca_wikiquote=TEXT(stored=True))
+                        ca_wikiquote=TEXT(stored=True),
+                        index_letter=TEXT(stored=True, analyzer=analyzer))
 
         if not os.path.exists(self.dir_name):
             os.mkdir(self.dir_name)

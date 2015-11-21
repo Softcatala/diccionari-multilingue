@@ -143,7 +143,7 @@ class IndexView(object):
         results = []
         num_results = 0
         total_time = 0
-        PER_PAGE = 50
+        PER_PAGE = 100
 
         start_time = time.time()
         raw_results = search.get_results()
@@ -204,7 +204,8 @@ def dict_index(lletra):
         lletra = lletra[:start]
     
     #return "<p>Hello2 {0}</p>".format(lletra)
-    search = Search(lletra + '*')
+    search = Search(lletra)
+    search.Index = True
     View = IndexView(lletra)
     result = View.do(search)
     return result
