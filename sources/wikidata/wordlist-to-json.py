@@ -27,6 +27,7 @@ from pymongo import MongoClient
 from mongorecords import MongoRecords
 from indexcreator import IndexCreator
 from commonsimage import CommonsImage
+from collections import OrderedDict
 
 
 def process_template(template, filename, ctx):
@@ -42,7 +43,7 @@ def process_template(template, filename, ctx):
 
 
 def percentage(part, whole):
-    return 100 * float(part)/float(whole)
+    return str(100 * float(part)/float(whole))
 
 
 def _is_segment_valid(string, description):
@@ -66,39 +67,13 @@ def read_english_word_list():
 
 def _show_statistics(stats, json_file):
     cnt = stats["entries"]
-    entries = stats["entries"]
-    words = stats["words"]
-    entries = stats["entries"]
-    selected = stats["selected"]
-    ca_labels = stats["ca_labels"]
-    en_labels = stats["en_labels"]
-    ca_descs = stats["ca_descs"]
-    en_descs = stats["en_descs"]
 
-    fr_labels = stats["fr_labels"]
-    de_labels = stats["de_labels"]
-    es_labels = stats["es_labels"]
-    fr_descs = stats["fr_descs"]
-    de_descs = stats["de_descs"]
-    es_descs = stats["es_descs"]
-
-    print ("Total words: " + str(words))
-    print ("Total entries: " + str(entries))
-    print ("Selected: {0} ({1}%)".format(str(selected), str(percentage(selected, cnt))))
-    print ("ca labels: {0} ({1}%)".format(str(ca_labels), str(percentage(ca_labels, cnt))))
-    print ("en labels: {0} ({1}%)".format(str(en_labels), str(percentage(en_labels, cnt))))
-    print ("ca descriptions: {0} ({1}%)".format(str(ca_descs), str(percentage(ca_descs, cnt))))
-    print ("en descriptions: {0} ({1}%)".format(str(en_descs), str(percentage(en_descs, cnt))))
-
-    print ("fr labels: {0} ({1}%)".format(str(fr_labels), str(percentage(fr_labels, cnt))))
-    print ("de labels: {0} ({1}%)".format(str(de_labels), str(percentage(de_labels, cnt))))
-    print ("es labels: {0} ({1}%)".format(str(es_labels), str(percentage(es_labels, cnt))))
-
-    print ("fr descriptions: {0} ({1}%)".format(str(fr_descs), str(percentage(fr_descs, cnt))))
-    print ("de descriptions: {0} ({1}%)".format(str(de_descs), str(percentage(de_descs, cnt))))
-    print ("es descriptions: {0} ({1}%)".format(str(es_descs), str(percentage(es_descs, cnt))))
-
-    json.dump(stats, json_file, indent=4, separators=(',', ': '))
+    for stat in stats:
+        value = int(stats[stat])
+        if '_' in stat:
+            print ('{0}: {1} ({2}%)'.format(stat, value, percentage(value, cnt)))
+        else:
+            print ('{0}: {1}'.format(stat, value))
 
 def _get_image(item):
     claims = item['claims']
@@ -195,7 +170,6 @@ def _process_json():
             es_label = mongo_records.get_label(label, 'es')
 
             if en_label is None:
-                #print "No en_label: " + word
                 continue
 
             descriptions = item.get('descriptions')
@@ -288,34 +262,34 @@ def _process_json():
                              wikidata_id=item_id,
                              ca_wikiquote=ca_wikiquote)
 
-    stats = {
-        "words": len(words),
-        "entries": cnt,
-        "selected": selected,
-        "ca_labels": ca_labels,
-        "en_labels": en_labels,
-        "es_labels": es_labels,
-        "ca_descs": ca_descs,
-        "en_descs": en_descs,
-        "fr_labels": fr_labels,
-        "de_labels": de_labels,
-        "fr_descs": fr_descs,
-        "de_descs": de_descs,
-        "es_descs": es_descs,
-        "images" : images,
-        'date': datetime.date.today().strftime("%d/%m/%Y"),
-    }
+    stats = OrderedDict([
+        ("words", len(words)),
+        ("entries", cnt),
+        ("selected", selected),
+        ("ca_labels", ca_labels),
+        ("en_labels", en_labels),
+        ("es_labels", es_labels),
+        ("ca_descs", ca_descs),
+        ("en_descs", en_descs),
+        ("fr_labels", fr_labels),
+        ("de_labels", de_labels),
+        ("fr_descs", fr_descs),
+        ("de_descs", de_descs),
+        ("es_descs", es_descs),
+        ("images", images) 
+        ])
 
     _show_statistics(stats, json_file)
+    stats['date'] = datetime.date.today().strftime("%d/%m/%Y")
     index.save()
 
     process_template("statistics.mustache", "statistics.html", stats)
 
 def create_index():
-    print "Index creation started"
+    print ("Index creation started")
     db = _create_collection()
     db.wikidata.ensure_index("labels.en.value", background=True)
-    print "Index creation completed"
+    print ("Index creation completed")
     return
 
 
@@ -330,7 +304,7 @@ def main():
 
     init_logging()
     start_time = datetime.datetime.now()
-    #create_index()
+    # create_index()
     _process_json()
     msg = 'Time {0}'.format(datetime.datetime.now() - start_time)
     logging.info(msg)
