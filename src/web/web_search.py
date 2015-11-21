@@ -206,6 +206,7 @@ def dict_index(lletra):
     #return "<p>Hello2 {0}</p>".format(lletra)
     search = Search(lletra)
     search.Index = True
+    search.Duplicates = False
     View = IndexView(lletra)
     result = View.do(search)
     return result

@@ -33,6 +33,7 @@ class Search(object):
         self.searcher = None
         self.query = None
         self.Index = False
+        self.Duplicates = True
 
     @property
     def has_invalid_search_term(self):
