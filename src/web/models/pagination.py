@@ -30,6 +30,7 @@ class Pagination(object):
         self.total_count = total_count
         self.page = self._get_current_page(url)
         self.url = self._remove_page_query_string(url)
+        self.separator = '&'
 
     @property
     def pages(self):

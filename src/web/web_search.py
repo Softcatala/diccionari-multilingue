@@ -119,6 +119,72 @@ class WebView(object):
         r = template.render(ctx).encode('utf-8')
         return r
 
+class IndexView(object):
+
+    def __init__(self, lletra):
+        self.lletra = lletra
+
+    def _get_result(self, result, key):
+        if key in result:
+            return cgi.escape(result[key]) 
+
+        return None
+
+    def get_result(self, result):
+        result_dict = {
+            'word_ca': self._get_result(result, "word_ca")
+        }
+
+        return result_dict
+
+    def do(self, search):
+        """Search a term in the Whoosh index."""
+        aborted_search = False
+        results = []
+        num_results = 0
+        total_time = 0
+        PER_PAGE = 50
+
+        start_time = time.time()
+        raw_results = search.get_results()
+        total_time = time.time() - start_time
+        num_results = raw_results.scored_length()
+
+        if len(raw_results) > 0:
+
+            url = request.url.encode('utf-8')
+            o = urlparse(url)
+            url = self.lletra + '?' + o.query
+
+            pagination = Pagination(PER_PAGE, len(raw_results), url)
+            pagination.separator = '?'
+            start = (pagination.page - 1) * PER_PAGE
+            end = start
+
+            max_end = start + PER_PAGE
+            if num_results - start < max_end:
+                end += num_results - start
+            else:
+                end += PER_PAGE
+
+            for i in xrange(start, end):
+                results.append(self.get_result(raw_results[i]))
+        else:
+            pagination = None
+
+        ctx = {
+            'results': results,
+            'num_results': num_results,
+            'time': "{:.2f}".format(total_time),
+            'lletra': self.lletra,
+            'pagination': pagination,
+        }
+
+        env = Environment(loader=FileSystemLoader('./'))
+        template = env.get_template('templates/index_letter.html')
+        r = template.render(ctx).encode('utf-8')
+        return r
+
 
 app = Flask(__name__)
 
@@ -130,6 +196,19 @@ def search_request():
     View = WebView()
     result = View.do(search)
     return result
+
+@app.route('/lletra/<lletra>')
+def dict_index(lletra):
+    start = lletra.find('?')
+    if start != -1:
+        lletra = lletra[:start]
+    
+    #return "<p>Hello2 {0}</p>".format(lletra)
+    search = Search(lletra + '*')
+    View = IndexView(lletra)
+    result = View.do(search)
+    return result
+    
 
 if __name__ == '__main__':
     app.debug = True

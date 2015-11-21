@@ -3,7 +3,7 @@
     {%- for page in pagination.iter_pages() %}
     {% if page %}
       {% if page != pagination.page %}
-        <a href="{{pagination.url}}&page={{page}}">{{ page }}</a>
+        <a href="{{pagination.url}}{{pagination.separator}}page={{page}}">{{ page }}</a>
       {% else %}
         <strong>{{ page }}</strong>
       {% endif %}
@@ -12,7 +12,7 @@
     {% endif %}
     {%- endfor %}
     {% if pagination.has_next %}
-    <a href="{{pagination.url}}&page={{pagination.page + 1}}">Següent &raquo;</a>
+    <a href="{{pagination.url}}{{pagination.separator}}page={{pagination.page + 1}}">Següent &raquo;</a>
     {% endif %}
     </p>
 {% endif %}
