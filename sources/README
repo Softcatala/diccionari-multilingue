@@ -1,0 +1,11 @@
+This directory contains all the scripts used to import data from different 
+sources. The strategy is:
+
+- Import the data and export to JSON
+- Create Whoosh index
+
+Import order:
+- Wikidata
+- Wikidictionary
+
+See README files in each subdirectory for more details

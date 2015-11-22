@@ -23,6 +23,10 @@ import logging
 import os
 import xml.etree.ElementTree
 
+import sys
+sys.path.append('../common/')
+from indexcreator import IndexCreator
+
 
 def init_logging():
     logfile = 'extract-to-json.log'
@@ -46,43 +50,101 @@ def to_str(text):
 
     return text
 
+def _get_translation(text, marker):
+
+    label = u''
+    start = text.find(marker)
+    if start != -1:
+        start += len(marker)
+        end = text.find('}}', start)
+        label = text[start:end]
+        label = unicode(label)
+
+    return label
+
 def _process_xml():
  
+    en_labels = 0
+    ca_labels = 0
+    fr_labels = 0
+    de_labels = 0
+    es_labels = 0
+
+    index = IndexCreator()
+    index.open()
+
     e = xml.etree.ElementTree.parse('cawiktionary-20151102-pages-meta-current.xml').getroot()
     for page in e.getchildren():
-        title = ''
         verb = False
-        en_label = ''
+        en_label = u''
+        ca_label = u''
+        fr_label = u''
+        de_label = u''
+        es_label = u''
         for page_element in page.getchildren():
             if 'title' in page_element.tag:
-                title = to_str(page_element.text)
+                ca_label = unicode(page_element.text)
 
             if 'revision' in page_element.tag:
                 text = _get_revision_text(page_element)
                 if text is not None:
                     if '{{ca-verb' in text:
                         verb = True
-
-                        EN_MARKER = '{{trad|en|'
-                        start = text.find(EN_MARKER)
-                        if start != -1:
-                            start += len(EN_MARKER)
-                            end = text.find('}}', start)
-                            en_label = text[start:end]
-                            en_label = to_str(en_label)
+                        en_label = _get_translation(text, '{{trad|en|')
+                        es_label = _get_translation(text, '{{trad|es|')
+                        fr_label = _get_translation(text, '{{trad|fr|')
+                        de_label = _get_translation(text, '{{trad|de|')
 
         if verb is True:
             # TODO: A better way to determine infinitives
-            if title[len(title) - 1] == 'r':
-                print "ca:" + title
+            ca_label_str = to_str(ca_label)
+            if ca_label_str[len(ca_label_str) - 1] == 'r':
+                ca_labels += 1
+                #print "ca:" + ca_label
                 if len(en_label) > 0:
-                    print "en:" + en_label
-                print ""
+                    #print "en:" + en_label
+                    en_labels += 1
+
+                if len(es_label) > 0:
+                    #print "es:" + es_label
+                    es_labels += 1
+
+                if len(fr_label) > 0:
+                    #print "fr:" + fr_label
+                    fr_labels += 1
+
+                if len(de_label) > 0:
+                    #print "de:" + de_label
+                    de_labels += 1
+
+                #print('')
+
+                index.write_entry(word_en=en_label,
+                 word_ca=ca_label,
+                 word_fr=fr_label,
+                 word_de=de_label,
+                 word_es=es_label,
+                 definition_en=None,
+                 definition_ca=None,
+                 definition_fr=None,
+                 definition_de=None,
+                 definition_es=None,
+                 image=None,
+                 permission=None,
+                 gec=None,
+                 wikidata_id=None,
+                 ca_wikiquote=None)
+
+    print("ca_labels: " + str(ca_labels))
+    print("en_labels: " + str(en_labels))
+    print("fr_labels: " + str(fr_labels))
+    print("de_labels: " + str(de_labels))
+    print("es_labels: " + str(es_labels))
+    index.save()
 
 def main():
 
-    print ("Reads a Wikidictionary XML dump")
-
+    print("Reads a Wikidictionary XML dump and extracts verbs and its translations")
     init_logging()
     start_time = datetime.datetime.now()
     _process_xml()

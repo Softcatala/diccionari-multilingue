@@ -23,11 +23,15 @@ import json
 import pystache
 import logging
 import os
+import sys
+
 from pymongo import MongoClient
 from mongorecords import MongoRecords
-from indexcreator import IndexCreator
 from commonsimage import CommonsImage
 from collections import OrderedDict
+
+sys.path.append('../common/')
+from indexcreator import IndexCreator
 
 
 def process_template(template, filename, ctx):

@@ -22,14 +22,23 @@ import os
 import sys
 
 from whoosh.fields import BOOLEAN, TEXT, Schema
-from whoosh.index import create_in
+from whoosh.index import *
 from whoosh.analysis import StandardAnalyzer
 
 class IndexCreator(object):
 
     def __init__(self):
-        self.dir_name = "indexdir"
+        self.dir_name = "../indexdir"
         self.writer = None
+        self.index = None
+
+    def open(self):
+        print "Index exists: " + str(exists_in(self.dir_name))
+        self.index = open_dir(self.dir_name)
+        self.writer = self.index.writer()
+        print "Index (open) documents: " + str(self.index.doc_count())
+        print "Index (open) last_modified: " + str(self.index.last_modified())
+
 
     def write_entry(self, word_en, word_ca, word_fr, word_de, word_es,
                     definition_en, definition_ca, definition_fr, 
@@ -69,6 +78,8 @@ class IndexCreator(object):
 
     def save(self):
         self.writer.commit()
+        print "Index documents: " + str(self.index.doc_count())
+        print "Index last_modified: " + str(self.index.last_modified())
 
     def create(self):
         analyzer = StandardAnalyzer(minsize=1, stoplist=None)
@@ -92,7 +103,7 @@ class IndexCreator(object):
         if not os.path.exists(self.dir_name):
             os.mkdir(self.dir_name)
 
-        ix = create_in(self.dir_name, schema)
+        self.index = create_in(self.dir_name, schema)
 
-        self.writer = ix.writer()
-        return ix
+        self.writer = self.index.writer()
+        return self.index
