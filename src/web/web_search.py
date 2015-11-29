@@ -24,6 +24,8 @@ import cgi
 import time
 import sys
 import urllib
+import json
+import itertools
 from jinja2 import Environment, FileSystemLoader
 from urlparse import urlparse
 
@@ -197,13 +199,40 @@ def search_request():
     result = View.do(search)
     return result
 
+def set_stats_sum_for(values, value):
+    #values[value] = values['wikidata'][value] + values['wikidictionary'][value] 
+    result = values['wikidata'][value]
+    if value in values['wikidictionary']:
+        result += values['wikidictionary'][value]
+
+    values[value] = result
+
+@app.route('/render/statistics')
+def render_statistics():
+    env = Environment(loader=FileSystemLoader('./'))
+
+    STATS_FILE = 'stats.json'
+
+    values = None
+    with open(STATS_FILE) as data_file:    
+        values = json.load(data_file)
+
+    values_to_sum = ['ca_labels', 'fr_labels', 'de_labels', 'en_labels', 'es_labels',
+    'ca_descs', 'fr_descs', 'de_descs', 'en_descs', 'es_descs']
+
+    for value in values_to_sum:
+        set_stats_sum_for(values, value)
+ 
+    template = env.get_template('templates/statistics.html')
+    r = template.render(values).encode('utf-8')
+    return r
+
 @app.route('/lletra/<lletra>')
 def dict_index(lletra):
     start = lletra.find('?')
     if start != -1:
         lletra = lletra[:start]
-    
-    #return "<p>Hello2 {0}</p>".format(lletra)
+
     search = Search(lletra)
     search.Index = True
     search.Duplicates = False

@@ -22,6 +22,7 @@ import datetime
 import logging
 import os
 import xml.etree.ElementTree
+import json
 
 import sys
 sys.path.append('../common/')
@@ -62,6 +63,25 @@ def _get_translation(text, marker):
 
     return label
 
+def _show_statistics(stats):
+    for stat in stats:
+        value = int(stats[stat])
+        print ('{0}: {1}'.format(stat, value))
+
+def _save_statistics(stats):
+    
+    STATS_FILE = '../stats.json'
+
+    all_stats = None
+    with open(STATS_FILE) as data_file:    
+        all_stats = json.load(data_file)
+
+    stats['date'] = datetime.date.today().strftime("%d/%m/%Y")
+    all_stats["wikidictionary"] = stats
+
+    with open(STATS_FILE, 'w') as jsonfile:
+        json.dump(all_stats, jsonfile, indent=4)
+    
 def _process_xml():
  
     en_labels = 0
@@ -81,6 +101,7 @@ def _process_xml():
         fr_label = u''
         de_label = u''
         es_label = u''
+
         for page_element in page.getchildren():
             if 'title' in page_element.tag:
                 ca_label = unicode(page_element.text)
@@ -135,11 +156,17 @@ def _process_xml():
                  wikidata_id=None,
                  ca_wikiquote=None)
 
-    print("ca_labels: " + str(ca_labels))
-    print("en_labels: " + str(en_labels))
-    print("fr_labels: " + str(fr_labels))
-    print("de_labels: " + str(de_labels))
-    print("es_labels: " + str(es_labels))
+    stats = {
+        "ca_labels" : ca_labels,
+        "en_labels" : en_labels,
+        "fr_labels" : fr_labels,
+        "de_labels" : de_labels,
+        "en_labels" : en_labels,
+        "es_labels" : es_labels
+        }
+
+    _show_statistics(stats)
+    _save_statistics(stats)
     index.save()
 
 def main():

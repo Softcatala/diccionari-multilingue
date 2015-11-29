@@ -20,10 +20,10 @@
 
 import datetime
 import json
-import pystache
 import logging
 import os
 import sys
+import json
 
 from pymongo import MongoClient
 from mongorecords import MongoRecords
@@ -32,18 +32,6 @@ from collections import OrderedDict
 
 sys.path.append('../common/')
 from indexcreator import IndexCreator
-
-
-def process_template(template, filename, ctx):
-    # Load template and process it.
-    template = open(template, 'r').read()
-    parsed = pystache.Renderer()
-    s = parsed.render(unicode(template, "utf-8"), ctx)
-
-    # Write output.
-    f = open(filename, 'w')
-    f.write(s.encode("utf-8"))
-    f.close()
 
 
 def percentage(part, whole):
@@ -287,7 +275,9 @@ def _process_json():
     stats['date'] = datetime.date.today().strftime("%d/%m/%Y")
     index.save()
 
-    process_template("statistics.mustache", "statistics.html", stats)
+    wiki_stats = {"wikidata" : stats}
+    with open('../stats.json', 'w') as jsonfile:
+         json.dump(wiki_stats, jsonfile, indent=4)
 
 def create_index():
     print ("Index creation started")
