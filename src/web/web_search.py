@@ -207,10 +207,18 @@ def set_stats_sum_for(values, value):
 
     values[value] = result
 
+@app.route('/api/statistics')
+def api_statistics():
+    STATS_FILE = 'stats.json'
+    with open(STATS_FILE) as data_file:    
+        values = json.load(data_file)
+
+    values = json.dumps(values, indent=4)
+    return Response(values, mimetype='application/json')
+
 @app.route('/render/statistics')
 def render_statistics():
-    env = Environment(loader=FileSystemLoader('./'))
-
+    
     STATS_FILE = 'stats.json'
 
     values = None
@@ -223,6 +231,7 @@ def render_statistics():
     for value in values_to_sum:
         set_stats_sum_for(values, value)
  
+    env = Environment(loader=FileSystemLoader('./'))
     template = env.get_template('templates/statistics.html')
     r = template.render(values).encode('utf-8')
     return r
