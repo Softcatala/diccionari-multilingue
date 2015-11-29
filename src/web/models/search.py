@@ -21,7 +21,6 @@
 from whoosh.highlight import WholeFragmenter
 from whoosh.index import open_dir
 from whoosh.qparser import MultifieldParser
-import json
 
 
 class Search(object):
@@ -47,12 +46,19 @@ class Search(object):
         if self.searcher is None:
             self.search()
 
-        results = self.searcher.search(self.query, limit=None, sortedby='word_ca')
+        if self.Index is True:
+            results = self.searcher.search(self.query,
+                                           limit=None,
+                                           sortedby='word_ca',
+                                           collapse_limit=1,
+                                           collapse='word_ca')
+        else:
+            results = self.searcher.search(self.query, limit=None)
+
         results.fragmenter = WholeFragmenter()
         return results
 
     def search(self, ix=None):
-
         if ix is None:
             ix = open_dir(self.dir_name)
             self.search(ix)
@@ -73,4 +79,3 @@ class Search(object):
                 fields.append("word_ca")
 
         self.query = MultifieldParser(fields, ix.schema).parse(qs)
-
