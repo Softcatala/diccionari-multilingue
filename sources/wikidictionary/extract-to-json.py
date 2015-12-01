@@ -138,7 +138,7 @@ def _process_xml():
                     #print "de:" + de_label
                     de_labels += 1
 
-                #print('')
+                wikidict_url = u'{0}/{1}'.format('', ca_label)
 
                 index.write_entry(word_en=en_label,
                  word_ca=ca_label,
@@ -154,7 +154,8 @@ def _process_xml():
                  permission=None,
                  gec=None,
                  wikidata_id=None,
-                 ca_wikiquote=None)
+                 ca_wikiquote=None,
+                 ca_wikidictionary=ca_label)
 
     stats = {
         "ca_labels" : ca_labels,

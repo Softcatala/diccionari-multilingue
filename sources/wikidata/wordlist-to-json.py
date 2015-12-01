@@ -63,9 +63,9 @@ def _show_statistics(stats, json_file):
     for stat in stats:
         value = int(stats[stat])
         if '_' in stat:
-            print ('{0}: {1} ({2}%)'.format(stat, value, percentage(value, cnt)))
+            logging.info('{0}: {1} ({2}%)'.format(stat, value, percentage(value, cnt)))
         else:
-            print ('{0}: {1}'.format(stat, value))
+            logging.info('{0}: {1}'.format(stat, value))
 
 def _get_image(item):
     claims = item['claims']
@@ -98,7 +98,10 @@ def init_logging():
         os.remove(logfile)
 
     logging.basicConfig(filename=logfile, level=logging.DEBUG)
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.INFO)
     logger = logging.getLogger('')
+    logger.addHandler(ch)
 
 
 def _process_json():
@@ -152,11 +155,11 @@ def _process_json():
             if item_id in articles:
                 continue
 
-            articles.add(item_id) 
+            articles.add(item_id)
 
             cnt = cnt + 1
-            en_label = mongo_records.get_label(label, 'en') 
-            ca_label = mongo_records.get_label(label, 'ca') 
+            en_label = mongo_records.get_label(label, 'en')
+            ca_label = mongo_records.get_label(label, 'ca')
             fr_label = mongo_records.get_label(label, 'fr')
             de_label = mongo_records.get_label(label, 'de')
             es_label = mongo_records.get_label(label, 'es')
@@ -252,7 +255,8 @@ def _process_json():
                              permission=permission,
                              gec=gec,
                              wikidata_id=item_id,
-                             ca_wikiquote=ca_wikiquote)
+                             ca_wikiquote=ca_wikiquote,
+                             ca_wikidictionary=None)
 
     stats = OrderedDict([
         ("words", len(words)),
@@ -268,16 +272,16 @@ def _process_json():
         ("fr_descs", fr_descs),
         ("de_descs", de_descs),
         ("es_descs", es_descs),
-        ("images", images) 
+        ("images", images)
         ])
 
     _show_statistics(stats, json_file)
     stats['date'] = datetime.date.today().strftime("%d/%m/%Y")
     index.save()
 
-    wiki_stats = {"wikidata" : stats}
+    wiki_stats = {"wikidata": stats}
     with open('../stats.json', 'w') as jsonfile:
-         json.dump(wiki_stats, jsonfile, indent=4)
+        json.dump(wiki_stats, jsonfile, indent=4)
 
 def create_index():
     print ("Index creation started")

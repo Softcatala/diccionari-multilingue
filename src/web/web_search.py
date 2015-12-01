@@ -66,6 +66,7 @@ class WebView(object):
             'gec' : self._get_result(result, "gec"),
             'wikidata_id' : self._get_result(result, "wikidata_id"),
             'ca_wikiquote' : self._get_result(result, "ca_wikiquote"),
+            'ca_wikidictionary' : self._get_result(result, "ca_wikidictionary"),
         }
 
         return result_dict
