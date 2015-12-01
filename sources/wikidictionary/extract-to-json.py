@@ -45,6 +45,15 @@ def _get_revision_text(revision):
 
     return ''
 
+def _get_username(revision):
+    for child in revision.getchildren():
+        if 'contributor' in child.tag:
+            for uchild in child.getchildren():
+                if 'username' in uchild.tag:
+                    return uchild.text
+    return ''
+
+
 def to_str(text):
     if type(text) is unicode:
         text = str(text.encode('utf-8'))
@@ -92,6 +101,7 @@ def _process_xml():
 
     index = IndexCreator()
     index.open()
+    authors = set()
 
     e = xml.etree.ElementTree.parse('cawiktionary-20151102-pages-meta-current.xml').getroot()
     for page in e.getchildren():
@@ -108,6 +118,11 @@ def _process_xml():
 
             if 'revision' in page_element.tag:
                 text = _get_revision_text(page_element)
+                username = _get_username(page_element)
+                if username is not None and len(username) > 0:
+                    print username
+                    authors.add(username)
+    
                 if text is not None:
                     if '{{ca-verb' in text:
                         verb = True
@@ -115,6 +130,11 @@ def _process_xml():
                         es_label = _get_translation(text, '{{trad|es|')
                         fr_label = _get_translation(text, '{{trad|fr|')
                         de_label = _get_translation(text, '{{trad|de|')
+
+                        username = _get_username(page_element)
+                        if username is not None and len(username) > 0:
+                            authors.add(username)
+
 
         if verb is True:
             # TODO: A better way to determine infinitives
@@ -169,6 +189,10 @@ def _process_xml():
     _show_statistics(stats)
     _save_statistics(stats)
     index.save()
+
+    #print("Authors ---")
+    #for author in authors:
+    #    print author
 
 def main():
 
