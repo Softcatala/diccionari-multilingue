@@ -6,16 +6,18 @@
     <link type="text/css" rel="stylesheet" media="all" href="/css/sc.css?g" />
     <link type="text/css" rel="stylesheet" href="/css/cookies/cookiecuttr.css" />
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.min.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+
     <script type="text/javascript" src="/js/cookies/jquery.cookie.js"></script>
     <script type="text/javascript" src="/js/cookies/jquery.cookiecuttr.js"></script>
-    <script type="text/javascript" src="/js/softcatala.js"></script>
-    <script src="chosen/chosen.jquery.js" type="text/javascript"></script>
-    <script src="chosen/docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="/js/softcatala.js"></script>	
     <!--#include virtual="/ssi/ad.html" -->
+
     <title>Diccionari multilingüe</title>
   </head>
-  <body class="thrColHybHdr fondo3">
+  <body class="thrColHybHdr fondo3"  style="text-align:left">
     <div id="container">
     <!--#include virtual="/ssi/ads/superior.html" -->
     <!--#include virtual="/ssi/header.html" -->
@@ -29,7 +31,8 @@
           </p>
           <form enctype="multipart/form-data" method="GET"
             action="web_search.py" id="form" name="form">
-            Terme <input type="text" name="source" size="60" value="" />
+            Terme <input type="text" class="ui-autocomplete-input" autocomplete="off" id="source" 
+                    name="source" size="60" value=""/>
             <input type="submit" value="Cerca">
           </form>
         </div>
@@ -67,4 +70,36 @@
         <i><small><!--#include virtual="/render/statistics" --></small></i>
         </div>
       </div>
+
+
+    <script>
+      $(function() {
+        $( "#source" ).autocomplete({
+          source: function( request, response ) {
+            $.ajax({
+              url: "api/autocomplete/"+ request.term,
+              dataType: "json",
+              success: function( data ) {
+                response( data );
+              },
+              error: function (textStatus, status, errorThrown) {
+                }
+            });
+          },
+          minLength: 1,
+          select: function( event, ui ) {
+            log( ui.item ?
+              "Selected: " + ui.item.label :
+              "Nothing selected, input was " + this.value);
+          },
+          open: function() {
+            $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+          },
+          close: function() {
+            $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+          }
+        });
+      });
+    </script>
+
 <!--#include virtual="/footer.html" -->

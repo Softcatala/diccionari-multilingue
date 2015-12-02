@@ -21,7 +21,7 @@
 from whoosh.highlight import WholeFragmenter
 from whoosh.index import open_dir
 from whoosh.qparser import MultifieldParser
-
+import json
 
 class Search(object):
     """Search a term in the Whoosh index."""
@@ -33,6 +33,7 @@ class Search(object):
         self.query = None
         self.Index = False
         self.Duplicates = True
+        self.AutoComplete = False
 
     @property
     def has_invalid_search_term(self):
@@ -46,7 +47,7 @@ class Search(object):
         if self.searcher is None:
             self.search()
 
-        if self.Index is True:
+        if self.Index is True or self.AutoComplete is True:
             results = self.searcher.search(self.query,
                                            limit=None,
                                            sortedby='word_ca',
@@ -79,3 +80,14 @@ class Search(object):
                 fields.append("word_ca")
 
         self.query = MultifieldParser(fields, ix.schema).parse(qs)
+
+    def get_json(self):
+        results = self.get_results()
+        all_results = []
+        for result in results[:10]:
+            if self.AutoComplete is True:
+                all_results.append({"value" : result['word_ca']})
+            else:
+                all_results.append(result.fields())
+
+        return json.dumps(all_results, indent=4, separators=(',', ': '))

@@ -29,7 +29,6 @@ import itertools
 from jinja2 import Environment, FileSystemLoader
 from urlparse import urlparse
 
-
 sys.path.append('models/')
 from pagination import Pagination
 from search import Search
@@ -216,6 +215,13 @@ def api_statistics():
 
     values = json.dumps(values, indent=4)
     return Response(values, mimetype='application/json')
+
+@app.route('/api/autocomplete/<word>', methods=['GET'])
+def autocomplete_api(word):
+    #return '[{"value" : "key"}]';
+    search = Search(word + u"*")
+    search.AutoComplete = True
+    return Response(search.get_json(), mimetype='application/json')
 
 @app.route('/render/statistics')
 def render_statistics():
