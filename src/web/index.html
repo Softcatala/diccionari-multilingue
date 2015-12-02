@@ -88,9 +88,7 @@
           },
           minLength: 1,
           select: function( event, ui ) {
-            log( ui.item ?
-              "Selected: " + ui.item.label :
-              "Nothing selected, input was " + this.value);
+            $("#form").submit();
           },
           open: function() {
             $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
