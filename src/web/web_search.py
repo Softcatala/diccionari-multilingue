@@ -49,9 +49,14 @@ class WebView(object):
         else:
             permission = None
 
+        definition_ca = self._get_result(result, "definition_ca")
+    
+        if definition_ca is not None: 
+            definition_ca = definition_ca.replace('\n', '<br/>')
+    
         result_dict = {
             'word_ca': self._get_result(result, "word_ca"),
-            'definition_ca' : self._get_result(result, "definition_ca"),
+            'definition_ca' : definition_ca,
             'word_en': self._get_result(result, "word_en"),
             'definition_en' : self._get_result(result, "definition_en"),
             'word_fr': self._get_result(result, "word_fr"),
