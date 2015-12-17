@@ -23,11 +23,11 @@ import logging
 import os
 import xml.etree.ElementTree
 import json
+from verbtext import VerbText
 
 import sys
 sys.path.append('../common/')
 from indexcreator import IndexCreator
-
 
 def init_logging():
     logfile = 'extract-to-json.log'
@@ -72,6 +72,7 @@ def _get_translation(text, marker):
 
     return label
 
+
 def _show_statistics(stats):
     for stat in stats:
         value = int(stats[stat])
@@ -82,7 +83,7 @@ def _save_statistics(stats):
     STATS_FILE = '../stats.json'
 
     all_stats = None
-    with open(STATS_FILE) as data_file:    
+    with open(STATS_FILE) as data_file:
         all_stats = json.load(data_file)
 
     stats['date'] = datetime.date.today().strftime("%d/%m/%Y")
@@ -97,7 +98,8 @@ def _process_xml():
     ca_labels = 0
     fr_labels = 0
     de_labels = 0
-    es_labels = 0
+    es_labels = 0   
+    ca_descs = 0
 
     index = IndexCreator()
     index.open()
@@ -120,7 +122,6 @@ def _process_xml():
                 text = _get_revision_text(page_element)
                 username = _get_username(page_element)
                 if username is not None and len(username) > 0:
-                    print username
                     authors.add(username)
     
                 if text is not None:
@@ -141,58 +142,60 @@ def _process_xml():
             ca_label_str = to_str(ca_label)
             if ca_label_str[len(ca_label_str) - 1] == 'r':
                 ca_labels += 1
-                #print "ca:" + ca_label
                 if len(en_label) > 0:
-                    #print "en:" + en_label
                     en_labels += 1
 
                 if len(es_label) > 0:
-                    #print "es:" + es_label
                     es_labels += 1
 
                 if len(fr_label) > 0:
-                    #print "fr:" + fr_label
                     fr_labels += 1
 
                 if len(de_label) > 0:
-                    #print "de:" + de_label
                     de_labels += 1
 
-                wikidict_url = u'{0}/{1}'.format('', ca_label)
+                ca_desc = None
+                verbText = VerbText(text)
+                s = verbText.GetDescription()
+
+                if len(s) > 0:
+                    ca_desc = s
+                    ca_descs += 1
+
+                    print unicode(ca_label).encode('utf-8')
+                    print unicode(s).encode('utf-8')
+
 
                 index.write_entry(word_en=en_label,
-                 word_ca=ca_label,
-                 word_fr=fr_label,
-                 word_de=de_label,
-                 word_es=es_label,
-                 definition_en=None,
-                 definition_ca=None,
-                 definition_fr=None,
-                 definition_de=None,
-                 definition_es=None,
-                 image=None,
-                 permission=None,
-                 gec=None,
-                 wikidata_id=None,
-                 ca_wikiquote=None,
-                 ca_wikidictionary=ca_label)
+                                  word_ca=ca_label,
+                                  word_fr=fr_label,
+                                  word_de=de_label,
+                                  word_es=es_label,
+                                  definition_en=None,
+                                  definition_ca=ca_desc,
+                                  definition_fr=None,
+                                  definition_de=None,
+                                  definition_es=None,
+                                  image=None,
+                                  permission=None,
+                                  gec=None,
+                                  wikidata_id=None,
+                                  ca_wikiquote=None,
+                                  ca_wikidictionary=ca_label)
 
     stats = {
-        "ca_labels" : ca_labels,
-        "en_labels" : en_labels,
-        "fr_labels" : fr_labels,
-        "de_labels" : de_labels,
-        "en_labels" : en_labels,
-        "es_labels" : es_labels
+             "ca_labels": ca_labels,
+             "ca_descs": ca_descs,
+             "en_labels": en_labels,
+             "fr_labels": fr_labels,
+             "de_labels": de_labels,
+             "en_labels": en_labels,
+             "es_labels": es_labels
         }
 
     _show_statistics(stats)
     _save_statistics(stats)
     index.save()
-
-    #print("Authors ---")
-    #for author in authors:
-    #    print author
 
 def main():
 
