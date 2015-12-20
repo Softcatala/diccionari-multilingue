@@ -85,9 +85,12 @@ class Search(object):
     def get_json(self):
         results = self.get_results()
         all_results = []
-        for result in results[:10]:
-            if self.AutoComplete is True:
-                all_results.append({"value" : result['word_ca']})
+        if self.Index is False:
+            results = results[:10]
+
+        for result in results:
+            if self.AutoComplete is True or self.Index:
+                all_results.append({"word_ca" : result['word_ca']})
             else:
                 all_results.append(self.get_result(result))
 

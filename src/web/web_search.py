@@ -2,7 +2,6 @@
 # -*- encoding: utf-8 -*-
 #
 # Copyright (c) 2014-2015 Jordi Mas i Hernandez <jmas@softcatala.org>
-# Copyright (c) 2014 Leandro Regueiro Iglesias <leandro.regueiro@gmail.com>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -199,6 +198,13 @@ def autocomplete_api(word):
 @app.route('/api/search/<word>', methods=['GET'])
 def search_api(word):
     search = Search(word)
+    return Response(search.get_json(), mimetype='application/json')
+
+@app.route('/api/index/<lletra>', methods=['GET'])
+def index_letter_api(lletra):
+    search = Search(lletra)
+    search.Index = True
+    search.Duplicates = False
     return Response(search.get_json(), mimetype='application/json')
 
 @app.route('/render/statistics')
