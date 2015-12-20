@@ -93,6 +93,7 @@
           },
           minLength: 1,
           select: function( event, ui ) {
+            $("#source").val(ui.item.value);
             $("#form").submit();
           },
           open: function() {
