@@ -57,8 +57,15 @@ class IndexCreator(object):
                     s = ' '
             except:
                 print "Error in: " + word_ca
+                return
 
         index_letter = unicode(s, 'latin-1')
+
+        # As Dec 2015 Wikidata corpus in Catalan was imported in upper case
+        # that is incorrect. We fix it here until is fix in upstream
+        if word_ca is not None:
+            word_ca = word_ca.lower()
+
         self.writer.add_document(word_en=word_en,
                                  word_ca=word_ca,
                                  word_fr=word_fr,
