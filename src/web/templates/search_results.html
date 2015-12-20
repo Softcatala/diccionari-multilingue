@@ -91,6 +91,14 @@
         </tr>        
         {% endif %}
 
+        {% if result.source == 1 %}
+          <td><i>Font: Wikidata</i></td>
+        {% endif %}
+
+        {% if result.source == 2 %}
+          <td><i>Font: Viccionari</i></td>
+        {% endif %}
+             
         {% if result.image %}
         <td><img src="images/{{result.image}}"></td>
         {% endif %}

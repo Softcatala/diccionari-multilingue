@@ -21,7 +21,7 @@
 import os
 import sys
 
-from whoosh.fields import BOOLEAN, TEXT, Schema
+from whoosh.fields import BOOLEAN, TEXT, NUMERIC, Schema
 from whoosh.index import *
 from whoosh.analysis import StandardAnalyzer
 
@@ -43,7 +43,7 @@ class IndexCreator(object):
     def write_entry(self, word_en, word_ca, word_fr, word_de, word_es,
                     definition_en, definition_ca, definition_fr, 
                     definition_de, definition_es, image, permission, gec,
-                    wikidata_id, ca_wikiquote, ca_wikidictionary):
+                    wikidata_id, ca_wikiquote, ca_wikidictionary, source):
 
         s = ''
         if word_ca is not None:
@@ -82,7 +82,8 @@ class IndexCreator(object):
                                  wikidata_id=wikidata_id,
                                  ca_wikiquote=ca_wikiquote,
                                  index_letter=index_letter,
-                                 ca_wikidictionary=ca_wikidictionary)
+                                 ca_wikidictionary=ca_wikidictionary,
+                                 source=source)
 
     def save(self):
         self.writer.commit()
@@ -107,7 +108,8 @@ class IndexCreator(object):
                         wikidata_id=TEXT(stored=True),
                         ca_wikiquote=TEXT(stored=True),    
                         index_letter=TEXT(stored=True, analyzer=analyzer),
-                        ca_wikidictionary=TEXT(stored=True))
+                        ca_wikidictionary=TEXT(stored=True),
+                        source=NUMERIC(stored=True))
 
         if not os.path.exists(self.dir_name):
             os.mkdir(self.dir_name)

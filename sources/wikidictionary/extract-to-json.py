@@ -94,6 +94,7 @@ def _save_statistics(stats):
     
 def _process_xml():
  
+    WIKIDICTIONARY = 2
     en_labels = 0
     ca_labels = 0
     fr_labels = 0
@@ -177,7 +178,8 @@ def _process_xml():
                                   gec=None,
                                   wikidata_id=None,
                                   ca_wikiquote=None,
-                                  ca_wikidictionary=ca_label)
+                                  ca_wikidictionary=ca_label,
+                                  source=WIKIDICTIONARY)
 
     stats = {
              "ca_labels": ca_labels,

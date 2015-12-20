@@ -106,6 +106,7 @@ def init_logging():
 
 def _process_json():
 
+    WIKIDATA = 1
     cnt = 0
     selected = 0
     en_labels = 0
@@ -256,7 +257,8 @@ def _process_json():
                              gec=gec,
                              wikidata_id=item_id,
                              ca_wikiquote=ca_wikiquote,
-                             ca_wikidictionary=None)
+                             ca_wikidictionary=None,
+                             source=WIKIDATA)
 
     stats = OrderedDict([
         ("words", len(words)),
