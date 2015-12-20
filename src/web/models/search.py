@@ -88,11 +88,15 @@ class Search(object):
         if self.Index is False:
             results = results[:10]
 
+        words = []
         for result in results:
             if self.AutoComplete is True or self.Index:
-                all_results.append({"word_ca" : result['word_ca']})
+                words.append(result['word_ca'])
             else:
                 all_results.append(self.get_result(result))
+
+        if self.AutoComplete is True or self.Index:
+            all_results.append({"words" : words})
 
         return json.dumps(all_results, indent=4, separators=(',', ': '))
 
