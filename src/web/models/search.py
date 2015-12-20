@@ -22,6 +22,7 @@ from whoosh.highlight import WholeFragmenter
 from whoosh.index import open_dir
 from whoosh.qparser import MultifieldParser
 import json
+import cgi
 
 class Search(object):
     """Search a term in the Whoosh index."""
@@ -88,6 +89,44 @@ class Search(object):
             if self.AutoComplete is True:
                 all_results.append({"value" : result['word_ca']})
             else:
-                all_results.append(result.fields())
+                all_results.append(self.get_result(result))
 
         return json.dumps(all_results, indent=4, separators=(',', ': '))
+
+
+    def _get_result(self, result, key):
+        if key in result:
+            return cgi.escape(result[key]) 
+
+        return None
+
+    def get_result(self, result):
+        image = self._get_result(result, "image")
+        if 'permission' in result:
+            permission = result["permission"]
+        else:
+            permission = None
+
+        definition_ca = self._get_result(result, "definition_ca")
+    
+        result_dict = {
+            'word_ca': self._get_result(result, "word_ca"),
+            'definition_ca' : definition_ca,
+            'word_en': self._get_result(result, "word_en"),
+            'definition_en' : self._get_result(result, "definition_en"),
+            'word_fr': self._get_result(result, "word_fr"),
+            'definition_fr' : self._get_result(result, "definition_fr"),
+            'word_de': self._get_result(result, "word_de"),
+            'definition_de' : self._get_result(result, "definition_de"),
+            'word_es': self._get_result(result, "word_es"),
+            'definition_es' : self._get_result(result, "definition_es"),
+            'image' : image,
+             #'permission' : permission,
+            'gec' : self._get_result(result, "gec"),
+            'wikidata_id' : self._get_result(result, "wikidata_id"),
+            'ca_wikiquote' : self._get_result(result, "ca_wikiquote"),
+            'ca_wikidictionary' : self._get_result(result, "ca_wikidictionary"),
+        }
+
+        return result_dict
+

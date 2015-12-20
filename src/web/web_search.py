@@ -36,45 +36,6 @@ from search import Search
 
 class WebView(object):
 
-    def _get_result(self, result, key):
-        if key in result:
-            return cgi.escape(result[key]) 
-
-        return None
-
-    def get_result(self, result):
-        image = self._get_result(result, "image")
-        if 'permission' in result:
-            permission = result["permission"]
-        else:
-            permission = None
-
-        definition_ca = self._get_result(result, "definition_ca")
-    
-        if definition_ca is not None: 
-            definition_ca = definition_ca.replace('\n', '<br/>')
-    
-        result_dict = {
-            'word_ca': self._get_result(result, "word_ca"),
-            'definition_ca' : definition_ca,
-            'word_en': self._get_result(result, "word_en"),
-            'definition_en' : self._get_result(result, "definition_en"),
-            'word_fr': self._get_result(result, "word_fr"),
-            'definition_fr' : self._get_result(result, "definition_fr"),
-            'word_de': self._get_result(result, "word_de"),
-            'definition_de' : self._get_result(result, "definition_de"),
-            'word_es': self._get_result(result, "word_es"),
-            'definition_es' : self._get_result(result, "definition_es"),
-            'image' : image,
-            'permission' : permission,
-            'gec' : self._get_result(result, "gec"),
-            'wikidata_id' : self._get_result(result, "wikidata_id"),
-            'ca_wikiquote' : self._get_result(result, "ca_wikiquote"),
-            'ca_wikidictionary' : self._get_result(result, "ca_wikidictionary"),
-        }
-
-        return result_dict
-
     def do(self, search):
         """Search a term in the Whoosh index."""
         aborted_search = False
@@ -109,7 +70,14 @@ class WebView(object):
                     end += PER_PAGE
 
                 for i in xrange(start, end):
-                    results.append(self.get_result(raw_results[i]))
+                    rslt = search.get_result(raw_results[i])
+                    if 'definition_ca' in rslt:
+                        value = rslt['definition_ca']
+                        if value is not None:
+                            rslt['definition_ca'] = value.replace('\n', '<br/>')
+    
+                    results.append(rslt)
+               
             else:
                 pagination = None
 
@@ -176,6 +144,7 @@ class IndexView(object):
 
             for i in xrange(start, end):
                 results.append(self.get_result(raw_results[i]))
+
         else:
             pagination = None
 
@@ -223,9 +192,13 @@ def api_statistics():
 
 @app.route('/api/autocomplete/<word>', methods=['GET'])
 def autocomplete_api(word):
-    #return '[{"value" : "key"}]';
     search = Search(word + u"*")
     search.AutoComplete = True
+    return Response(search.get_json(), mimetype='application/json')
+
+@app.route('/api/search/<word>', methods=['GET'])
+def search_api(word):
+    search = Search(word)
     return Response(search.get_json(), mimetype='application/json')
 
 @app.route('/render/statistics')
