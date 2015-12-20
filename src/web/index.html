@@ -79,7 +79,13 @@
               url: "api/autocomplete/"+ request.term,
               dataType: "json",
               success: function( data ) {
-                response( data );
+
+                response($.map(data, function (item) {
+                    return {
+                        value: item.word_ca
+                    };
+                }));
+
               },
               error: function (textStatus, status, errorThrown) {
                 }
