@@ -96,7 +96,8 @@ class Search(object):
                 all_results.append(self.get_result(result))
 
         if self.AutoComplete is True or self.Index:
-            all_results.append({"words" : words})
+            all_results = {}
+            all_results["words"] = words
 
         return json.dumps(all_results, indent=4, separators=(',', ': '))
 

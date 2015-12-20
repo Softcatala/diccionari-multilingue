@@ -80,9 +80,9 @@
               dataType: "json",
               success: function( data ) {
 
-                response($.map(data, function (item) {
+                response($.map(data.words, function (item) {
                     return {
-                        value: item.word_ca
+                        value: item
                     };
                 }));
 
