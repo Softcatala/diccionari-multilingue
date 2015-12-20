@@ -18,19 +18,14 @@
 # Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
-from flask import Flask, request, Response
-import cgi
+from flask import request
 import time
 import sys
-import urllib
-import json
-import itertools
 from jinja2 import Environment, FileSystemLoader
 from urlparse import urlparse
 
 sys.path.append('models/')
 from pagination import Pagination
-from search import Search
 
 
 class WebView(object):
@@ -76,7 +71,7 @@ class WebView(object):
                             rslt['definition_ca'] = value.replace('\n', '<br/>')
     
                     results.append(rslt)
-               
+
             else:
                 pagination = None
 

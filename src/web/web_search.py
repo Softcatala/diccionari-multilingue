@@ -19,19 +19,13 @@
 # Boston, MA 02111-1307, USA.
 
 from flask import Flask, request, Response
-import cgi
-import time
 import sys
-import urllib
 import json
-import itertools
 from jinja2 import Environment, FileSystemLoader
-from urlparse import urlparse
 from webview import WebView
 from indexview import IndexView
 
 sys.path.append('models/')
-from pagination import Pagination
 from search import Search
 
 
@@ -47,7 +41,6 @@ def search_request():
     return result
 
 def set_stats_sum_for(values, value):
-    #values[value] = values['wikidata'][value] + values['wikidictionary'][value] 
     result = values['wikidata'][value]
     if value in values['wikidictionary']:
         result += values['wikidictionary'][value]
@@ -57,7 +50,7 @@ def set_stats_sum_for(values, value):
 @app.route('/api/statistics')
 def api_statistics():
     STATS_FILE = 'stats.json'
-    with open(STATS_FILE) as data_file:    
+    with open(STATS_FILE) as data_file:
         values = json.load(data_file)
 
     values = json.dumps(values, indent=4)
@@ -83,11 +76,11 @@ def index_letter_api(lletra):
 
 @app.route('/render/statistics')
 def render_statistics():
-    
+
     STATS_FILE = 'stats.json'
 
     values = None
-    with open(STATS_FILE) as data_file:    
+    with open(STATS_FILE) as data_file:
         values = json.load(data_file)
 
     values_to_sum = ['ca_labels', 'fr_labels', 'de_labels', 'en_labels', 'es_labels',
@@ -113,7 +106,7 @@ def dict_index(lletra):
     View = IndexView(lletra)
     result = View.do(search)
     return result
-    
+
 
 if __name__ == '__main__':
     app.debug = True

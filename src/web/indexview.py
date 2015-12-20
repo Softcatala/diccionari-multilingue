@@ -28,6 +28,7 @@ from urlparse import urlparse
 sys.path.append('models/')
 from pagination import Pagination
 
+
 class IndexView(object):
 
     def __init__(self, lletra):
@@ -35,7 +36,7 @@ class IndexView(object):
 
     def _get_result(self, result, key):
         if key in result:
-            return cgi.escape(result[key]) 
+            return cgi.escape(result[key])
 
         return None
 
@@ -48,7 +49,6 @@ class IndexView(object):
 
     def do(self, search):
         """Search a term in the Whoosh index."""
-        aborted_search = False
         results = []
         num_results = 0
         total_time = 0
