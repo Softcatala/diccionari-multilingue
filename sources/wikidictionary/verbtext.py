@@ -58,7 +58,11 @@ class VerbText:
         return self._remove_intenal_links(final)
 
     def _remove_mediawiki_markup(self, line):
-        final = line.replace('\'', '')
+        MEDIAWIKI_BOLD = "'''"
+        MEDIAWIKI_ITALIC = "''"
+
+        final = line.replace(MEDIAWIKI_BOLD, '')
+        final = final.replace(MEDIAWIKI_ITALIC, '')
         return final
 
     def _remove_templates(self, line):
