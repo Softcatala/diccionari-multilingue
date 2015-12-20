@@ -162,10 +162,6 @@ def _process_xml():
                     ca_desc = s
                     ca_descs += 1
 
-                    print unicode(ca_label).encode('utf-8')
-                    print unicode(s).encode('utf-8')
-
-
                 index.write_entry(word_en=en_label,
                                   word_ca=ca_label,
                                   word_fr=fr_label,
