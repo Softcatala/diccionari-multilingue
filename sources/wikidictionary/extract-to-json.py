@@ -99,8 +99,10 @@ def _process_xml():
     ca_labels = 0
     fr_labels = 0
     de_labels = 0
-    es_labels = 0   
+    es_labels = 0
+    it_labels = 0
     ca_descs = 0
+    it_descs = 0
 
     index = IndexCreator()
     index.open()
@@ -114,6 +116,7 @@ def _process_xml():
         fr_label = u''
         de_label = u''
         es_label = u''
+        it_label = u''
 
         for page_element in page.getchildren():
             if 'title' in page_element.tag:
@@ -132,6 +135,7 @@ def _process_xml():
                         es_label = _get_translation(text, '{{trad|es|')
                         fr_label = _get_translation(text, '{{trad|fr|')
                         de_label = _get_translation(text, '{{trad|de|')
+                        it_label = _get_translation(text, '{{trad|it|')
 
                         username = _get_username(page_element)
                         if username is not None and len(username) > 0:
@@ -155,6 +159,9 @@ def _process_xml():
                 if len(de_label) > 0:
                     de_labels += 1
 
+                if len(it_label) > 0:
+                    it_labels += 1
+
                 ca_desc = None
                 verbText = VerbText(text)
                 s = verbText.GetDescription()
@@ -168,11 +175,13 @@ def _process_xml():
                                   word_fr=fr_label,
                                   word_de=de_label,
                                   word_es=es_label,
+                                  word_it=it_label,
                                   definition_en=None,
                                   definition_ca=ca_desc,
                                   definition_fr=None,
                                   definition_de=None,
                                   definition_es=None,
+                                  definition_it=None,
                                   image=None,
                                   permission=None,
                                   gec=None,
@@ -188,7 +197,8 @@ def _process_xml():
              "fr_labels": fr_labels,
              "de_labels": de_labels,
              "en_labels": en_labels,
-             "es_labels": es_labels
+             "es_labels": es_labels,
+             "it_labels": it_labels
         }
 
     _show_statistics(stats)

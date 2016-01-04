@@ -85,8 +85,9 @@ def render_statistics():
     with open(STATS_FILE) as data_file:
         values = json.load(data_file)
 
-    values_to_sum = ['ca_labels', 'fr_labels', 'de_labels', 'en_labels', 'es_labels',
-    'ca_descs', 'fr_descs', 'de_descs', 'en_descs', 'es_descs']
+    values_to_sum = ['ca_labels', 'fr_labels', 'de_labels', 'en_labels', 
+    'es_labels', 'it_labels', 'ca_descs', 'fr_descs', 'de_descs', 'en_descs', 
+    'es_descs', 'it_descs']
 
     for value in values_to_sum:
         set_stats_sum_for(values, value)

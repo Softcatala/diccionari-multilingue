@@ -40,10 +40,11 @@ class IndexCreator(object):
         print "Index (open) last_modified: " + str(self.index.last_modified())
 
 
-    def write_entry(self, word_en, word_ca, word_fr, word_de, word_es,
-                    definition_en, definition_ca, definition_fr, 
-                    definition_de, definition_es, image, permission, gec,
-                    wikidata_id, wikiquote_ca, wikidictionary_ca, source):
+    def write_entry(self, word_en, word_ca, word_fr, word_de, word_es, word_it,
+                    definition_en, definition_ca, definition_fr,
+                    definition_de, definition_es, definition_it, image, 
+                    permission, gec, wikidata_id, wikiquote_ca, 
+                    wikidictionary_ca, source):
 
         s = ''
         if word_ca is not None:
@@ -71,11 +72,13 @@ class IndexCreator(object):
                                  word_fr=word_fr,
                                  word_de=word_de,
                                  word_es=word_es,
+                                 word_it=word_it,
                                  definition_en=definition_en,
                                  definition_ca=definition_ca,
                                  definition_fr=definition_fr,
                                  definition_de=definition_de,
                                  definition_es=definition_es,
+                                 definition_it=definition_it,
                                  image=image,
                                  permission=permission,
                                  gec=gec,
@@ -97,11 +100,13 @@ class IndexCreator(object):
                         word_fr=TEXT(stored=True),
                         word_de=TEXT(stored=True),
                         word_es=TEXT(stored=True),
+                        word_it=TEXT(stored=True),
                         definition_en=TEXT(stored=True),
                         definition_ca=TEXT(stored=True),
                         definition_fr=TEXT(stored=True),
                         definition_de=TEXT(stored=True),
                         definition_es=TEXT(stored=True),
+                        definition_it=TEXT(stored=True),
                         image=TEXT(stored=True),
                         permission=TEXT(stored=True),
                         gec=TEXT(stored=True),

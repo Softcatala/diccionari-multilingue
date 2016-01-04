@@ -110,6 +110,7 @@ def _process_json():
     cnt = 0
     selected = 0
     en_labels = 0
+    it_labels = 0
     ca_labels = 0
     fr_labels = 0
     de_labels = 0
@@ -120,6 +121,7 @@ def _process_json():
     fr_descs = 0
     de_descs = 0
     es_descs = 0
+    it_descs = 0
     images = 0
     articles = set()
     index = IndexCreator()
@@ -164,6 +166,7 @@ def _process_json():
             fr_label = mongo_records.get_label(label, 'fr')
             de_label = mongo_records.get_label(label, 'de')
             es_label = mongo_records.get_label(label, 'es')
+            it_label = mongo_records.get_label(label, 'it')
 
             if en_label is None:
                 continue
@@ -174,6 +177,7 @@ def _process_json():
             fr_description = mongo_records.get_description(descriptions, 'fr')
             de_description = mongo_records.get_description(descriptions, 'de')
             es_description = mongo_records.get_description(descriptions, 'es')
+            it_description = mongo_records.get_description(descriptions, 'it')
 
             if _is_segment_valid(en_label, en_description) is False:
                 continue
@@ -199,6 +203,10 @@ def _process_json():
                 data['es'] = es_label
                 es_labels = es_labels + 1
 
+            if it_label is not None:
+                data['it'] = it_label
+                it_labels = it_labels + 1
+
             if en_description is not None:
                 data['en_description'] = en_description
                 en_descs = en_descs + 1
@@ -218,6 +226,10 @@ def _process_json():
             if es_description is not None:
                 data['es_description'] = es_description
                 es_descs = es_descs + 1
+
+            if it_description is not None:
+                data['it_description'] = it_description
+                it_descs = it_descs + 1
 
             image = _get_image(item)
 
@@ -247,11 +259,13 @@ def _process_json():
                              word_fr=fr_label,
                              word_de=de_label,
                              word_es=es_label,
+                             word_it=it_label,
                              definition_en=en_description,
                              definition_ca=ca_description,
                              definition_fr=fr_description,
                              definition_de=de_description,
                              definition_es=es_description,
+                             definition_it=it_description,
                              image=image,
                              permission=permission,
                              gec=gec,
@@ -266,6 +280,7 @@ def _process_json():
         ("selected", selected),
         ("ca_labels", ca_labels),
         ("en_labels", en_labels),
+        ("it_labels", it_labels),
         ("es_labels", es_labels),
         ("ca_descs", ca_descs),
         ("en_descs", en_descs),
@@ -274,6 +289,7 @@ def _process_json():
         ("fr_descs", fr_descs),
         ("de_descs", de_descs),
         ("es_descs", es_descs),
+        ("it_descs", it_descs),
         ("images", images)
         ])
 

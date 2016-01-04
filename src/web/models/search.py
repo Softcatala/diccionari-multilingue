@@ -127,8 +127,8 @@ class Search(object):
             
         self.add_to_dict(references, 'gec' , self._get_result(result, "gec"))
         self.add_to_dict(references, 'wikidata', self._get_result(result, "wikidata_id"))
-        self.add_to_dict(references, 'wikiquote', self._get_result(result, "wikiquote_ca"))
-        self.add_to_dict(references, 'wikidictionary', self._get_result(result, "wikidictionary_ca"))
+        self.add_to_dict(references, 'wikiquote_ca', self._get_result(result, "wikiquote_ca"))
+        self.add_to_dict(references, 'wikidictionary_ca', self._get_result(result, "wikidictionary_ca"))
 
         if result['source'] == 1:
             source = 'wikidata'
@@ -147,6 +147,8 @@ class Search(object):
         self.add_to_dict(result_dict, 'definition_de', self._get_result(result, "definition_de"))
         self.add_to_dict(result_dict, 'word_es', self._get_result(result, "word_es"))
         self.add_to_dict(result_dict, 'definition_es', self._get_result(result, "definition_es"))
+        self.add_to_dict(result_dict, 'word_it', self._get_result(result, "word_it"))
+        self.add_to_dict(result_dict, 'definition_it', self._get_result(result, "definition_it"))
         self.add_to_dict(result_dict, 'image', image)
         self.add_to_dict(result_dict, 'references', references)
         self.add_to_dict(result_dict, 'source', source)
