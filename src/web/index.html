@@ -38,32 +38,32 @@
         </div>
         <div>
            <p>Índex per paraules<p>
-            <a href = "lletra/A">A</a> - 
-            <a href = "lletra/B">B</a> - 
-            <a href = "lletra/C">C</a> - 
-            <a href = "lletra/D">D</a> - 
-            <a href = "lletra/E">E</a> - 
-            <a href = "lletra/F">F</a> - 
-            <a href = "lletra/G">G</a> - 
-            <a href = "lletra/H">H</a> - 
-            <a href = "lletra/I">I</a> - 
-            <a href = "lletra/J">J</a> - 
-            <a href = "lletra/K">K</a> - 
-            <a href = "lletra/L">L</a> - 
-            <a href = "lletra/M">M</a> - 
-            <a href = "lletra/N">N</a> - 
-            <a href = "lletra/O">O</a> - 
-            <a href = "lletra/P">P</a> - 
-            <a href = "lletra/Q">Q</a> - 
-            <a href = "lletra/R">R</a> - 
-            <a href = "lletra/S">S</a> - 
-            <a href = "lletra/T">T</a> - 
-            <a href = "lletra/U">U</a> - 
-            <a href = "lletra/V">V</a> - 
-            <a href = "lletra/W">W</a> - 
-            <a href = "lletra/X">X</a> - 
-            <a href = "lletra/Y">Y</a> - 
-            <a href = "lletra/Z">Z</a>
+            <a href = "render/lletra/A">A</a> - 
+            <a href = "render/lletra/B">B</a> - 
+            <a href = "render/lletra/C">C</a> - 
+            <a href = "render/lletra/D">D</a> - 
+            <a href = "render/lletra/E">E</a> - 
+            <a href = "render/lletra/F">F</a> - 
+            <a href = "render/lletra/G">G</a> - 
+            <a href = "render/lletra/H">H</a> - 
+            <a href = "render/lletra/I">I</a> - 
+            <a href = "render/lletra/J">J</a> - 
+            <a href = "render/lletra/K">K</a> - 
+            <a href = "render/lletra/L">L</a> - 
+            <a href = "render/lletra/M">M</a> - 
+            <a href = "render/lletra/N">N</a> - 
+            <a href = "render/lletra/O">O</a> - 
+            <a href = "render/lletra/P">P</a> - 
+            <a href = "render/lletra/Q">Q</a> - 
+            <a href = "render/lletra/R">R</a> - 
+            <a href = "render/lletra/S">S</a> - 
+            <a href = "render/lletra/T">T</a> - 
+            <a href = "render/lletra/U">U</a> - 
+            <a href = "render/lletra/V">V</a> - 
+            <a href = "render/lletra/W">W</a> - 
+            <a href = "render/lletra/X">X</a> - 
+            <a href = "render/lletra/Y">Y</a> - 
+            <a href = "render/lletra/Z">Z</a>
         </div>
         
         <p>Aquest diccionari utilitza dades de diferents projectes lliures. Vegeu <a href="credits.html">els crèdits</a> per un detall complet.</p> 
@@ -76,7 +76,7 @@
         $( "#source" ).autocomplete({
           source: function( request, response ) {
             $.ajax({
-              url: "api/autocomplete/"+ request.term,
+              url: "autocomplete/"+ request.term,
               dataType: "json",
               success: function( data ) {
 

@@ -47,7 +47,8 @@ def set_stats_sum_for(values, value):
 
     values[value] = result
 
-@app.route('/api/statistics')
+# API calls
+@app.route('/statistics')
 def api_statistics():
     STATS_FILE = 'stats.json'
     with open(STATS_FILE) as data_file:
@@ -56,24 +57,25 @@ def api_statistics():
     values = json.dumps(values, indent=4)
     return Response(values, mimetype='application/json')
 
-@app.route('/api/autocomplete/<word>', methods=['GET'])
+@app.route('/autocomplete/<word>', methods=['GET'])
 def autocomplete_api(word):
     search = Search(word + u"*")
     search.AutoComplete = True
     return Response(search.get_json(), mimetype='application/json')
 
-@app.route('/api/search/<word>', methods=['GET'])
+@app.route('/search/<word>', methods=['GET'])
 def search_api(word):
     search = Search(word)
     return Response(search.get_json(), mimetype='application/json')
 
-@app.route('/api/index/<lletra>', methods=['GET'])
+@app.route('/index/<lletra>', methods=['GET'])
 def index_letter_api(lletra):
     search = Search(lletra)
     search.Index = True
     search.Duplicates = False
     return Response(search.get_json(), mimetype='application/json')
 
+# Render calls
 @app.route('/render/statistics')
 def render_statistics():
 
@@ -94,7 +96,7 @@ def render_statistics():
     r = template.render(values).encode('utf-8')
     return r
 
-@app.route('/lletra/<lletra>')
+@app.route('/render/lletra/<lletra>')
 def dict_index(lletra):
     start = lletra.find('?')
     if start != -1:
