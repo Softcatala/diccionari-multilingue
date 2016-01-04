@@ -108,6 +108,12 @@ class Search(object):
 
         return None
 
+    def add_to_dict(self, dictionary, key, value):
+        if value is None or len(value) == 0:
+            return
+        
+        dictionary[key] = value
+
     def get_result(self, result):
         image = self._get_result(result, "image")
         if 'permission' in result:
@@ -116,26 +122,34 @@ class Search(object):
             permission = None
 
         definition_ca = self._get_result(result, "definition_ca")
+
+        references = {}
+            
+        self.add_to_dict(references, 'gec' , self._get_result(result, "gec"))
+        self.add_to_dict(references, 'wikidata', self._get_result(result, "wikidata_id"))
+        self.add_to_dict(references, 'wikiquote', self._get_result(result, "wikiquote_ca"))
+        self.add_to_dict(references, 'wikidictionary', self._get_result(result, "wikidictionary_ca"))
+
+        if result['source'] == 1:
+            source = 'wikidata'
+        else:
+            source = 'wikidictionary_ca'
     
-        result_dict = {
-            'word_ca': self._get_result(result, "word_ca"),
-            'definition_ca' : definition_ca,
-            'word_en': self._get_result(result, "word_en"),
-            'definition_en' : self._get_result(result, "definition_en"),
-            'word_fr': self._get_result(result, "word_fr"),
-            'definition_fr' : self._get_result(result, "definition_fr"),
-            'word_de': self._get_result(result, "word_de"),
-            'definition_de' : self._get_result(result, "definition_de"),
-            'word_es': self._get_result(result, "word_es"),
-            'definition_es' : self._get_result(result, "definition_es"),
-            'image' : image,
-             #'permission' : permission,
-            'gec' : self._get_result(result, "gec"),
-            'wikidata_id' : self._get_result(result, "wikidata_id"),
-            'ca_wikiquote' : self._get_result(result, "ca_wikiquote"),
-            'ca_wikidictionary' : self._get_result(result, "ca_wikidictionary"),
-            'source' : result['source']
-        }
+        result_dict = {}
+
+        self.add_to_dict(result_dict, 'word_ca', self._get_result(result, "word_ca"))
+        self.add_to_dict(result_dict, 'definition_ca', definition_ca)
+        self.add_to_dict(result_dict, 'word_en', self._get_result(result, "word_en"))
+        self.add_to_dict(result_dict, 'definition_en', self._get_result(result, "definition_en"))
+        self.add_to_dict(result_dict, 'word_fr', self._get_result(result, "word_fr"))
+        self.add_to_dict(result_dict, 'definition_fr', self._get_result(result, "definition_fr"))
+        self.add_to_dict(result_dict, 'word_de', self._get_result(result, "word_de"))
+        self.add_to_dict(result_dict, 'definition_de', self._get_result(result, "definition_de"))
+        self.add_to_dict(result_dict, 'word_es', self._get_result(result, "word_es"))
+        self.add_to_dict(result_dict, 'definition_es', self._get_result(result, "definition_es"))
+        self.add_to_dict(result_dict, 'image', image)
+        self.add_to_dict(result_dict, 'references', references)
+        self.add_to_dict(result_dict, 'source', source)
 
         return result_dict
 

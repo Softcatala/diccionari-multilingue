@@ -177,8 +177,8 @@ def _process_xml():
                                   permission=None,
                                   gec=None,
                                   wikidata_id=None,
-                                  ca_wikiquote=None,
-                                  ca_wikidictionary=ca_label,
+                                  wikiquote_ca=None,
+                                  wikidictionary_ca=ca_label,
                                   source=WIKIDICTIONARY)
 
     stats = {

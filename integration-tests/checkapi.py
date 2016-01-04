@@ -68,7 +68,7 @@ class CheckApi(object):
         term = json[0]
         self._assert_that(term['word_ca'], 'abat')
         self._assert_that(term["definition_es"], u"título dado al superior de una abadía o monasterio")
-        self._assert_that(term["ca_wikiquote"], "Abat")
+        self._assert_that(term["wikiquote_ca"], "Abat")
         self._assert_that(term["definition_ca"], None)
         self._assert_that(term["image"], "Abbatia%20CIST%20Sbernadiensis%2027a.jpg")
         self._assert_that(term["definition_fr"], u"titre religieux donné à celui qui dirige une abbaye")
@@ -77,9 +77,9 @@ class CheckApi(object):
         self._assert_that(term["definition_en"], "religious title")
         self._assert_that(term["word_en"], "abbot")
         self._assert_that(term["word_fr"], u"abbé")
-        self._assert_that(term["ca_wikidictionary"], None)
+        self._assert_that(term["wikidictionary_ca"], None)
         self._assert_that(term["word_de"], "Abt")
-        self._assert_that(term["wikidata_id"], "Q103163")
+        self._assert_that(term["wikidata"], "Q103163")
         self._assert_that(term["word_es"], "abad")
         self._assert_that(term["word_ca"], "abat")
 

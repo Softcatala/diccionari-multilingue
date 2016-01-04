@@ -237,7 +237,7 @@ def _process_json():
 
             ca_wikiquote = _get_sitelink(item, 'cawikiquote')
             if ca_wikiquote is not None:
-                data['cawikiquote'] = ca_wikiquote
+                data['wikiquote_ca'] = ca_wikiquote
 
             data['WikidataId'] = item_id
             json.dump(data, json_file, indent=4, separators=(',', ': '))
@@ -256,8 +256,8 @@ def _process_json():
                              permission=permission,
                              gec=gec,
                              wikidata_id=item_id,
-                             ca_wikiquote=ca_wikiquote,
-                             ca_wikidictionary=None,
+                             wikiquote_ca=ca_wikiquote,
+                             wikidictionary_ca=None,
                              source=WIKIDATA)
 
     stats = OrderedDict([

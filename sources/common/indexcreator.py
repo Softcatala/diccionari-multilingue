@@ -43,7 +43,7 @@ class IndexCreator(object):
     def write_entry(self, word_en, word_ca, word_fr, word_de, word_es,
                     definition_en, definition_ca, definition_fr, 
                     definition_de, definition_es, image, permission, gec,
-                    wikidata_id, ca_wikiquote, ca_wikidictionary, source):
+                    wikidata_id, wikiquote_ca, wikidictionary_ca, source):
 
         s = ''
         if word_ca is not None:
@@ -80,9 +80,9 @@ class IndexCreator(object):
                                  permission=permission,
                                  gec=gec,
                                  wikidata_id=wikidata_id,
-                                 ca_wikiquote=ca_wikiquote,
+                                 wikiquote_ca=wikiquote_ca,
                                  index_letter=index_letter,
-                                 ca_wikidictionary=ca_wikidictionary,
+                                 wikidictionary_ca=wikidictionary_ca,
                                  source=source)
 
     def save(self):
@@ -106,9 +106,9 @@ class IndexCreator(object):
                         permission=TEXT(stored=True),
                         gec=TEXT(stored=True),
                         wikidata_id=TEXT(stored=True),
-                        ca_wikiquote=TEXT(stored=True),    
+                        wikiquote_ca=TEXT(stored=True),    
                         index_letter=TEXT(stored=True, analyzer=analyzer),
-                        ca_wikidictionary=TEXT(stored=True),
+                        wikidictionary_ca=TEXT(stored=True),
                         source=NUMERIC(stored=True))
 
         if not os.path.exists(self.dir_name):
