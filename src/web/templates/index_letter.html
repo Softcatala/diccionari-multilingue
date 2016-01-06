@@ -20,7 +20,7 @@
      <!-- bodyContent -->
     <h1 class="section">Índex per la lletra '{{lletra}}'</h1>
     {% for result in results %}
-      <span style ='margin-right: 5px'><a href='../web_search.py?source={{result.word_ca}}'> {{result.word_ca}}</a></span> 
+      <span style ='margin-right: 5px'><a href='../../web_search.py?source={{result.word_ca}}'> {{result.word_ca}}</a></span> 
     {% endfor %}
     {% include "templates/pagination.html" %}
     </div>

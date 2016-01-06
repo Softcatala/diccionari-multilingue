@@ -106,16 +106,16 @@
         <tr>
         <td>
             <p><u>Referències</u></p>
-        {% if result.wikidata_id %}
+        {% if result.references.wikidata %}
             <p>Vegeu l'entrada a <a href="https://www.wikidata.org/wiki/{{result.wikidata_id}}">Wikidata</a></p>
         {% endif %}
-        {% if result.gec %}
+        {% if result.references.gec %}
             <p>Vegeu l'entrada a <a href="http://www.enciclopedia.cat/EC-GEC-{{result.gec}}.xml">l'Enciclopèdia Catalana</a></p>
         {% endif %}
-        {% if result.ca_wikiquote %}
+        {% if result.references.wikiquote_ca %}
             <p>Vegeu l'entrada a <a href="https://ca.wikiquote.org/wiki/{{result.ca_wikiquote}}">Viquidites</a></p>
         {% endif %}
-        {% if result.ca_wikidictionary %}
+        {% if result.references.wikidictionary_ca %}
             <p>Vegeu l'entrada a <a href="https://ca.wiktionary.org/wiki/{{result.ca_wikidictionary}}">Viccionari</a></p>
         {% endif %}
         </td>
