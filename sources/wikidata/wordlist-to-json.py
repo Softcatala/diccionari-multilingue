@@ -44,7 +44,9 @@ def _is_segment_valid(string, description):
         return False
 
     if description is not None:
-        if 'disambiguation page' in description or 'category page' in description:
+        if 'disambiguation page' in description or \
+           'category page' in description or \
+           'Wikimedia category' in description:
             return False
 
     return True
