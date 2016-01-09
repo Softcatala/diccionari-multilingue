@@ -141,54 +141,62 @@ def _process_xml():
                         if username is not None and len(username) > 0:
                             authors.add(username)
 
+        if verb is False:
+            continue
 
-        if verb is True:
-            # TODO: A better way to determine infinitives
-            ca_label_str = to_str(ca_label)
-            if ca_label_str[len(ca_label_str) - 1] == 'r':
-                ca_labels += 1
-                if len(en_label) > 0:
-                    en_labels += 1
+        # TODO: A better way to determine infinitives
+        ca_label_str = to_str(ca_label)
+        if ca_label_str[len(ca_label_str) - 1] != 'r':
+            continue
 
-                if len(es_label) > 0:
-                    es_labels += 1
+        ca_desc = u''
+        verbText = VerbText(text)
+        s = verbText.GetDescription()
 
-                if len(fr_label) > 0:
-                    fr_labels += 1
+        if len(s) > 0:
+            ca_desc = s
+            ca_descs += 1
 
-                if len(de_label) > 0:
-                    de_labels += 1
+        if len(en_label) == 0 and len(es_label) == 0 and len(fr_label) == 0 and \
+           len(de_label) == 0 and len(it_label) == 0 and len(ca_desc) == 0:
+            logging.debug("Discard only ca_label:" + ca_label)
+            continue
 
-                if len(it_label) > 0:
-                    it_labels += 1
+        ca_labels += 1
+        if len(en_label) > 0:
+            en_labels += 1
 
-                ca_desc = None
-                verbText = VerbText(text)
-                s = verbText.GetDescription()
+        if len(es_label) > 0:
+            es_labels += 1
 
-                if len(s) > 0:
-                    ca_desc = s
-                    ca_descs += 1
+        if len(fr_label) > 0:
+            fr_labels += 1
 
-                index.write_entry(word_en=en_label,
-                                  word_ca=ca_label,
-                                  word_fr=fr_label,
-                                  word_de=de_label,
-                                  word_es=es_label,
-                                  word_it=it_label,
-                                  definition_en=None,
-                                  definition_ca=ca_desc,
-                                  definition_fr=None,
-                                  definition_de=None,
-                                  definition_es=None,
-                                  definition_it=None,
-                                  image=None,
-                                  permission=None,
-                                  gec=None,
-                                  wikidata_id=None,
-                                  wikiquote_ca=None,
-                                  wikidictionary_ca=ca_label,
-                                  source=WIKIDICTIONARY)
+        if len(de_label) > 0:
+            de_labels += 1
+
+        if len(it_label) > 0:
+            it_labels += 1
+
+        index.write_entry(word_en=en_label,
+                          word_ca=ca_label,
+                          word_fr=fr_label,
+                          word_de=de_label,
+                          word_es=es_label,
+                          word_it=it_label,
+                          definition_en=None,
+                          definition_ca=ca_desc,
+                          definition_fr=None,
+                          definition_de=None,
+                          definition_es=None,
+                          definition_it=None,
+                          image=None,
+                          permission=None,
+                          gec=None,
+                          wikidata_id=None,
+                          wikiquote_ca=None,
+                          wikidictionary_ca=ca_label,
+                          source=WIKIDICTIONARY)
 
     stats = {
              "ca_labels": ca_labels,
