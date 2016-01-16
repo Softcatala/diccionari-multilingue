@@ -24,12 +24,12 @@ import logging
 import os
 import sys
 import json
-import operator
 
 from pymongo import MongoClient
 from mongorecords import MongoRecords
 from commonsimage import CommonsImage
 from collections import OrderedDict
+from claims import Claims
 
 sys.path.append('../common/')
 from indexcreator import IndexCreator
@@ -109,15 +109,6 @@ def init_logging():
     logger = logging.getLogger('')
     logger.addHandler(ch)
 
-def _write_claims(mongo_records, claims_stats):
-    claims = open('claims.txt', 'w')
-    sorted_keys = sorted(claims_stats.items(), key=operator.itemgetter(1), reverse=True)
-    for item in sorted_keys:
-        mean = mongo_records.findClaim(item[0])
-        claims.write('{0}({1}) = {2}\n'.format(item[0], mean.encode('utf-8'), str(item[1])))
-
-    claims.close()
-
 
 def _process_json():
 
@@ -140,7 +131,7 @@ def _process_json():
     images = 0
     articles = set()
     index = IndexCreator()
-    claims_stats = {}
+    claims = Claims()
 
     words_file_en = open('words-en.txt','w')
     words_file_ca = open('words-ca.txt','w')
@@ -162,6 +153,9 @@ def _process_json():
 
         if items is None:
             continue
+
+        #if cnt > 50000:
+            #break
 
         for item in items:
 
@@ -201,17 +195,7 @@ def _process_json():
             if _is_segment_valid(en_label, en_description) is False:
                 continue
 
-            claims = item.get('claims')
-            if claims is not None:
-                text = ''
-                for claim in claims:
-                    text += claim + " "
-                    times = claims_stats.get(claim)
-                    if times is None:
-                        times = 0
-                    
-                    times = times + 1
-                    claims_stats[claim] = times
+            claims.store_claim(item)
 
             selected = selected + 1
             data = {}
@@ -306,10 +290,10 @@ def _process_json():
                              source=WIKIDATA)
 
             words_file_en.write(en_label.encode('utf-8') + '\r\n')
-            if ca_label is not None:
-                words_file_ca.write(ca_label.encode('utf-8') + ' id:' + str(item_id) + '\r\n')
-
-    _write_claims(mongo_records, claims_stats)
+            words_file_ca.write(ca_label.encode('utf-8') + ' id:' + str(item_id) + '\r\n')
+            claims.write_to_wordclaims(ca_label, item_id, item)
+                  
+    claims.write_claims_stats(mongo_records)
 
     stats = OrderedDict([
         ("words", len(words)),
