@@ -73,8 +73,11 @@ def _get_image(item):
     claims = item['claims']
     if 'P18' not in claims:
         return None
-    claim = claims['P18']
-    return claim[0]['mainsnak']['datavalue']['value']
+    try:
+        claim = claims['P18']
+        return claim[0]['mainsnak']['datavalue']['value']
+    except:
+        return None
 
 def _get_GEC(item):
     claims = item['claims']
@@ -128,6 +131,8 @@ def _process_json():
     articles = set()
     index = IndexCreator()
 
+    words_file_en = open('words-en.txt','w')
+    words_file_ca = open('words-ca.txt','w')
     json_file = open('wordlist-wikidata.json', 'w')
     db = _create_collection()
     words = read_english_word_list()
@@ -139,7 +144,8 @@ def _process_json():
         word = word.strip()
         items = mongo_records.findEntry(word)
 
-        if items is None:
+        #if items is None:
+        if items is None or items.count() == 0:
             if len(word) > 2:
                 word = word[0].upper() + word[1:]
                 items = mongo_records.findEntry(word)
@@ -165,13 +171,14 @@ def _process_json():
             cnt = cnt + 1
             en_label = mongo_records.get_label(label, 'en')
             ca_label = mongo_records.get_label(label, 'ca')
+           
+            if en_label is None or ca_label is None:
+                continue
+
             fr_label = mongo_records.get_label(label, 'fr')
             de_label = mongo_records.get_label(label, 'de')
             es_label = mongo_records.get_label(label, 'es')
             it_label = mongo_records.get_label(label, 'it')
-
-            if en_label is None:
-                continue
 
             descriptions = item.get('descriptions')
             en_description = mongo_records.get_description(descriptions, 'en')
@@ -276,6 +283,11 @@ def _process_json():
                              wikidictionary_ca=None,
                              source=WIKIDATA)
 
+            words_file_en.write(en_label.encode('utf-8') + '\r\n')
+
+            if ca_label is not None:  
+                words_file_ca.write(ca_label.encode('utf-8') + '\r\n')
+
     stats = OrderedDict([
         ("words", len(words)),
         ("entries", cnt),
@@ -298,6 +310,8 @@ def _process_json():
     _show_statistics(stats, json_file)
     stats['date'] = datetime.date.today().strftime("%d/%m/%Y")
     index.save()
+    words_file_en.close()
+    words_file_ca.close()
 
     wiki_stats = {"wikidata": stats}
     with open('../stats.json', 'w') as jsonfile:
