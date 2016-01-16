@@ -109,6 +109,8 @@ def init_logging():
     logger = logging.getLogger('')
     logger.addHandler(ch)
 
+    logger = logging.getLogger('peewee')
+    logger.setLevel(logging.ERROR)
 
 def _process_json():
 
