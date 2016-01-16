@@ -197,6 +197,9 @@ def _process_json():
             if _is_segment_valid(en_label, en_description) is False:
                 continue
 
+            if claims.valid_claim(ca_label, item) is False:
+                continue
+
             claims.store_claim(item)
 
             selected = selected + 1

@@ -18,6 +18,7 @@
 # Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
+import logging
 import operator
 
 class Claims():
@@ -77,4 +78,19 @@ class Claims():
             desc = self.previous_claims[claim]
             text = ' ' + desc
             self.words_claims_file.write(text)
+
+
+    def valid_claim(self, ca_label, item):
+        claims = item.get('claims')
+        if claims is None:
+            return;
+
+        not_valid = ['P1566' # Geonames 
+                    ]
+        for prop in not_valid:
+            if prop in claims:
+                logging.debug('Discarded {0} because property {1}'.format(ca_label.encode('utf-8'), prop))
+                return False
+
+        return True
 
