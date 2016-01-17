@@ -103,6 +103,10 @@ class Claims():
         surnames = [202444, # Prenom
                      12308941, # Prenom masculí
                      101352, #Cognom
+                     11879590, # Prenom femení
+                     4035392, # Music band
+                     82799, # Noms
+                     3409032, # Unisex name
                     ]
         for prop in not_valid:
             if prop in claims:

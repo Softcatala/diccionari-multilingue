@@ -58,7 +58,7 @@ def _create_collection():
     return db
 
 def read_english_word_list():
-    return list(line.lower() for line in open('../freelist/words.txt'))
+    return list(line.lower() for line in open('../apertium/catalan_words.txt'))
 
 def _show_statistics(stats, json_file):
     cnt = stats["entries"]
@@ -332,7 +332,7 @@ def _process_json():
 def create_index():
     print ("Index creation started")
     db = _create_collection()
-    db.wikidata.ensure_index("labels.en.value", background=True)
+    db.wikidata.ensure_index("labels.ca.value", background=True)
     print ("Index creation completed")
     return
 
@@ -348,7 +348,7 @@ def main():
 
     init_logging()
     start_time = datetime.datetime.now()
-    # create_index()
+    #create_index()
     _process_json()
     msg = 'Time {0}'.format(datetime.datetime.now() - start_time)
     logging.info(msg)

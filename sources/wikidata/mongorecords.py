@@ -26,7 +26,7 @@ class MongoRecords():
 
     def findEntry(self, entry):
         s = '{0}'.format(entry)
-        records = self.db.wikidata.find({'labels.en.value': s})
+        records = self.db.wikidata.find({'labels.ca.value': s})
         return records
 
     def findClaim(self, claim):
