@@ -53,17 +53,21 @@ class Claims():
             self.claims_stats[claim] = times
 
     def read_claims(self):
-        claims = {}
-        f = open('claims.txt', 'r')
-        while True:
-            line = f.readline()
-            if line is None or len(line) == 0:
-                break
+        try:
+            claims = {}
+            f = open('claims.txt', 'r')
+            while True:
+                line = f.readline()
+                if line is None or len(line) == 0:
+                    break
 
-            i = line.find('(')
-            claims[line[0:i]] = line
+                i = line.find('(')
+                claims[line[0:i]] = line
 
-        return claims
+            return claims
+        except:
+            logging.error('Cannot read claims.txt')
+            return None
 
     def write_to_wordclaims(self, ca_label, item_id, item):
         if ca_label is None:
@@ -71,10 +75,13 @@ class Claims():
 
         self.words_claims_file.write(ca_label.encode('utf-8') + ' id:' + str(item_id) + '\r\n')
         claims = item.get('claims')
-        if claims is None:
-            return;
+        if claims is None or self.previous_claims is None:
+            return
 
         for claim in claims:
+            if claim not in self.previous_claims:
+                continue
+
             desc = self.previous_claims[claim]
             text = ' ' + desc
             self.words_claims_file.write(text)
