@@ -472,7 +472,6 @@ addicte
 Addison
 additiu
 additivitat
-<!-- add translation until transfer rules work 'les quals no foren pas dissenyats .' -->
 adduir
 a debat
 Adeje
@@ -545,10 +544,8 @@ a discreció del tribunal
 Aditya
 adjacent
 adjectiu
-<!-- ADJECTIUS -->
 adjectivació
 adjectival
-<!-- ADJS amb overlapings amb els antics -->
 adjudicació
 adjudicar
 adjudicatari
@@ -660,7 +657,6 @@ advertiment
 advertir
 advocar
 advocat
-<!-- ADVS PREPS CONJS multiparaules de lèxic comercial-->                                                    
 Aelohim
 a empentes i rodolons
 Aeneas
@@ -1698,7 +1694,6 @@ ambiciós
 ambiental
 ambientalment
 ambientar
-<!-- AMBIG CA~EN, order by POS, Alphabet, Default on CA side -->
 ambigu
 ambigüitat
 Ambilamp
@@ -2339,7 +2334,6 @@ antropologia
 antropològic
 antropometria
 antropomorfisme
-<!-- Antroponims-->
 Antton
 Antu
 Antulio
@@ -5754,7 +5748,6 @@ cinisme
 cinquanta</r></p><par n="twenty__num"/></e>
 cinquantè
 cinquè
-<!-- Cinquè Paquet Verbs -->
 cinta
 Cinthia
 Cintia
@@ -6022,7 +6015,6 @@ club de rem
 club de rem de Hondarribia
 club esportiu
 cm
-<!--CNJ -->
 CO2
 coaccionar
 coactiu
@@ -6090,7 +6082,6 @@ cogestió
 cognició
 cognitiu
 cognom
-<!--cognoms -->
 cognoscibilitat
 cogombre
 cohabitació
@@ -8304,7 +8295,6 @@ desembossar
 desembragament
 desembragar
 desembre
-<!-- Desembre ADJ-->
 desembussador
 desembussar
 desemmascarar
@@ -8574,7 +8564,6 @@ deteriorament
 determinable
 determinació
 determinant
-<!--DETERMINANTS, PREPOSICIONS I PRONOMS (inclou predeterminants, relatius i genitiu saxó) -->
 determinar
 determinat
 determinisme
@@ -8598,7 +8587,6 @@ detriment
 detrític
 detritívor
 Detroit
-<!--DETS i PREDET-->
 Detta
 deu
 déu
@@ -10284,7 +10272,6 @@ enciclopèdic
 en circumstàncies normals
 enclavament
 enclític
-<!--enclítics -->
 encobrir
 encofrat
 en col·laboració
@@ -12532,10 +12519,7 @@ fi
 fiabilitat
 fiable
 Fiacre
-<!-- FI ADJECTIUS  -->
 fiador
-<!--Fi ADVS, PREADVS i CNJ -->
-<!-- FI ADVS PREPS CONJS multiparaules de lèxic comercial-->                                                    
 Fiammetta
 fiança
 fiasco
@@ -12565,8 +12549,6 @@ ficar
 ficar-se en problemes
 ficció
 ficcionalisme
-<!-- FI Cinquè Paquet Verbs -->
-<!--Fi CNJ -->
 fictici
 FIDE
 fidedigne
@@ -12580,8 +12562,6 @@ Fidelia
 fidelitat
 fidelment
 Fidencio
-<!-- Fi  DETERMINANTS, PREPOSICIONS I PRONOMS -->
-<!--Fi DETS i PREDET-->
 fideu
 fiduciari
 Fifi
@@ -12664,7 +12644,6 @@ financer
 financerament
 finestra
 finestró
-<!-- FI Next + temps-->
 finit
 finlandès
 Finlàndia
@@ -12672,11 +12651,6 @@ Finlay
 Finley
 Finn
 Fino
-<!-- FI NOMS -->
-<!-- FI NOMS BCN 1-1 -->
-<!--Fi NOMS: paquet de llista Oxford -->
-<!--Fi NOMS PROPIS -->
-<!-- fi noves entrades ADV BCN -->
 fins
 fins a
 fins a cert punt
@@ -12701,7 +12675,6 @@ fins i tot ara
 fins llavors
 fins que
 fintador
-<!--Fi NUMERALS -->
 Fiona
 Fioralba
 fiord
@@ -12712,17 +12685,11 @@ Fiorello
 Fiorenza
 Fiorenzo
 Fiorina
-<!--Fi PREADV -->
-<!--Fi Preposicions -->
-<!--Fi Primer paquet Verbs -->
-<!--Fi PRN i REL-->
-<!-- FI Quart Paquet Verbs -->
 fira
 Firmin
 Firmino
 fiscal
 Fischer
-<!-- FI Segon Paquet Verbs -->
 físic
 física
 física de la matèria condensada
@@ -12745,7 +12712,6 @@ fistó
 fístula
 fita
 fitat
-<!-- FI Tercer Paquet Verbs -->
 fitocenosi
 fitòfag
 fitofarmacologia
@@ -12760,8 +12726,6 @@ fitotoxicitat
 fitxer
 Fitzgerald
 Fitzpatrick
-<!--Fi VERBS -->
-<!--Fi verbs multiparaula -->
 fix
 fixació
 fixar
@@ -15870,7 +15834,6 @@ inhumar
 inici
 iniciació
 iniciador
-<!--Inici ADVS, PREADVS i CNJ -->
 inicial
 inicialització
 inicialitzar
@@ -16101,7 +16064,6 @@ interior
 interioritzar
 interiorment
 interjecció
-<!--INTERJECCIONS -->
 interlineació
 interlineat
 interlingua
@@ -19400,7 +19362,6 @@ Meryell
 Meryl
 mes
 més
-<!-- més acrònims -->
 mes a mes
 més amunt
 més arrere
@@ -19539,8 +19500,6 @@ meu
 Mèxic
 mexicà
 Meyer
-<!--MG: no he simplificat slr/srl -->
-<!--MG: per ara, him/her es tradueix per 'li', per això les següents equiv són RL (el/la/els/les -> him/her/them. Revisar -->
 mi
 Mia
 Miah
@@ -20728,7 +20687,6 @@ New Jersey
 newton
 newtonià
 New York Times
-<!-- Next + temps-->
 Neyen
 Neyts-Uyttebroeck
 ni
@@ -20945,12 +20903,6 @@ nomograma
 nomotètic
 nomparell
 nom propi
-<!-- NOMS -->
-<!-- NOMS BCN 1-1 -->
-<!--NOMS: paquet de llista Oxford -->
-<!--NOMS PROPIS -->
-<!-- noms propis, altres -->
-<!--noms propis Dori -->
 nontronita
 Nontué
 no obstant això
@@ -21044,9 +20996,7 @@ novel·lesc
 novel·lista
 novel·lístic
 novembre
-<!-- Novembre-->
 novençà
-<!-- Noves entrades ADV BCN -->
 novetat
 Novia
 Novio
@@ -21076,7 +21026,6 @@ numerable
 numeració
 numerador
 numeral
-<!--NUMERALS -->
 numerar
 numèric
 numèricament
@@ -23383,7 +23332,6 @@ polipèptid
 poliploide
 poliposi
 polisacàrid
-<!-- POLISEMIA -->
 polisèmia
 polisèmic
 polisíl·lab
@@ -23611,7 +23559,6 @@ prat
 Prat
 Práxedes
 Praxila
-<!--PREADV -->
 preàmbul
 prec
 precari
@@ -23719,7 +23666,6 @@ preparar
 preparatori
 preposició
 preposicional
-<!--Preposicions -->
 preprocessament
 preprogramar
 prerrogativa
