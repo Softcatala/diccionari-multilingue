@@ -85,7 +85,11 @@ class Claims():
         if claims is None:
             return;
 
-        not_valid = ['P1566' # Geonames 
+        not_valid = ['P1566', # Geonames
+                     'P625', # coordinate location
+                     'P345', # IMDb identifier
+                     'P577', # Publication date (comics, books, etc)
+                     'P106' # Ocupation
                     ]
         for prop in not_valid:
             if prop in claims:
