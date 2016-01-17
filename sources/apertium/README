@@ -7,8 +7,11 @@ Generate plain English word list
 
 Generate plain Catalan word list
 
-1. cat apertium-en-ca.en-ca.dix  | sed -e 's/^.*<r>//' -e 's!<s.*!!' | more
+Use apertium-en-ca.en-ca-smaller.dix that has removed:
+- People's name
+
+1. cat apertium-en-ca.en-ca-smaller.dix  | sed -e 's/^.*<r>//' -e 's!<s.*!!' | more
 2. Replace <b/> by ' ' and remove comments <!--
 3. Sort the wordlist
-
+4. Remove duplicated entries: awk '!seen[$0]++' filename
 
