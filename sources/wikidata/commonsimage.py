@@ -70,7 +70,7 @@ class CommonsImage(object):
             image = None
     
         if image is not None:
-            msg = "Exists {0}".format(image.url)
+            msg = "Image exists {0}".format(image.url)
             logging.debug(msg)
             return image.url, image.permission
 
