@@ -95,6 +95,7 @@ class Claims():
         #Q_id
         surnames = [202444, # Prenom
                      12308941, # Prenom masculí
+                     101352, #Cognom
                     ]
         for prop in not_valid:
             if prop in claims:
