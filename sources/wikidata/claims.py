@@ -91,10 +91,26 @@ class Claims():
                      'P577', # Publication date (comics, books, etc)
                      'P106' # Ocupation
                     ]
+        
+        #Q_id
+        surnames = [202444, # Prenom
+                     12308941, # Prenom masculí
+                    ]
         for prop in not_valid:
             if prop in claims:
                 logging.debug('Discarded {0} because property {1}'.format(ca_label.encode('utf-8'), prop))
                 return False
 
+        if 'P31' in claims: # Instance of
+            try:
+                instance = claims['P31'][0]['mainsnak']['datavalue']['value']
+                if instance is not None and instance['entity-type'] == 'item' and instance['numeric-id'] is not None: # A surname
+                    numeric_id = instance['numeric-id']
+                    if numeric_id in surnames:
+                        logging.debug('Discarded {0} because P31 with value {1}'.format(ca_label.encode('utf-8'), numeric_id))
+                        return False
+            except Exception as e:
+                logging.error(e)
+            
         return True
 
