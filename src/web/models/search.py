@@ -28,21 +28,33 @@ class Search(object):
     """Search a term in the Whoosh index."""
     dir_name = "indexdir"
 
-    def __init__(self, word_ca):
-        self._word_ca = word_ca
+    def __init__(self, word, lang = "ca"):
+        self._word = word
         self.searcher = None
         self.query = None
         self.Index = False
         self.Duplicates = True
         self.AutoComplete = False
+        self.field = self._get_field(lang)
+
+    def _get_field(self, lang):
+        mapping = {
+            "ca" : "word_ca",
+            "en" : "word_en",
+            "fr" : "word_fr",
+            "es" : "word_es",
+            "it" : "word_it",
+        }
+
+        return mapping[lang]
 
     @property
     def has_invalid_search_term(self):
-        return self.word_ca is None
+        return self.word is None
 
     @property
-    def word_ca(self):
-        return self._word_ca
+    def word(self):
+        return self._word
 
     def get_results(self):
         if self.searcher is None:
@@ -72,13 +84,13 @@ class Search(object):
         # We use parenthesis to prevent operators like OR used in source
         # to affect target
         if self.Index is True:
-            if self.word_ca is not None and len(self.word_ca) > 0:
-                qs += u' index_letter:({0})'.format(self.word_ca)
+            if self.word_ca is not None and len(self.word) > 0:
+                qs += u' index_letter:({0})'.format(self.word)
                 fields.append("index_letter")
         else:
-            if self.word_ca is not None and len(self.word_ca) > 0:
-                qs += u' word_ca:({0})'.format(self.word_ca)
-                fields.append("word_ca")
+            if self.word is not None and len(self.word) > 0:
+                qs += u' {0}:({1})'.format(self.field, self.word)
+                fields.append(self.field)
 
         self.query = MultifieldParser(fields, ix.schema).parse(qs)
 

@@ -65,7 +65,12 @@ def autocomplete_api(word):
 
 @app.route('/search/<word>', methods=['GET'])
 def search_api(word):
-    search = Search(word)
+    lang = request.args.get('lang')
+    if lang is None:
+        search = Search(word)
+    else:
+        search = Search(word, lang)
+        
     return Response(search.get_json(), mimetype='application/json')
 
 @app.route('/index/<lletra>', methods=['GET'])
