@@ -155,11 +155,6 @@ def _process_json():
         word = word.strip()
         items = mongo_records.findEntry(word)
 
-        if items is None or items.count() == 0:
-            if len(word) > 2:
-                word = word[0].upper() + word[1:]
-                items = mongo_records.findEntry(word)
-
         if items is None:
             continue
 
