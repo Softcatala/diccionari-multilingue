@@ -107,6 +107,9 @@ class Claims():
                      4035392, # Music band
                      82799, # Noms
                      3409032, # Unisex name
+                     4167410, #Wikimedia disambiguation page
+                     7366, # Song
+                     482994, # Album name
                     ]
         for prop in not_valid:
             if prop in claims:
