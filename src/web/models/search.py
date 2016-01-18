@@ -84,7 +84,7 @@ class Search(object):
         # We use parenthesis to prevent operators like OR used in source
         # to affect target
         if self.Index is True:
-            if self.word_ca is not None and len(self.word) > 0:
+            if self.word is not None and len(self.word) > 0:
                 qs += u' index_letter:({0})'.format(self.word)
                 fields.append("index_letter")
         else:
