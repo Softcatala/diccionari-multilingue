@@ -139,6 +139,7 @@ def _process_json():
     it_descs = 0
     images = 0
     articles = set()
+    unique_entries = set()
     index = IndexCreator()
     claims = Claims()
 
@@ -276,6 +277,7 @@ def _process_json():
             data['WikidataId'] = item_id
             json.dump(data, json_file, indent=4, separators=(',', ': '))
 
+            unique_entries.add(word.lower())
             index.write_entry(word_en=en_label,
                              word_ca=ca_label,
                              word_fr=fr_label,
@@ -304,6 +306,7 @@ def _process_json():
 
     stats = OrderedDict([
         ("words", len(words)),
+        ("unique_entries", len(unique_entries)),
         ("entries", cnt),
         ("selected", selected),
         ("ca_labels", ca_labels),
