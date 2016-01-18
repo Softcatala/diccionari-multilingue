@@ -96,7 +96,8 @@ class Claims():
                      'P625', # coordinate location
                      'P345', # IMDb identifier
                      'P577', # Publication date (comics, books, etc)
-                     'P106' # Ocupation
+                     'P106', # Ocupation
+                     'P571', # inception (work's date)
                     ]
         
         #Q_id
