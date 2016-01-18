@@ -58,7 +58,14 @@ def _create_collection():
     return db
 
 def read_english_word_list():
-    return list(line.lower() for line in open('../apertium/catalan_words.txt'))
+    words = list(line.lower() for line in open('../apertium/catalan_words.txt'))
+    read_list = list(words)
+    # All also upper version
+    for word in list(read_list):
+        word = word[0].upper() + word[1:]
+        words.append(word)
+
+    return words
 
 def _show_statistics(stats, json_file):
     cnt = stats["entries"]
