@@ -39,15 +39,17 @@ def percentage(part, whole):
     return str(100 * float(part)/float(whole))
 
 
-def _is_segment_valid(string, description):
+def _is_segment_valid(item_id, ca_label, en_label, description):
     # Discard numeric strings only (like years)
-    if string.isdigit():
+    if en_label.isdigit():
+        logging.debug("Discarded {0} ({1}) because {1} digit".format(ca_label.encode('utf-8'), item_id, en_label))
         return False
 
     if description is not None:
         if 'disambiguation page' in description or \
            'category page' in description or \
            'Wikimedia category' in description:
+            logging.debug("Discarded {0} ({1}) because '{2}'".format(ca_label.encode('utf-8'), item_id, description))
             return False
 
     return True
@@ -145,6 +147,8 @@ def _process_json():
 
     words_file_en = open('words-en.txt','w')
     words_file_ca = open('words-ca.txt','w')
+    descriptions_file_en = open('descriptions-en.txt','w')
+    descriptions_file_ca = open('descriptions-ca.txt','w')
     json_file = open('wordlist-wikidata.json', 'w')
     db = _create_collection()
     words = read_english_word_list()
@@ -196,8 +200,10 @@ def _process_json():
             de_description = mongo_records.get_description(descriptions, 'de')
             es_description = mongo_records.get_description(descriptions, 'es')
             it_description = mongo_records.get_description(descriptions, 'it')
+    
+            logging.debug('Considering {0} ({1})'.format(ca_label.encode('utf-8'), item_id))
 
-            if _is_segment_valid(en_label, en_description) is False:
+            if _is_segment_valid(item_id, ca_label, en_label, en_description) is False:
                 continue
 
             if claims.valid_claim(ca_label, item) is False:
@@ -300,6 +306,17 @@ def _process_json():
 
             words_file_en.write(en_label.encode('utf-8') + '\r\n')
             words_file_ca.write(ca_label.encode('utf-8') + ' id:' + str(item_id) + '\r\n')
+
+            descriptions_file_en.write(en_label.encode('utf-8') + '\r\n')
+
+            if ca_description is not None:
+                s = '{0} id: {1} - {2}\r\n'.format(ca_label.encode('utf-8'), str(item_id), ca_description.encode('utf-8'))
+                descriptions_file_ca.write(s)
+        
+            if en_description is not None:
+                s = '{0} id: {1} - {2}\r\n'.format(en_label.encode('utf-8'), str(item_id), en_description.encode('utf-8'))
+                descriptions_file_en.write(s)
+
             claims.write_to_wordclaims(ca_label, item_id, item)
                   
     claims.write_claims_stats(mongo_records)
@@ -329,6 +346,8 @@ def _process_json():
     index.save()
     words_file_en.close()
     words_file_ca.close()
+    descriptions_file_en.close()
+    descriptions_file_ca.close()
 
     wiki_stats = {"wikidata": stats}
     with open('../stats.json', 'w') as jsonfile:

@@ -92,12 +92,15 @@ class Claims():
         if claims is None:
             return;
 
+        item_id = item['id']
+
         not_valid = ['P1566', # Geonames
                      'P625', # coordinate location
                      'P345', # IMDb identifier
                      'P577', # Publication date (comics, books, etc)
                      'P106', # Ocupation
-                     'P571', # inception (work's date)
+                     #'P571', # inception (work's date) / Used in Q405
+                     'P50', #Author
                     ]
         
         #Q_id
@@ -111,10 +114,13 @@ class Claims():
                      4167410, #Wikimedia disambiguation page
                      7366, # Song
                      482994, # Album name
+                     13406463, # Article llista
+                     3305213, # Paintings
+                     4830453, # Business names (like Novell)
                     ]
         for prop in not_valid:
             if prop in claims:
-                logging.debug('Discarded {0} because property {1}'.format(ca_label.encode('utf-8'), prop))
+                logging.debug('Discarded {0} ({1}) because property {2}'.format(ca_label.encode('utf-8'), item_id, prop))
                 return False
 
         if 'P31' in claims: # Instance of
@@ -123,7 +129,7 @@ class Claims():
                 if instance is not None and instance['entity-type'] == 'item' and instance['numeric-id'] is not None: # A surname
                     numeric_id = instance['numeric-id']
                     if numeric_id in surnames:
-                        logging.debug('Discarded {0} because P31 with value {1}'.format(ca_label.encode('utf-8'), numeric_id))
+                        logging.debug('Discarded {0} ({1}) because P31 with value {2}'.format(ca_label.encode('utf-8'), item_id, numeric_id))
                         return False
             except Exception as e:
                 logging.error(e)
