@@ -358,6 +358,7 @@ def create_index():
     db = _create_collection()
     db.wikidata.ensure_index("labels.ca.value", background=True)
     db.wikidata.ensure_index("labels.en.value", background=True)
+    db.wikidata.ensure_index("id", background=True)
     print ("Index creation completed")
     return
 
