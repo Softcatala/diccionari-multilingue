@@ -23,7 +23,7 @@ import sys
 from collections import OrderedDict
 from optparse import OptionParser
 from checkapi import CheckApi
-
+from checkqualitywords import CheckQualityWords
 
 def read_parameters():
     SECTION = "default"
@@ -53,6 +53,10 @@ if __name__ == '__main__':
     print("Use --help for assistance")
 
     api = CheckApi(site_url)
+    if not api.check():
+        sys.exit(1)
+
+    api = CheckQualityWords(site_url)
     if not api.check():
         sys.exit(1)
 
