@@ -22,7 +22,6 @@ import logging
 import StringIO
 import re
 
-
 class VerbText:
 
     def __init__(self, text):
@@ -81,6 +80,10 @@ class VerbText:
         final = line[:start] + line[end:len(line)]
         return self._remove_templates(final)
 
+    # <ref name="diec"></ref><ref name="grec"></ref><ref name="dcvb"></ref>
+    def _remove_xml_tags(self, line):
+        return re.sub('<[^>]*>', '', line)  
+
     def GetDescription(self):
         verb = ''
         VERB_START = '===[ ]*Verb[ ]*==='
@@ -105,6 +108,7 @@ class VerbText:
             s = self._remove_templates(s)
             s = self._remove_intenal_links(s)
             s = self._remove_mediawiki_markup(s)
+            s = self._remove_xml_tags(s)
 
             if re.search('[a-zA-Z]', s) is None:
                 logging.debug("Discard:" + s)
