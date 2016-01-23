@@ -110,7 +110,7 @@ def _process_xml():
     words_file_ca = open('words-ca.txt','w')
     descriptions_file_ca = open('descriptions-ca.txt','w')
  
-    e = xml.etree.ElementTree.parse('cawiktionary-20151102-pages-meta-current.xml').getroot()
+    e = xml.etree.ElementTree.parse('cawiktionary-20160111-pages-meta-current.xml').getroot()
     for page in e.getchildren():
         verb = False
         en_label = u''
