@@ -79,7 +79,7 @@ def _show_statistics(stats):
         print ('{0}: {1}'.format(stat, value))
 
 def _save_statistics(stats):
-    
+
     STATS_FILE = '../stats.json'
 
     all_stats = None
@@ -107,7 +107,9 @@ def _process_xml():
     index = IndexCreator()
     index.open()
     authors = set()
-
+    words_file_ca = open('words-ca.txt','w')
+    descriptions_file_ca = open('descriptions-ca.txt','w')
+ 
     e = xml.etree.ElementTree.parse('cawiktionary-20151102-pages-meta-current.xml').getroot()
     for page in e.getchildren():
         verb = False
@@ -127,7 +129,7 @@ def _process_xml():
                 username = _get_username(page_element)
                 if username is not None and len(username) > 0:
                     authors.add(username)
-    
+
                 if text is not None:
                     if '{{ca-verb' in text:
                         verb = True
@@ -178,6 +180,12 @@ def _process_xml():
         if len(it_label) > 0:
             it_labels += 1
 
+        words_file_ca.write(ca_label.encode('utf-8') + '\r\n')
+
+        if ca_desc is not None:
+            s = '{0} - {1}\r\n'.format(ca_label.encode('utf-8'), ca_desc.encode('utf-8'))
+            descriptions_file_ca.write(s)
+   
         index.write_entry(word_en=en_label,
                           word_ca=ca_label,
                           word_fr=fr_label,
@@ -212,6 +220,9 @@ def _process_xml():
     _show_statistics(stats)
     _save_statistics(stats)
     index.save()
+    words_file_ca.close()
+    descriptions_file_ca.close()
+
 
 def main():
 
