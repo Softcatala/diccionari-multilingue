@@ -1,0 +1,27 @@
+
+# Properties to ignore
+properties:
+    - P1566 # Geonames
+    - P625 # coordinate location
+    - P345 # IMDb identifier
+    - P577 # Publication date (comics books etc)
+    - P106 # Ocupation
+    -  #P571 # inception (works date) / Used in Q405
+    - P50 #Author
+
+# Instance of values to ignore
+instance_of:
+    - 202444 # Prenom
+    - 12308941 # Prenom masculí
+    - 101352 #Cognom
+    - 11879590 # Prenom femení
+    - 4035392 # Music band
+    - 82799 # Noms
+    - 3409032 # Unisex name
+    - 4167410 #Wikimedia disambiguation page
+    - 7366 # Song
+    - 482994 # Album name
+    - 13406463 # Article llista
+    - 3305213 # Paintings
+    - 4830453 # Business names (like Novell)
+    - 95074 #fictional character

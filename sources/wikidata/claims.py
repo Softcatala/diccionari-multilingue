@@ -20,6 +20,7 @@
 
 import logging
 import operator
+import yaml
 
 class Claims():
 
@@ -27,6 +28,11 @@ class Claims():
         self.claims_stats = {}
         self.words_claims_file = open('words-claims.txt','w')
         self.previous_claims = self.read_claims()
+        self._read_filters()
+
+    def _read_filters(self):
+        with open('filters.yaml', 'r') as f:
+            self.filters = yaml.load(f)
 
     def write_claims_stats(self, mongo_records):
         claims = open('claims.txt', 'w')
@@ -86,50 +92,25 @@ class Claims():
             text = ' ' + desc
             self.words_claims_file.write(text)
 
-
     def valid_claim(self, ca_label, item):
         claims = item.get('claims')
         if claims is None:
-            return;
+            return
+
+        INSTANCE_OF = 'P31'
 
         item_id = item['id']
-
-        not_valid = ['P1566', # Geonames
-                     'P625', # coordinate location
-                     'P345', # IMDb identifier
-                     'P577', # Publication date (comics, books, etc)
-                     'P106', # Ocupation
-                     #'P571', # inception (work's date) / Used in Q405
-                     'P50', #Author
-                    ]
-        
-        #Q_id
-        surnames = [202444, # Prenom
-                     12308941, # Prenom masculí
-                     101352, #Cognom
-                     11879590, # Prenom femení
-                     4035392, # Music band
-                     82799, # Noms
-                     3409032, # Unisex name
-                     4167410, #Wikimedia disambiguation page
-                     7366, # Song
-                     482994, # Album name
-                     13406463, # Article llista
-                     3305213, # Paintings
-                     4830453, # Business names (like Novell)
-                     95074, #fictional character
-                    ]
-        for prop in not_valid:
+        for prop in self.filters['properties']:
             if prop in claims:
                 logging.debug('Discarded {0} ({1}) because property {2}'.format(ca_label.encode('utf-8'), item_id, prop))
                 return False
 
-        if 'P31' in claims: # Instance of
+        if INSTANCE_OF in claims:
             try:
-                instance = claims['P31'][0]['mainsnak']['datavalue']['value']
+                instance = claims[INSTANCE_OF][0]['mainsnak']['datavalue']['value']
                 if instance is not None and instance['entity-type'] == 'item' and instance['numeric-id'] is not None: # A surname
                     numeric_id = instance['numeric-id']
-                    if numeric_id in surnames:
+                    if numeric_id in self.filters['instance_of']:
                         logging.debug('Discarded {0} ({1}) because P31 with value {2}'.format(ca_label.encode('utf-8'), item_id, numeric_id))
                         return False
             except Exception as e:
