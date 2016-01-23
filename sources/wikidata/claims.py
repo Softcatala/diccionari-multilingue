@@ -92,7 +92,32 @@ class Claims():
             text = ' ' + desc
             self.words_claims_file.write(text)
 
-    def valid_claim(self, ca_label, item):
+    def _is_subclass_of(self, numeric_id, filters, mongo_records, ca_label):
+        item_id = u'Q{0}'.format(numeric_id)
+        item = mongo_records.findEntryById(item_id)
+        claims = item.get('claims')
+        if claims is None:
+            return False
+
+        SUBCLASS_OF = 'P279'
+
+        if SUBCLASS_OF not in claims:
+            return False
+
+        try:
+            instance = claims[SUBCLASS_OF][0]['mainsnak']['datavalue']['value']
+            if instance is not None and instance['entity-type'] == 'item' and instance['numeric-id'] is not None: # A surname
+                numeric_id = instance['numeric-id']
+                if numeric_id in filters:
+                    logging.debug('Discarded {0} ({1}) because P279 with value {2}'.format(ca_label.encode('utf-8'), item_id, numeric_id))
+                    return True
+                     
+        except Exception as e:
+            logging.error(e)
+
+        return False
+        
+    def valid_claim(self, ca_label, item, mongo_records):
         claims = item.get('claims')
         if claims is None:
             return
@@ -105,16 +130,21 @@ class Claims():
                 logging.debug('Discarded {0} ({1}) because property {2}'.format(ca_label.encode('utf-8'), item_id, prop))
                 return False
 
-        if INSTANCE_OF in claims:
-            try:
-                instance = claims[INSTANCE_OF][0]['mainsnak']['datavalue']['value']
-                if instance is not None and instance['entity-type'] == 'item' and instance['numeric-id'] is not None: # A surname
-                    numeric_id = instance['numeric-id']
-                    if numeric_id in self.filters['instance_of']:
-                        logging.debug('Discarded {0} ({1}) because P31 with value {2}'.format(ca_label.encode('utf-8'), item_id, numeric_id))
-                        return False
-            except Exception as e:
-                logging.error(e)
+        if INSTANCE_OF not in claims:
+            return True
+
+        try:
+            instance = claims[INSTANCE_OF][0]['mainsnak']['datavalue']['value']
+            if instance is not None and instance['entity-type'] == 'item' and instance['numeric-id'] is not None: # A surname
+                numeric_id = instance['numeric-id']
+                if numeric_id in self.filters['instance_of']:
+                    logging.debug('Discarded {0} ({1}) because P31 with value {2}'.format(ca_label.encode('utf-8'), item_id, numeric_id))
+                    return False
+                elif self._is_subclass_of(numeric_id, self.filters['subclass_of'], mongo_records, ca_label):
+                    return False
+                     
+        except Exception as e:
+            logging.error(e)
             
         return True
 

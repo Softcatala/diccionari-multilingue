@@ -206,7 +206,7 @@ def _process_json():
             if _is_segment_valid(item_id, ca_label, en_label, en_description) is False:
                 continue
 
-            if claims.valid_claim(ca_label, item) is False:
+            if claims.valid_claim(ca_label, item, mongo_records) is False:
                 continue
 
             claims.store_claim(item)

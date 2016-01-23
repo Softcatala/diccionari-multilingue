@@ -29,6 +29,11 @@ class MongoRecords():
         records = self.db.wikidata.find({'labels.ca.value': s})
         return records
 
+    def findEntryById(self, entry):
+        s = '{0}'.format(entry)
+        record = self.db.wikidata.find_one({'id': s})
+        return record
+
     def findClaim(self, claim):
         record = self.db.wikidata.find_one({'id': '{0}'.format(claim)})
         try:

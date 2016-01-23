@@ -1,5 +1,5 @@
 
-# Properties to ignore
+# If the entry has this property defined it will be skipped
 properties:
     - P1566 # Geonames
     - P625 # coordinate location
@@ -9,7 +9,7 @@ properties:
     -  #P571 # inception (works date) / Used in Q405
     - P50 #Author
 
-# Instance of values to ignore
+# If the entry has an instance of value in this list, it will be skipped
 instance_of:
     - 202444 # Prenom
     - 12308941 # Prenom masculí
@@ -26,3 +26,7 @@ instance_of:
     - 4830453 # Business names (like Novell)
     - 95074 #fictional character
     - 215380 # Music band
+
+# If the entry has an 'instance of' that is a 'subclass of' a value in this list, it will be skipped
+subclass_of:
+   - 215380 # Music band
