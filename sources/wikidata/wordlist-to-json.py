@@ -307,8 +307,6 @@ def _process_json():
             words_file_en.write(en_label.encode('utf-8') + '\r\n')
             words_file_ca.write(ca_label.encode('utf-8') + ' id:' + str(item_id) + '\r\n')
 
-            descriptions_file_en.write(en_label.encode('utf-8') + '\r\n')
-
             if ca_description is not None:
                 s = '{0} id: {1} - {2}\r\n'.format(ca_label.encode('utf-8'), str(item_id), ca_description.encode('utf-8'))
                 descriptions_file_ca.write(s)
