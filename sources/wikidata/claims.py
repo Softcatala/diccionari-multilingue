@@ -117,6 +117,7 @@ class Claims():
                      13406463, # Article llista
                      3305213, # Paintings
                      4830453, # Business names (like Novell)
+                     95074, #fictional character
                     ]
         for prop in not_valid:
             if prop in claims:
