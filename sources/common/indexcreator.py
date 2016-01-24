@@ -96,7 +96,7 @@ class IndexCreator(object):
     def create(self):
         analyzer = StandardAnalyzer(minsize=1, stoplist=None)
         schema = Schema(word_en=TEXT(stored=True),
-                        word_ca=TEXT(stored=True, sortable=True),
+                        word_ca=TEXT(stored=True, sortable=True, analyzer=analyzer),
                         word_fr=TEXT(stored=True),
                         word_de=TEXT(stored=True),
                         word_es=TEXT(stored=True),
