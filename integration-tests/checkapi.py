@@ -49,7 +49,7 @@ class CheckApi(object):
 
         words = json['words']
         self._assert_contains(words, 'taula')
-        self._assert_contains(words, 'taular')
+        self._assert_contains(words, 'taulell')
 
     def _check_index(self):
         url = '{0}api/index/a'
