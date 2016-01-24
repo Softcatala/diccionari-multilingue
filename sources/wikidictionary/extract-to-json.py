@@ -160,7 +160,7 @@ def _process_xml():
             ca_descs += 1
 
         if len(en_label) == 0 and len(es_label) == 0 and len(fr_label) == 0 and \
-           len(de_label) == 0 and len(it_label) == 0 and len(ca_desc) == 0:
+           len(de_label) == 0 and len(it_label) == 0:
             logging.debug("Discard only ca_label:" + ca_label)
             continue
 
