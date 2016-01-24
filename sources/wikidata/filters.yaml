@@ -1,6 +1,6 @@
 
 # If the entry has this property defined it will be skipped
-properties:
+has_property:
     - P1566 # Geonames
     - P625 # coordinate location
     - P345 # IMDb identifier
