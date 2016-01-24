@@ -31,6 +31,7 @@ instance_of:
     - 4830453 # Business names (like Novell)
     - 95074 #fictional character
     - 215380 # Music band
+    - 18343316 # Unix command (cd)
 
 # If the entry has an 'instance of' that is a 'subclass of' a value in this list, it will be skipped
 subclass_of:
