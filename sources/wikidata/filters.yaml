@@ -9,6 +9,8 @@ properties:
     -  #P571 # inception (works date) / Used in Q405
     - P50 #Author
     - P436 # MusicBrainz ID (album, song)
+    - P264 # record label
+    - P175 # Performer
 
 # If the entry has an instance of value in this list, it will be skipped
 instance_of:
