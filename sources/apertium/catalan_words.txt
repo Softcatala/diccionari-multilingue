@@ -597,7 +597,6 @@ addicionalment
 addicte
 additiu
 additivitat
-<!-- add translation until transfer rules work 'les quals no foren pas dissenyats .' -->
 adduir
 adenina
 adenohipòfisi
@@ -625,10 +624,8 @@ adipós
 adiposi
 adjacent
 adjectiu
-<!-- ADJECTIUS -->
 adjectivació
 adjectival
-<!-- ADJS amb overlapings amb els antics -->
 adjudicació
 adjudicar
 adjudicatari
@@ -709,7 +706,6 @@ advertiment
 advertir
 advocar
 advocat
-<!-- ADVS PREPS CONJS multiparaules de lèxic comercial-->                                                    
 aerènquima
 aeri
 aeròbic
@@ -1185,7 +1181,6 @@ alna
 alopècia
 alosa
 alpaca
-  <alphabet>·ÀÁÂÄÇÈÉÊËÌÍÎÏÑÒÓÔÖÙÚÛÜàáâäçèéêëìíîïñòóôöùúûüABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</alphabet>
 alpí
 alpinisme
 alpinista
@@ -1361,7 +1356,6 @@ ambiciós
 ambiental
 ambientalment
 ambientar
-<!-- AMBIG CA~EN, order by POS, Alphabet, Default on CA side -->
 ambigu
 ambigüitat
 Ambilamp
@@ -2483,8 +2477,6 @@ axopodi
 azalea
 azimut
 azimutal
- a. C</r>
- A. D</r>
 babiloni
 babilònic
 bable
@@ -2493,8 +2485,6 @@ bacallà
 bacallaner
 bacil
 bacitracina
- a.C</r>
- aC</r>
 bacterèmia
 bacteri
 bactericida
@@ -2508,8 +2498,6 @@ badallar
 badalot
 badia
 bàdminton
- A.D</r>
- AD</r>
 baga
 bagatel·la
 bainita
@@ -2691,9 +2679,6 @@ bavarès
 bayesià
 BBC
 BCE
- d. C</r>
- d.C</r>
- dC</r>
 bé
 bec
 beca
@@ -3980,9 +3965,7 @@ ciment
 cimera
 cinabri
 cinc-centè
--cinc</r>
-cinc</r></p><par n="thirty_hundred__num"/></e>
-cinc</r></p><par n="three__num"/></e>
+cinc
 cinema
 cinemàtic
 cinemàtica
@@ -3999,10 +3982,9 @@ cingle
 cínic
 cininogen
 cinisme
-cinquanta</r></p><par n="twenty__num"/></e>
+cinquanta
 cinquantè
 cinquè
-<!-- Cinquè Paquet Verbs -->
 cinta
 cintura
 cinturilla
@@ -4185,7 +4167,6 @@ club de rem de Hondarribia
 club esportiu
 club de rem
 cm
-<!--CNJ -->
 CO2
 coaccionar
 coactiu
@@ -6091,7 +6072,6 @@ desembossar
 desembragament
 desembragar
 desembre
-<!-- Desembre ADJ-->
 desembussador
 desembussar
 desemmascarar
@@ -6333,7 +6313,6 @@ deteriorament
 determinable
 determinació
 determinant
-<!--DETERMINANTS, PREPOSICIONS I PRONOMS (inclou predeterminants, relatius i genitiu saxó) -->
 determinar
 determinat
 determinisme
@@ -6349,7 +6328,6 @@ detractor
 detriment
 detrític
 detritívor
-<!--DETS i PREDET-->
 deu
 déu
 deu a un
@@ -6463,9 +6441,6 @@ dictat
 dictatorial
 dicteri
 dictiocinesi
-</dictionary>
-<dictionary>
-	Dictionary:
 didàctic
 didal
 didalera
@@ -6889,9 +6864,9 @@ dosatge
 dos-centè
 dosi
 dosímetre
--dos</r>
-dos</r></p><par n="twenty_hundred__num"/></e>
-dos</r></p><par n="two__num"/></e>
+dos
+dos
+dos
 dossier
 dot
 dotació
@@ -7010,80 +6985,6 @@ d'ús corrent
 d'ús general
 dutxa
 DVD
-    </e>
-    <e>
-    <e a="eleka"><i>Agirrezabalaga</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Aiestaran</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Anduela</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Anglada</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Aranaga</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Aranegi</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Arias</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Arruabarrena</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Arrupe</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Ayestaran</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Ayestarán</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Bravo</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Bretos</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Brizuela</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Colomer</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Cotado</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Coulomb</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Egurrola</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Elduayen</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Esnal</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Espel</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Etxaniz</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Etxebarria</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Garai</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Garaizar</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Goienetxea</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Goikoetxea</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Guzman</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Hijazo</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Hoyo</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Illarramendi</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Juaristi</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Kerejeta</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Korta</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Lasa</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Legarretaetxeberría</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Legarreta</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Lertxundi</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Lete</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Lujanbio</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Marcano</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Maritxalar</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Maza</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Miguel Bon</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Miguel Buen</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Mikeo</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Moreira</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Mugartegi</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Muguruza</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Navalón</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Ohm</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Olasagasti</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Oñate</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Oribe</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Pena</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Pombo</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Poza</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Prat</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Prieto</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Reizabal</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Revolvo</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Rua</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Sainz de la Maza</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Sanz</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Silva</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Souto</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Tenorio</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Torrado</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Urien</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Zabala</i><par n="NPCOG"/></e>
-    <e a="eleka"><i>Zabalondo</i><par n="NPCOG"/></e>
-    <e a="greenbreen"><i>i.e.
 ebenista
 ebenisteria
 ebullioscopi
@@ -7169,7 +7070,6 @@ egoisme
 egoista
 egòlatra
 egotisme
-    <e><i>&amp;
 Eibar
 èider
 eina
@@ -7839,7 +7739,6 @@ enciclopèdia
 enciclopèdic
 enclavament
 enclític
-<!--enclítics -->
 encobrir
 encofrat
 encongiment
@@ -8144,7 +8043,7 @@ epitafi
 epitalami
 epiteli
 epítet
-    <e><p><l>Caja 
+Caja 
 EPO
 època
 EPO-rh
@@ -8216,7 +8115,6 @@ eritrosi
 eritrosina
 eritrosoma
 erlang
-    <e r="LR">
 erm
 ermini
 ermita
@@ -8225,7 +8123,6 @@ erosionar
 erotisme
 Erriko Kirolak
 Erriko Kirolak Eguna
-    <e r="RL">
 erroni
 erròniament
 error
@@ -9507,10 +9404,7 @@ feudatari
 fi
 fiabilitat
 fiable
-<!-- FI ADJECTIUS  -->
 fiador
-<!--Fi ADVS, PREADVS i CNJ -->
-<!-- FI ADVS PREPS CONJS multiparaules de lèxic comercial-->                                                    
 fiança
 fiasco
 fibra
@@ -9538,8 +9432,6 @@ ficar
 ficar-se en problemes
 ficció
 ficcionalisme
-<!-- FI Cinquè Paquet Verbs -->
-<!--Fi CNJ -->
 fictici
 FIDE
 fidedigne
@@ -9548,8 +9440,6 @@ fideïcomissari
 fidel
 fidelitat
 fidelment
-<!-- Fi  DETERMINANTS, PREPOSICIONS I PRONOMS -->
-<!--Fi DETS i PREDET-->
 fideu
 fiduciari
 figa
@@ -9609,13 +9499,8 @@ financer
 financerament
 finestra
 finestró
-<!-- FI Next + temps-->
 finit
 finlandès
-<!-- FI NOMS BCN 1-1 -->
-<!--Fi NOMS: paquet de llista Oxford -->
-<!--Fi NOMS PROPIS -->
-<!-- fi noves entrades ADV BCN -->
 fins
 fins a
 fins a cert punt
@@ -9640,16 +9525,9 @@ fins i tot ara
 fins llavors
 fins que
 fintador
-<!--Fi NUMERALS -->
 fiord
-<!--Fi PREADV -->
-<!--Fi Preposicions -->
-<!--Fi Primer paquet Verbs -->
-<!--Fi PRN i REL-->
-<!-- FI Quart Paquet Verbs -->
 fira
 fiscal
-<!-- FI Segon Paquet Verbs -->
 físic
 física
 física de la matèria condensada
@@ -9672,7 +9550,6 @@ fistó
 fístula
 fita
 fitat
-<!-- FI Tercer Paquet Verbs -->
 fitocenosi
 fitòfag
 fitofarmacologia
@@ -9685,7 +9562,6 @@ fitosanitari
 fitosociologia
 fitotoxicitat
 fitxer
-<!--Fi verbs multiparaula -->
 fix
 fixació
 fixar
@@ -11316,8 +11192,8 @@ igualitari
 igualitarisme
 igualment
 igualtat
-III</r>
-II</r>
+III
+II
 ikurrina
 ili
 illa
@@ -11846,7 +11722,6 @@ inhumar
 inici
 iniciació
 iniciador
-<!--Inici ADVS, PREADVS i CNJ -->
 inicial
 inicialització
 inicialitzar
@@ -12069,7 +11944,6 @@ interior
 interioritzar
 interiorment
 interjecció
-<!--INTERJECCIONS -->
 interlineació
 interlineat
 interlingua
@@ -12231,7 +12105,7 @@ ionoesfèric
 ionosfera
 iot
 IP
-I</r>
+I
 ira
 iracund
 iranià
@@ -12359,8 +12233,8 @@ itri
 iugoslau
 IUPAC
 IVA
-IV</r>
-IX</r>
+IV
+IX
 ja
 ja no
 ja que
@@ -12495,35 +12369,6 @@ Koxtape
 kPa
 kunzita
 kuwaitià
-        <l>
-        <l>0th</l>
-        <l>10th</l>
-        <l>11th</l>
-        <l>12th</l>
-        <l>13th</l>
-        <l>14th</l>
-        <l>15th</l>
-        <l>16th</l>
-        <l>17th</l>
-        <l>18th</l>
-        <l>19th</l>
-        <l>1st</l>
-        <l>2</l>
-        <l>2nd</l>
-        <l>3</l>
-        <l>3rd</l>
-        <l>4</l>
-        <l>4th</l>
-        <l>5</l>
-        <l>5th</l>
-        <l>6</l>
-        <l>6th</l>
-        <l>7</l>
-        <l>7th</l>
-        <l>8</l>
-        <l>8th</l>
-        <l>9</l>
-        <l>9th</l>
 la
 laberint
 labial
@@ -12641,19 +12486,6 @@ latzurita
 lauril
 lava
 lavabo
-        <l> A. D</l>
-        <l> A.D</l>
-        <l> AD</l>
-        <l> B. C</l>
-        <l> B.C.E</l>
-        <l> BCE</l>
-        <l> B.C</l>
-        <l> BC</l>
-        <l> C. E</l>
-        <l> C.E</l>
-        <l> CE</l>
-        <l> hundred
-        <l> thousand
 lechatelierita
 lectina
 lector
@@ -12679,8 +12511,6 @@ legítimament
 legitimar
 legitimitat
 lehendakari
-        <l>-eight hundred
-        <l>-eight</l>
 leishmaniosi
 leitmotiv
 lema
@@ -12736,10 +12566,6 @@ lexicòleg
 lexicologia
 lexicològic
 lexicometria
-        <l>-five hundred
-        <l>-five</l>
-        <l>-four hundred
-        <l>-four</l>
 l'hivern passat per aquestes dates
 l'hivern que ve
 l'hivern vinent
@@ -12863,7 +12689,6 @@ litúrgia
 litúrgic
 lixiviació
 lixiviador
-        <l></l>
 llac
 llaç
 llac salat
@@ -13045,8 +12870,6 @@ lluny d'aquí
 lluny de
 lluny de tot arreu
 llustre
-        <l>-nine hundred
-        <l>-nine</l>
 lobel
 lòbul
 local
@@ -13074,8 +12897,6 @@ logístic
 logística
 logopeda
 logotip
-        <l>-one hundred
-        <l>-one</l>
 longeu
 longevitat
 longitud
@@ -13087,15 +12908,6 @@ loteria
 LOTURA
 lotus
 loxodròmia
-L</r>
-        <l>-seven hundred
-        <l>-seven</l>
-        <l>-six hundred
-        <l>-six</l>
-        <l>-three hundred
-        <l>-three</l>
-        <l>-two hundred
-        <l>-two</l>
 lubrificant
 lubrificar
 lucratiu
@@ -13119,9 +12931,9 @@ luxe
 luxímetre
 luxúria
 luxuriós
-LX</r>
-LXX</r>
-LXXX</r>
+LX
+LXX
+LXXX
 lysosòmic
 mà
 macadam
@@ -13661,7 +13473,6 @@ merotomia
 mersalil
 mes
 més
-<!-- més acrònims -->
 mes a mes
 més amunt
 més arrere
@@ -13797,8 +13608,6 @@ metroptosi
 metrorràgia
 meu
 mexicà
-<!--MG: no he simplificat slr/srl -->
-<!--MG: per ara, him/her es tradueix per 'li', per això les següents equiv són RL (el/la/els/les -> him/her/them. Revisar -->
 mi
 miàlgia
 miasi
@@ -14636,7 +14445,6 @@ nevera
 nevus
 newton
 newtonià
-<!-- Next + temps-->
 ni
 ni tampoc
 ni tan sols
@@ -14737,13 +14545,10 @@ nominalisme
 nomograma
 nomotètic
 nomparell
-<!-- NOMS -->
-<!-- NOMS BCN 1-1 -->
-<!--NOMS: paquet de llista Oxford -->
 nontronita
 noologia
 noranta-nou vegades de cada cent
-noranta</r></p><par n="twenty__num"/></e>
+noranta
 norantè
 nord
 nord-americà
@@ -14785,9 +14590,7 @@ notorietat
 nou
 nou vegades de cada deu
 nou-centè
--nou</r>
-nou</r></p><par n="thirty_hundred__num"/></e>
-nou</r></p><par n="three__num"/></e>
+nou
 nouvingut
 nov.
 novació
@@ -14799,9 +14602,7 @@ novel·lesc
 novel·lista
 novel·lístic
 novembre
-<!-- Novembre-->
 novençà
-<!-- Noves entrades ADV BCN -->
 novetat
 nu
 nucleació
@@ -14826,7 +14627,6 @@ numerable
 numeració
 numerador
 numeral
-<!--NUMERALS -->
 numerar
 numèric
 numèricament
@@ -15384,8 +15184,6 @@ oxímoron
 oxitocina
 oxíton
 ozó
-      </p>
-      <p>
 pa
 paca
 paciència
@@ -15611,24 +15409,6 @@ parcer
 parcial
 parcialment
 pardal
-    </pardef>
-    <pardef n="Abc">
-    <pardef n="arabic-roman-ones-ord">
-    <pardef n="arabic-roman-ones-ord(1)">
-    <pardef n="arabic-roman-ord">
-    <pardef n="arabic-roman-tens-ord">
-    <pardef n="B.C.-aC">
-    <pardef n="NPCOG">
-    <pardef n="one__num">
-    <pardef n="thirty_hundred__num">
-    <pardef n="three(1)__num">
-    <pardef n="three__num">
-    <pardef n="twenty_hundred__num">
-    <pardef n="twenty__num">
-    <pardef n="two(1)__num">
-    <pardef n="two__num">
-  </pardefs>
-  <pardefs>
 pare
 parell
 parella
@@ -15655,11 +15435,6 @@ parlamentari
 parlamentarisme
 parlant
 parlar
-        <par n="arabic-roman-ones-ord"/> 
-        <par n="arabic-roman-ones-ord(1)"/> 
-        <par n="arabic-roman-tens-ord"/> 
-        <par n="three(1)__num"/> 
-        <par n="two(1)__num"/> 
 paròdia
 parònim
 paronímia
@@ -16588,8 +16363,6 @@ pluviòmetre
 pluviometria
 pluviositat
 p.m.
-pn000</r></p><par n="Abc"/><i>
-pn000</r></p><par n="Abc"/><i> </i><par n="Abc"/><i>
 PNB
 pneumàtic
 pneumàtica
@@ -16712,7 +16485,6 @@ polipèptid
 poliploide
 poliposi
 polisacàrid
-<!-- POLISEMIA -->
 polisèmia
 polisèmic
 polisíl·lab
@@ -16899,7 +16671,6 @@ pragmatisme
 pragmatista
 praseodimi
 prat
-<!--PREADV -->
 preàmbul
 prec
 precari
@@ -17006,7 +16777,6 @@ preparar
 preparatori
 preposició
 preposicional
-<!--Preposicions -->
 preprocessament
 preprogramar
 prerrogativa
@@ -17104,7 +16874,6 @@ primer de tot
 primer i últim
 primer ministre
 primerenc
-<!--Primer paquet Verbs -->
 primesa
 primitiu
 primogenitura
@@ -17135,7 +16904,6 @@ privatització
 privatitzar
 privilegi
 privilegiat
-<!--PRN i REL-->
 probabilisme
 probabilista
 probabilístic
@@ -17254,7 +17022,6 @@ promulgació
 pronom
 pronominal
 pronominalització
-<!-- pronoms personals i proclítics-->
 pronòstic
 pronosticar
 pronunciació
@@ -17556,7 +17323,7 @@ quantitat
 quantitatiu
 quantització
 quàntum
-quaranta</r></p><par n="twenty__num"/></e>
+quaranta
 quarantè
 quarentena
 quark
@@ -17565,7 +17332,6 @@ quarsita
 quart
 quartet
 quàrtic
-<!-- Quart Paquet Verbs -->
 quàsar
 quasi
 quasi mai
@@ -17574,9 +17340,7 @@ quatern
 quaternari
 quaternió
 quatre-centè
--quatre</r>
-quatre</r></p><par n="thirty_hundred__num"/></e>
-quatre</r></p><par n="three__num"/></e>
+quatre
 que
 què
 quedar
@@ -17656,7 +17420,6 @@ quocient
 quòrum
 quota
 quotidià
-</r>
 rabí
 ràbia
 rabiola
@@ -17806,7 +17569,6 @@ ratxa
 raval
 rave
 ravioli
-      <re>[ÀÁÂÄÇÈÉÊËÌÍÎÏÑÒÓÔÖÙÚÛÜABCDEFGHIJKLMNOPQRSTUVWXYZ][ÀÁÂÄÇÈÉÊËÌÍÎÏÑÒÓÔÖÙÚÛÜàáâäçèéêëìíîïñòóôöùúûüABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz]*</re>
 reacció
 reaccionar
 reaccionari
@@ -18610,8 +18372,6 @@ rotundament
 roure
 rovellar
 royalties
-</r></p></e>
-</r></p><par n="one__num"/></e>
 RSA
 RTL
 rubefacció
@@ -18831,8 +18591,6 @@ saxòfon
 saxofonista
 scheelita
 scherzando
-  </sdefs>
-	Sdefs: 89
 seborrea
 sec
 secant
@@ -18847,8 +18605,6 @@ secretariat
 Secretari General
 secretor
 secta
-  </section>
-	Sections: 3
 sector
 sectorial
 secular
@@ -18879,8 +18635,6 @@ segmentari
 segó
 sègol
 segon
-<!-- segon paquet (polisèmics) ADJS nous: revisió Elisa-->
-<!-- Segon paquet Verbs -->
 segons
 segons aquesta moda
 segons el meu parer
@@ -18909,7 +18663,7 @@ Seguros Zurich
 seient
 seient de passatger
 seixa
-seixanta</r></p><par n="twenty__num"/></e>
+seixanta
 seixantè
 selecció
 selecció femenina
@@ -19132,7 +18886,7 @@ sessió
 sesterci
 set
 set.
-setanta</r></p><par n="twenty__num"/></e>
+setanta
 setantè
 set-centè
 setè
@@ -19147,11 +18901,9 @@ setmana vinent
 setmanal
 setmanalment
 setmanari
--set</r>
+set
 setrill
 setrilleres
-set</r></p><par n="thirty_hundred__num"/></e>
-set</r></p><par n="three__num"/></e>
 setter
 setze
 setzè
@@ -19351,9 +19103,7 @@ sismògraf
 sismograma
 sismòleg
 sismologia
--sis</r>
-sis</r></p><par n="thirty_hundred__num"/></e>
-sis</r></p><par n="three__num"/></e>
+sis
 sistema
 sistema operatiu
 sistema 2-3-5
@@ -20183,7 +19933,6 @@ terbi
 tèrbol
 terç
 tercer
-<!-- Tercer Paquet Verbs -->
 tercet
 terciari
 tergiversar
@@ -20543,7 +20292,6 @@ traducció automàtica basada en corpus
 traducció automàtica basada en el context
 traducció automàtica basada en regles
 traducció automàtica estadística
-<!--Traduccions buides: genitiu -->
 traductor
 traductor d'adreces de xarxa
 traduir
@@ -20693,7 +20441,7 @@ trencaonades
 trencar
 trencar-se
 trencat
-trenta</r></p><par n="twenty__num"/></e>
+trenta
 trentè
 trepa
 trepanació
@@ -20702,9 +20450,7 @@ tres vegades
 tres-centè
 tresor
 tresorer
--tres</r>
-tres</r></p><par n="thirty_hundred__num"/></e>
-tres</r></p><par n="three__num"/></e>
+tres
 tret
 tret de sortida
 tretze
@@ -21000,7 +20746,7 @@ universitat
 unívoc
 univocitat
 unnecessàriament
--un</r>
+un
 uns quants
 untar
 urani
@@ -21204,8 +20950,6 @@ verbalisme
 verbalització
 verbós
 verbositat
-<!--VERBS -->
-<!--Verbs que són multiparaules amb  -->
 verd
 verdader
 verdaderament
@@ -21336,8 +21080,8 @@ vigor
 vigorós
 VIH
 VIH positiu
-VIII</r>
-VII</r>
+VIII
+VII
 vil
 vil·la
 vímet
@@ -21349,7 +21093,7 @@ vinculació
 vinent
 vinil
 vintè
-vint</r></p><par n="twenty__num"/></e>
+vint
 vinya
 viola
 violador
@@ -21360,7 +21104,7 @@ violeta
 violí
 violinista
 violoncelista
-VI</r>
+VI
 virar
 viratge
 virginal
@@ -21486,14 +21230,12 @@ votació
 votant
 votar
 voyeurisme
-V</r>
-vuitanta</r></p><par n="twenty__num"/></e>
+V
+vuitanta
 vuitantè
 vuit-centè
 vuitè
--vuit</r>
-vuit</r></p><par n="thirty_hundred__num"/></e>
-vuit</r></p><par n="three__num"/></e>
+vuit
 vulcanià
 vulcanisme
 vulcanòleg
@@ -21565,7 +21307,7 @@ xassís
 xat
 xató
 xaval
-XC</r>
+XC
 xec
 xec de viatge
 xec en blanc
@@ -21597,8 +21339,8 @@ xifoide
 xifonier
 xifra
 xifrar
-XIII</r>
-XII</r>
+XIII
+XII
 xilè
 xilema
 xíling
@@ -21615,7 +21357,7 @@ xip
 xiprer
 xipriota
 xiquet
-XI</r>
+XI
 xirimoia
 xisclar
 xiscle
@@ -21623,11 +21365,10 @@ xiular
 xiulet
 xiuxiuejar
 xivarri
-XIV</r>
-XIX</r>
-XL</r>
+XIV
+XIX
+XL
 XML
-<?xml version="1.0" encoding="UTF-8"?>
 xoc
 xocar
 xocolata
@@ -21635,7 +21376,7 @@ xofer
 xofer d'autobús
 xovinisme
 xovinista
-X</r>
+X
 xuclar
 xufa
 xufla
@@ -21646,12 +21387,12 @@ Xunta de Galícia
 xurro
 xut
 xutar
-XVIII</r>
-XVII</r>
-XVI</r>
-XV</r>
-XX</r>
-XXX</r>
+XVIII
+XVII
+XVI
+XV
+XX
+XXX
 zàping
 Zarautz
 Zarautz Inmob. Orio
