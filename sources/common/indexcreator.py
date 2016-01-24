@@ -21,7 +21,7 @@
 import os
 import sys
 
-from whoosh.fields import BOOLEAN, TEXT, NUMERIC, Schema
+from whoosh.fields import TEXT, NUMERIC, STORED, Schema
 from whoosh.index import *
 from whoosh.analysis import StandardAnalyzer
 
@@ -101,19 +101,19 @@ class IndexCreator(object):
                         word_de=TEXT(stored=True),
                         word_es=TEXT(stored=True),
                         word_it=TEXT(stored=True),
-                        definition_en=TEXT(stored=True),
-                        definition_ca=TEXT(stored=True),
-                        definition_fr=TEXT(stored=True),
-                        definition_de=TEXT(stored=True),
-                        definition_es=TEXT(stored=True),
-                        definition_it=TEXT(stored=True),
-                        image=TEXT(stored=True),
-                        permission=TEXT(stored=True),
-                        gec=TEXT(stored=True),
-                        wikidata_id=TEXT(stored=True),
-                        wikiquote_ca=TEXT(stored=True),    
+                        definition_en=STORED(),
+                        definition_ca=STORED(),
+                        definition_fr=STORED(),
+                        definition_de=STORED(),
+                        definition_es=STORED(),
+                        definition_it=STORED(),
+                        image=STORED(),
+                        permission=STORED(),
+                        gec=STORED(),
+                        wikidata_id=STORED(),
+                        wikiquote_ca=STORED(),
                         index_letter=TEXT(stored=True, analyzer=analyzer),
-                        wikidictionary_ca=TEXT(stored=True),
+                        wikidictionary_ca=STORED(),
                         source=NUMERIC(stored=True))
 
         if not os.path.exists(self.dir_name):
