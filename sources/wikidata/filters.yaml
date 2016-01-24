@@ -11,6 +11,8 @@ properties:
     - P436 # MusicBrainz ID (album, song)
     - P264 # record label
     - P175 # Performer
+    - P735 # Prenom
+
 
 # If the entry has an instance of value in this list, it will be skipped
 instance_of:
