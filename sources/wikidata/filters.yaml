@@ -12,6 +12,7 @@ has_property:
     - P264 # record label
     - P175 # Performer
     - P735 # Prenom
+    - P434 # MusicBrainz Artist ID
 
 
 # If the entry has an instance of value in this list, it will be skipped
