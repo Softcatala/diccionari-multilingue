@@ -56,8 +56,4 @@ if __name__ == '__main__':
     if not api.check():
         sys.exit(1)
 
-    api = CheckContentQuality(site_url)
-    if not api.check():
-        sys.exit(1)
-
     sys.exit(0)

@@ -64,8 +64,19 @@ class CheckApi(object):
         url = '{0}api/search/abat'
         url = url.format(self.url)
         json = self._get_results(url)
+        self._assert_concret_word(json[0])
 
-        term = json[0]
+    def _check_search_langs(self):
+        langs = {"en" : "abbot", "fr" : "abbé", "es" : "abad", "it" : "abate", "de" : "Abt"}
+
+        for lang in langs.keys():
+            word = langs[lang]
+            url = '{0}api/search/{1}?lang={2}'
+            url = url.format(self.url, word, lang)
+            json = self._get_results(url)
+            self._assert_concret_word(json[0])
+
+    def _assert_concret_word(self, term):
         self._assert_that(term['word_ca'], 'abat')
         self._assert_that(term["definition_es"], u"título dado al superior de una abadía o monasterio")
         self._assert_that(term["references"]["wikiquote_ca"], "Abat")
@@ -83,11 +94,8 @@ class CheckApi(object):
 
     def check(self):
 
-        try:
-            self._check_autocomplete()
-            self._check_index()
-            self._check_search()
-            return True
-        except Exception as detail:
-            print(u'Error checking search results: ' + unicode(detail))
-            return False
+        self._check_autocomplete()
+        self._check_index()
+        self._check_search()
+        self._check_search_langs()
+        return True
