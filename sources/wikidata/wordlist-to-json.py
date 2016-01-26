@@ -150,6 +150,7 @@ def _process_json():
     descriptions_file_en = open('descriptions-en.txt','w')
     descriptions_file_ca = open('descriptions-ca.txt','w')
     json_file = open('wordlist-wikidata.json', 'w')
+    images_file = open('images.txt','w')
     db = _create_collection()
     words = read_english_word_list()
     mongo_records = MongoRecords(db)
@@ -261,6 +262,8 @@ def _process_json():
                 it_descs = it_descs + 1
 
             image = _get_image(item)
+            if image is not None:
+                images_file.write(image.encode('utf-8') + '\r\n')
 
             permission = None
             if image is not None:
@@ -346,6 +349,7 @@ def _process_json():
     words_file_ca.close()
     descriptions_file_en.close()
     descriptions_file_ca.close()
+    images_file.close()
 
     wiki_stats = {"wikidata": stats}
     with open('../stats.json', 'w') as jsonfile:
