@@ -22,7 +22,7 @@ import urllib
 import json
 import yaml
 
-class CheckQualityWords(object):
+class CheckContentQuality(object):
 
     def __init__(self, url):
         self.url = url
@@ -38,6 +38,11 @@ class CheckQualityWords(object):
             text = u"Expected '{0}' equals '{1}' for '{2}'"
             text = text.format(expected, actual, word).encode('utf-8')
             raise Exception(text)
+
+    def _assert_greater(self, actual, minimum):
+        if minimum > actual:
+            text = u'Expected {0} to be greater than minimum {1}'
+            raise Exception(text.format(minimum, actual))
 
     def _check_words(self):
 
@@ -61,6 +66,22 @@ class CheckQualityWords(object):
 
                 self._assert_that(found, True, word)
 
+    # Checks that all index entries return some words and the total count
+    def _check_index_content(self):
+        total_words = 0
+        for c in map(chr, range(ord('a'), ord('z')+1)):
+            c = '{0}'.format(c)
+            url = '{0}api/index/' + c
+            url = url.format(self.url)
+            json = self._get_results(url)
+            words = len(json['words'])
+            total_words += words
+            if c != 'y':
+                self._assert_greater(words, 1)
+
+        self._assert_greater(total_words, 9000)
+
     def check(self):
         self._check_words()
+        self. _check_index_content()
         return True
