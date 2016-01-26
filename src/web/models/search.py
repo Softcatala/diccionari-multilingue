@@ -44,6 +44,7 @@ class Search(object):
             "fr" : "word_fr",
             "es" : "word_es",
             "it" : "word_it",
+            "de" : "word_de"
         }
 
         return mapping[lang]
@@ -60,12 +61,18 @@ class Search(object):
         if self.searcher is None:
             self.search()
 
-        if self.Index is True or self.AutoComplete is True:
+        if self.Index is True:
             results = self.searcher.search(self.query,
                                            limit=None,
                                            sortedby='word_ca',
                                            collapse_limit=1,
                                            collapse='word_ca')
+        elif self.AutoComplete is True:
+            results = self.searcher.search(self.query,
+                                           limit=None,
+                                           sortedby=self.field,
+                                           collapse_limit=1,
+                                           collapse=self.field)
         else:
             results = self.searcher.search(self.query, limit=None)
 
@@ -103,7 +110,7 @@ class Search(object):
         words = []
         for result in results:
             if self.AutoComplete is True or self.Index:
-                words.append(result['word_ca'])
+                words.append(result[self.field])
             else:
                 all_results.append(self.get_result(result))
 

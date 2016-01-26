@@ -59,7 +59,13 @@ def api_statistics():
 
 @app.route('/autocomplete/<word>', methods=['GET'])
 def autocomplete_api(word):
-    search = Search(word + u"*")
+    word = word + u"*" 
+    lang = request.args.get('lang')
+    if lang is None:
+        search = Search(word)
+    else:
+        search = Search(word, lang)
+
     search.AutoComplete = True
     return Response(search.get_json(), mimetype='application/json')
 
