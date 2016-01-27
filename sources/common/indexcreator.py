@@ -39,6 +39,25 @@ class IndexCreator(object):
         print "Index (open) documents: " + str(self.index.doc_count())
         print "Index (open) last_modified: " + str(self.index.last_modified())
 
+    def _get_first_letter_for_index(self, word_ca):
+
+        s = ''
+        if word_ca is None:
+            return s
+
+        s = word_ca[0].lower()
+        mapping = { u'à' : u'a',
+                    u'è' : u'e',
+                    u'é' : u'e',
+                    u'í' : u'i',
+                    u'ó' : u'o',
+                    u'ò' : u'o',
+                    u'ú' : u'u'} 
+
+        if s in mapping:
+            s = mapping[s]
+
+        return s;
 
     def write_entry(self, word_en, word_ca, word_fr, word_de, word_es, word_it,
                     definition_en, definition_ca, definition_fr,
@@ -46,21 +65,7 @@ class IndexCreator(object):
                     permission, gec, wikidata_id, wikiquote_ca, 
                     wikidictionary_ca, source):
 
-        s = ''
-        if word_ca is not None:
-            try:
-                s = str(word_ca.encode('latin-1'))
-                s = s[0].lower()
-                if s == 'à':
-                    s = 'a'
-
-                if s < 'a' or s > 'z':
-                    s = ' '
-            except:
-                print "Error in: " + word_ca
-                return
-
-        index_letter = unicode(s, 'latin-1')
+        index_letter = self._get_first_letter_for_index(word_ca)
 
         # As Dec 2015 Wikidata corpus in Catalan was imported in upper case
         # that is incorrect. We fix it here until is fix in upstream
