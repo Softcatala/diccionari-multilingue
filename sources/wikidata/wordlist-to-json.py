@@ -60,12 +60,12 @@ def _create_collection():
     return db
 
 def read_english_word_list():
-    words = list(line.lower() for line in open('../apertium/catalan_words.txt'))
+    words = list(unicode(line.lower(), 'utf-8') for line in open('../apertium/catalan_words.txt'))
     read_list = list(words)
     # All also upper version
     for word in list(read_list):
-        word = word[0].upper() + word[1:]
-        words.append(word)
+        word_upper = word[0].upper() + word[1:]
+        words.append(word_upper)
 
     return words
 
@@ -357,7 +357,7 @@ def _process_json():
     images_file.close()
 
     for word_not_found in words_not_found:
-        words_ca_notfound_file.write(word_not_found + '\r\n')
+        words_ca_notfound_file.write(word_not_found.encode('utf-8') + '\r\n')
 
     words_ca_notfound_file.close()
 

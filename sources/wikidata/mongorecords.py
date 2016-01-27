@@ -25,7 +25,7 @@ class MongoRecords():
         self.db = db
 
     def findEntry(self, entry):
-        s = '{0}'.format(entry)
+        s = '{0}'.format(entry.encode('utf-8'))
         records = self.db.wikidata.find({'labels.ca.value': s})
         return records
 
