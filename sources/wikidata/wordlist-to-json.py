@@ -183,8 +183,6 @@ def _process_json():
             if item_id in articles:
                 continue
 
-            words_not_found.discard(word.lower())
-
             articles.add(item_id)
 
             cnt = cnt + 1
@@ -355,6 +353,9 @@ def _process_json():
     descriptions_file_en.close()
     descriptions_file_ca.close()
     images_file.close()
+
+    for unique_entry in unique_entries:
+        words_not_found.discard(unique_entry)
 
     for word_not_found in words_not_found:
         words_ca_notfound_file.write(word_not_found.encode('utf-8') + '\r\n')
