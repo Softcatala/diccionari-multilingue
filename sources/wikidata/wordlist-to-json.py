@@ -142,11 +142,13 @@ def _process_json():
     images = 0
     articles = set()
     unique_entries = set()
+    words_not_found = set()
     index = IndexCreator()
     claims = Claims()
 
     words_file_en = open('words-en.txt','w')
     words_file_ca = open('words-ca.txt','w')
+    words_ca_notfound_file = open('words-ca-notfound.txt','w')
     descriptions_file_en = open('descriptions-en.txt','w')
     descriptions_file_ca = open('descriptions-ca.txt','w')
     json_file = open('wordlist-wikidata.json', 'w')
@@ -161,7 +163,8 @@ def _process_json():
         word = word.strip()
         items = mongo_records.findEntry(word)
 
-        if items is None:
+        if items is None or items.count() == 0:
+            words_not_found.add(word.lower())
             continue
 
         #if cnt > 50000:
@@ -179,6 +182,8 @@ def _process_json():
 
             if item_id in articles:
                 continue
+
+            words_not_found.discard(word.lower())
 
             articles.add(item_id)
 
@@ -350,6 +355,11 @@ def _process_json():
     descriptions_file_en.close()
     descriptions_file_ca.close()
     images_file.close()
+
+    for word_not_found in words_not_found:
+        words_ca_notfound_file.write(word_not_found + '\r\n')
+
+    words_ca_notfound_file.close()
 
     wiki_stats = {"wikidata": stats}
     with open('../stats.json', 'w') as jsonfile:
