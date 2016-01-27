@@ -81,7 +81,16 @@ class CheckContentQuality(object):
 
         self._assert_greater(total_words, 9000)
 
+    def _check_all_sources_uploaded(self):
+        
+        url = '{0}api/statistics'
+        url = url.format(self.url)
+        json = self._get_results(url)
+        self._assert_that('wikidata' in json, True, 'wikidata')
+        self._assert_that('wikidictionary' in json, True, 'wikidictionary')
+
     def check(self):
         self._check_words()
-        self. _check_index_content()
+        self._check_all_sources_uploaded()
+        self._check_index_content()
         return True

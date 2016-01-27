@@ -53,7 +53,7 @@ if __name__ == '__main__':
     print("Use --help for assistance")
 
     api = CheckApi(site_url)
-    if not api.check():
-        sys.exit(1)
-
-    sys.exit(0)
+    api.check()
+    
+    api = CheckContentQuality(site_url)
+    api.check()
