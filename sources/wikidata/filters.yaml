@@ -14,6 +14,7 @@ has_property:
     - P735 # Prenom
     - P434 # MusicBrainz Artist ID
     - P277 # Programming language (Dia, Mosaic). Helps to fiter out software
+    - P236 # ISSN (Playboy)
 
 # If the entry has an instance of value in this list, it will be skipped
 instance_of:
@@ -33,6 +34,7 @@ instance_of:
     - 95074 #fictional character
     - 215380 # Music band
     - 18343316 # Unix command (cd)
+    - 6881511 # Enterprise (litoral)
 
 # If the entry has an 'instance of' that is a 'subclass of' a value in this list, it will be skipped
 subclass_of:
