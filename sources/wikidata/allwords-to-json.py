@@ -29,14 +29,6 @@ def percentage(part, whole):
     return 100 * float(part)/float(whole)
 
 
-def _is_segment_valid(string):
-    # Discard numeric strings only (like years)
-    if string.isdigit():
-        return False
-
-    return True
-
-
 def _create_collection():
     client = MongoClient('mongodb://localhost:27017/')
     db = client['local']
@@ -52,7 +44,7 @@ def _show_statistics(stats, json_file):
     en_descs = stats["en_descs"]
 
     print ("Total entries: " + str(entries))
-    print ("Selected: {0} ({1}%)".format(str(selected), str(percentage(selected, cnt))))
+    print ("Selected (English label exists): {0} ({1}%)".format(str(selected), str(percentage(selected, cnt))))
     print ("ca labels: {0} ({1}%)".format(str(ca_labels), str(percentage(ca_labels, cnt))))
     print ("en labels: {0} ({1}%)".format(str(en_labels), str(percentage(en_labels, cnt))))
     print ("ca descriptions: {0} ({1}%)".format(str(ca_descs), str(percentage(ca_descs, cnt))))
@@ -70,20 +62,6 @@ def _write_claims(mongo_records, claims_stats):
 
     claims.close()
 
-def _excluded_claims(claims):
-
-    excluded_list = {"P1566",
-               "P301",
-               "P19"
-    }
-
-    for excluded in excluded_list:
-        if excluded in claims:
-            return True 
-
-    return False
-
-
 def _process_json():
 
     cnt = 0
@@ -93,9 +71,10 @@ def _process_json():
     en_descs = 0
     ca_descs = 0
     claims_stats = {}
-    ca_labels_text = []
 
     json_file = open('allwords-wikidata.json', 'w')
+    words_file_ca = open('words-ca.txt','w')
+    descriptions_file_ca = open('descriptions-ca.txt','w')
     db = _create_collection()
     mongo_records = MongoRecords(db)
 
@@ -109,7 +88,6 @@ def _process_json():
 
         item_id = item['id']
         if item_id is None:
-            print "Item id is None"
             continue
 
         if item_id.startswith("Q") is False:
@@ -121,20 +99,8 @@ def _process_json():
         if en_label is None:
             continue
 
-        if _is_segment_valid(en_label) is False:
-            continue
-
         descriptions = item.get('descriptions')
         en_description, ca_description = mongo_records.get_en_ca_descriptions(descriptions)
-
-        if ca_label is None or ca_description is None:
-            continue
-
-        if en_description is not None:
-            if "disambiguation page" in en_description or \
-               "template" in en_description or \
-               "category" in en_description:
-                continue
 
         data = {}
         data['en'] = en_label
@@ -156,9 +122,6 @@ def _process_json():
 
         claims = item.get('claims')
 
-        if _excluded_claims(claims):
-            continue
-
         if claims is not None:
             text = ''
             for claim in claims:
@@ -172,22 +135,17 @@ def _process_json():
 
             data['claims'] = text
 
-        ca_labels_text.append(ca_label)
         selected = selected + 1
         json.dump(data, json_file, indent=4, separators=(',', ': '))
-        #print selected
 
-        #if selected > 100:
-        #    break
+        if ca_label is not None:
+            words_file_ca.write(ca_label.encode('utf-8') + ' id:' + str(item_id) + '\r\n')
 
+            if ca_description is not None:
+                s = '{0} id: {1} - {2}\r\n'.format(ca_label.encode('utf-8'), str(item_id), ca_description.encode('utf-8'))
+                descriptions_file_ca.write(s)
+        
     _write_claims(mongo_records, claims_stats)
-
-    sorted_keys = sorted(ca_labels_text)
-    words = open('words.txt', 'w')
-    for item in sorted_keys:
-        words.write('{0}\n'.format(item.encode('utf-8')))
-
-    words.close()
 
     stats = {
         "entries": cnt,
@@ -199,6 +157,9 @@ def _process_json():
     }
     _show_statistics(stats, json_file)
 
+    words_file_ca.close()
+    descriptions_file_ca.close()
+    
 
 def create_index():
     print "Index creation started"
@@ -215,7 +176,7 @@ def main():
     # Download data set from http://dumps.wikimedia.org/other/wikidata/
     # I tried using commons and mediawiki categories without great results
     # instead we choose a word if this appears on Softcatalà memories.
-    print ("Reads all the Wikidata entries from Mongo and generates a JSON")
+    print ("Reads all the Wikidata entries from Mongo and generates statistics and reports")
 
     create_index()
     start_time = datetime.datetime.now()
