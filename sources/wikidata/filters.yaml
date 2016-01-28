@@ -15,6 +15,7 @@ has_property:
     - P434 # MusicBrainz Artist ID
     - P277 # Programming language (Dia, Mosaic). Helps to fiter out software
     - P236 # ISSN (Playboy)
+    - P19 # place of birth (Marc)
 
 # If the entry has an instance of value in this list, it will be skipped
 instance_of:
