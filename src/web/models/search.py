@@ -108,11 +108,15 @@ class Search(object):
             return self._get_json_search()
 
     def _get_json_search(self):
+        wordl = self.word.lower()
         results = self.get_results()
         all_results = []
 
         for result in results:
-            all_results.append(self.get_result(result))
+            # Whoosh returns any document containg the word. For example, for 
+            # 'lluna' contains 'lluna de mel' but we only want exact matches
+            if result[self.field].lower() == wordl:
+                all_results.append(self.get_result(result))
 
         return json.dumps(all_results, indent=4, separators=(',', ': '))
 
