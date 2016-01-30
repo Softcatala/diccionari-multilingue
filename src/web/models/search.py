@@ -74,7 +74,7 @@ class Search(object):
                                            collapse_limit=1,
                                            collapse=self.field)
         else:
-            results = self.searcher.search(self.query, limit=None)
+            results = self.searcher.search(self.query, limit=None, sortedby='quality', reverse=True)
 
         results.fragmenter = WholeFragmenter()
         return results
@@ -184,6 +184,6 @@ class Search(object):
         self.add_to_dict(result_dict, 'image', image)
         self.add_to_dict(result_dict, 'references', references)
         self.add_to_dict(result_dict, 'source', source)
-
+        result_dict['quality'] = result['quality']
         return result_dict
 

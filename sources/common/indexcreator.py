@@ -59,6 +59,23 @@ class IndexCreator(object):
 
         return s;
 
+    def _get_quality(self, image, gec, wikiquote_ca, wikidictionary_ca):
+
+        quality = 0
+        if image is not None and len(image) > 0:
+            quality += 1
+
+        if gec is not None and len(gec) > 0:
+            quality += 1
+ 
+        if wikiquote_ca is not None and len(wikiquote_ca) > 0:
+            quality += 1
+
+        if wikidictionary_ca is not None and len(wikidictionary_ca) > 0:
+            quality += 1
+
+        return quality
+
     def write_entry(self, word_en, word_ca, word_fr, word_de, word_es, word_it,
                     definition_en, definition_ca, definition_fr,
                     definition_de, definition_es, definition_it, image, 
@@ -72,6 +89,7 @@ class IndexCreator(object):
         if word_ca is not None:
             word_ca = word_ca.lower()
 
+        quality = self._get_quality(image, gec, wikiquote_ca, wikidictionary_ca)
         self.writer.add_document(word_en=word_en,
                                  word_ca=word_ca,
                                  word_fr=word_fr,
@@ -91,7 +109,8 @@ class IndexCreator(object):
                                  wikiquote_ca=wikiquote_ca,
                                  index_letter=index_letter,
                                  wikidictionary_ca=wikidictionary_ca,
-                                 source=source)
+                                 source=source,
+                                 quality=quality)
 
     def save(self):
         self.writer.commit()
@@ -119,7 +138,8 @@ class IndexCreator(object):
                         wikiquote_ca=STORED(),
                         index_letter=TEXT(stored=True, analyzer=analyzer),
                         wikidictionary_ca=STORED(),
-                        source=NUMERIC(stored=True))
+                        source=NUMERIC(stored=True),
+                        quality=NUMERIC(stored=True))
 
         if not os.path.exists(self.dir_name):
             os.mkdir(self.dir_name)
