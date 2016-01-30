@@ -105,12 +105,14 @@ class Claims():
             return False
 
         try:
-            instance = claims[SUBCLASS_OF][0]['mainsnak']['datavalue']['value']
-            if instance is not None and instance['entity-type'] == 'item' and instance['numeric-id'] is not None:
-                numeric_id = instance['numeric-id']
-                if numeric_id in filters:
-                    logging.debug('Discarded {0} ({1}) because P279 with value {2}'.format(ca_label.encode('utf-8'), item_id, numeric_id))
-                    return True
+            values = len(claims[SUBCLASS_OF])
+            for idx in range (0, values):
+                instance = claims[SUBCLASS_OF][idx]['mainsnak']['datavalue']['value']
+                if instance is not None and instance['entity-type'] == 'item' and instance['numeric-id'] is not None:
+                    numeric_id = instance['numeric-id']
+                    if numeric_id in filters:
+                        logging.debug('Discarded {0} ({1}) because P279 with value {2}'.format(ca_label.encode('utf-8'), item_id, numeric_id))
+                        return True
 
         except Exception as e:
             logging.error(e)
@@ -140,14 +142,16 @@ class Claims():
             return True
 
         try:
-            instance = claims[INSTANCE_OF][0]['mainsnak']['datavalue']['value']
-            if instance is not None and instance['entity-type'] == 'item' and instance['numeric-id'] is not None:
-                numeric_id = instance['numeric-id']
-                if numeric_id in self.filters['instance_of']:
-                    logging.debug('Discarded {0} ({1}) because P31 with value {2}'.format(ca_label.encode('utf-8'), item_id, numeric_id))
-                    return False
-                elif self._is_subclass_of(numeric_id, self.filters['subclass_of'], mongo_records, ca_label):
-                    return False
+            values = len(claims[INSTANCE_OF])
+            for idx in range (0, values):
+                instance = claims[INSTANCE_OF][idx]['mainsnak']['datavalue']['value']
+                if instance is not None and instance['entity-type'] == 'item' and instance['numeric-id'] is not None:
+                    numeric_id = instance['numeric-id']
+                    if numeric_id in self.filters['instance_of']:
+                        logging.debug('Discarded {0} ({1}) because P31 with value {2}'.format(ca_label.encode('utf-8'), item_id, numeric_id))
+                        return False
+                    elif self._is_subclass_of(numeric_id, self.filters['subclass_of'], mongo_records, ca_label):
+                        return False
 
         except Exception as e:
             logging.error(e)
