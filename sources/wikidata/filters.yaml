@@ -37,6 +37,7 @@ instance_of:
     - 18343316 # Unix command (cd)
     - 6881511 # Enterprise (litoral)
     - 11032 # Press (Marca)
+    - 15416 # TV program (àgora)
 
 # If the entry has an 'instance of' that is a 'subclass of' a value in this list, it will be skipped
 subclass_of:
