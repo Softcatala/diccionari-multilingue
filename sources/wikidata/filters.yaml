@@ -36,6 +36,7 @@ instance_of:
     - 215380 # Music band
     - 18343316 # Unix command (cd)
     - 6881511 # Enterprise (litoral)
+    - 11032 # Press (Marca)
 
 # If the entry has an 'instance of' that is a 'subclass of' a value in this list, it will be skipped
 subclass_of:
