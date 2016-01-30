@@ -102,6 +102,21 @@ class Search(object):
         self.query = MultifieldParser(fields, ix.schema).parse(qs)
 
     def get_json(self):
+        if self.AutoComplete is True or self.Index is True:
+            return self._get_json_index_autocomplete()
+        else:
+            return self._get_json_search()
+
+    def _get_json_search(self):
+        results = self.get_results()
+        all_results = []
+
+        for result in results:
+            all_results.append(self.get_result(result))
+
+        return json.dumps(all_results, indent=4, separators=(',', ': '))
+
+    def _get_json_index_autocomplete(self):
         results = self.get_results()
         all_results = []
         if self.Index is False:
@@ -109,17 +124,11 @@ class Search(object):
 
         words = []
         for result in results:
-            if self.AutoComplete is True or self.Index:
-                words.append(result[self.field])
-            else:
-                all_results.append(self.get_result(result))
+            words.append(result[self.field])
 
-        if self.AutoComplete is True or self.Index:
-            all_results = {}
-            all_results["words"] = words
-
+        all_results = {}
+        all_results["words"] = words
         return json.dumps(all_results, indent=4, separators=(',', ': '))
-
 
     def _get_result(self, result, key):
         if key in result:
@@ -130,7 +139,7 @@ class Search(object):
     def add_to_dict(self, dictionary, key, value):
         if value is None or len(value) == 0:
             return
-        
+
         dictionary[key] = value
 
     def get_result(self, result):
@@ -144,7 +153,7 @@ class Search(object):
 
         references = {}
             
-        self.add_to_dict(references, 'gec' , self._get_result(result, "gec"))
+        self.add_to_dict(references, 'gec', self._get_result(result, "gec"))
         self.add_to_dict(references, 'wikidata', self._get_result(result, "wikidata_id"))
         self.add_to_dict(references, 'wikiquote_ca', self._get_result(result, "wikiquote_ca"))
         self.add_to_dict(references, 'wikidictionary_ca', self._get_result(result, "wikidictionary_ca"))
