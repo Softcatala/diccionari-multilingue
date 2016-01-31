@@ -123,6 +123,10 @@ class VerbText:
             if len(s) == 0:
                 break
 
+            # If we find a {{-sin-}}, {{-trad-}}, etc, stop processing
+            if '{{-' in s.lower():
+                break
+
             s = self._remove_templates(s)
             s = self._remove_intenal_links(s)
             s = self._remove_mediawiki_markup(s)
