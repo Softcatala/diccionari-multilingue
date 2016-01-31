@@ -87,14 +87,32 @@ class VerbText:
     def GetDescription(self):
         verb = ''
         VERB_START = '===[ ]*Verb[ ]*==='
+        ADV_START = '===[ ]*Adverbi[ ]*==='
        
+        found = True
         match = re.search(VERB_START, self.text)
         if match is None:
-            return verb
+            found = False
 
-        start = match.end()
-        end = self.text.find('==', start)
-        if end < 0:
+        if found is True:
+            start = match.end()
+            end = self.text.find('==', start)
+            if end < 0:
+                found = False
+
+        if found is False:
+            found = True
+            match = re.search(ADV_START, self.text)
+            if match is None:
+                found = False
+
+            if found is True:
+                start = match.end()
+                end = self.text.find('==', start)
+                if end < 0:
+                    found = False
+
+        if found is False:
             return verb
 
         s = self.text[start:end]

@@ -113,6 +113,7 @@ def _process_xml():
     e = xml.etree.ElementTree.parse('cawiktionary-20160111-pages-meta-current.xml').getroot()
     for page in e.getchildren():
         verb = False
+        adverbi = False
         en_label = u''
         ca_label = u''
         fr_label = u''
@@ -133,6 +134,10 @@ def _process_xml():
                 if text is not None:
                     if '{{ca-verb' in text:
                         verb = True
+                    elif '{{lema|ca|adv}}' in text:
+                        adverbi = True
+
+                    if verb is True or adverbi is True:
                         en_label = _get_translation(text, '{{trad|en|')
                         es_label = _get_translation(text, '{{trad|es|')
                         fr_label = _get_translation(text, '{{trad|fr|')
@@ -143,12 +148,12 @@ def _process_xml():
                         if username is not None and len(username) > 0:
                             authors.add(username)
 
-        if verb is False:
+        if verb is False and adverbi is False:
             continue
 
         # TODO: A better way to determine infinitives
         ca_label_str = to_str(ca_label)
-        if ca_label_str[len(ca_label_str) - 1] != 'r':
+        if verb is True and ca_label_str[len(ca_label_str) - 1] != 'r':
             logging.debug("Discard not infitive: " + ca_label)
             continue
 
