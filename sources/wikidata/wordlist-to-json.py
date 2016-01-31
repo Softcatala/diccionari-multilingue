@@ -121,24 +121,25 @@ def init_logging():
     logger = logging.getLogger('peewee')
     logger.setLevel(logging.ERROR)
 
+
+def _assign_and_count(entry, key, value, counters):
+
+    if value is  None:
+        return
+
+    entry[key] = value
+    if key in counters:
+        counter = counters[key] + 1
+        counters[key] = counter
+    else:
+        counters[key] = 1
+
 def _process_json():
 
     WIKIDATA = 1
     cnt = 0
+    counters = {}
     selected = 0
-    en_labels = 0
-    it_labels = 0
-    ca_labels = 0
-    fr_labels = 0
-    de_labels = 0
-    es_labels = 0
-  
-    en_descs = 0
-    ca_descs = 0
-    fr_descs = 0
-    de_descs = 0
-    es_descs = 0
-    it_descs = 0
     images = 0
     articles = set()
     unique_entries = set()
@@ -217,52 +218,20 @@ def _process_json():
 
             selected = selected + 1
             data = {}
-            data['en'] = en_label
-            en_labels = en_labels + 1
 
-            if ca_label is not None:
-                data['ca'] = ca_label
-                ca_labels = ca_labels + 1
+            _assign_and_count(data, 'en', en_label, counters)    
+            _assign_and_count(data, 'ca', ca_label, counters)
+            _assign_and_count(data, 'fr', fr_label, counters)
+            _assign_and_count(data, 'de', de_label, counters)
+            _assign_and_count(data, 'es', es_label, counters)
+            _assign_and_count(data, 'it', it_label, counters)
 
-            if fr_label is not None:
-                data['fr'] = fr_label
-                fr_labels = fr_labels + 1
-
-            if de_label is not None:
-                data['de'] = de_label
-                de_labels = de_labels + 1
-
-            if es_label is not None:
-                data['es'] = es_label
-                es_labels = es_labels + 1
-
-            if it_label is not None:
-                data['it'] = it_label
-                it_labels = it_labels + 1
-
-            if en_description is not None:
-                data['en_description'] = en_description
-                en_descs = en_descs + 1
-
-            if ca_description is not None:
-                data['ca_description'] = ca_description
-                ca_descs = ca_descs + 1
-
-            if fr_description is not None:
-                data['fr_description'] = fr_description
-                fr_descs = fr_descs + 1
-
-            if de_description is not None:
-                data['de_description'] = de_description
-                de_descs = de_descs + 1
-
-            if es_description is not None:
-                data['es_description'] = es_description
-                es_descs = es_descs + 1
-
-            if it_description is not None:
-                data['it_description'] = it_description
-                it_descs = it_descs + 1
+            _assign_and_count(data, 'en_description', en_description, counters)
+            _assign_and_count(data, 'ca_description', ca_description, counters)
+            _assign_and_count(data, 'fr_description', fr_description, counters)
+            _assign_and_count(data, 'de_description', de_description, counters)
+            _assign_and_count(data, 'es_description', es_description, counters)
+            _assign_and_count(data, 'it_description', it_description, counters)
 
             image = _get_image(item)
             if image is not None:
@@ -330,18 +299,18 @@ def _process_json():
         ("unique_entries", len(unique_entries)),
         ("entries", cnt),
         ("selected", selected),
-        ("ca_labels", ca_labels),
-        ("en_labels", en_labels),
-        ("it_labels", it_labels),
-        ("es_labels", es_labels),
-        ("ca_descs", ca_descs),
-        ("en_descs", en_descs),
-        ("fr_labels", fr_labels),
-        ("de_labels", de_labels),
-        ("fr_descs", fr_descs),
-        ("de_descs", de_descs),
-        ("es_descs", es_descs),
-        ("it_descs", it_descs),
+        ("ca_labels", counters['ca']),
+        ("en_labels", counters['en']),
+        ("it_labels", counters['it']),
+        ("es_labels", counters['es']),
+        ("ca_descs", counters['ca_description']),
+        ("en_descs", counters['en_description']),
+        ("fr_labels", counters['fr']),
+        ("de_labels", counters['de']),
+        ("fr_descs", counters['fr_description']),
+        ("de_descs", counters['de_description']),
+        ("es_descs", counters['es_description']),
+        ("it_descs", counters['it_description']),
         ("images", images)
         ])
 
