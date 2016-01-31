@@ -88,6 +88,7 @@ class VerbText:
         verb = ''
         VERB_START = '===[ ]*Verb[ ]*==='
         ADV_START = '===[ ]*Adverbi[ ]*==='
+        ADJ_START = '===[ ]*Adjectiu[ ]*==='
        
         found = True
         match = re.search(VERB_START, self.text)
@@ -103,6 +104,18 @@ class VerbText:
         if found is False:
             found = True
             match = re.search(ADV_START, self.text)
+            if match is None:
+                found = False
+
+            if found is True:
+                start = match.end()
+                end = self.text.find('==', start)
+                if end < 0:
+                    found = False
+
+        if found is False:
+            found = True
+            match = re.search(ADJ_START, self.text)
             if match is None:
                 found = False
 

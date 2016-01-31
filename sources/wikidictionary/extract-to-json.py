@@ -114,6 +114,7 @@ def _process_xml():
     for page in e.getchildren():
         verb = False
         adverbi = False
+        adjectiu = False
         en_label = u''
         ca_label = u''
         fr_label = u''
@@ -136,8 +137,10 @@ def _process_xml():
                         verb = True
                     elif '{{lema|ca|adv}}' in text:
                         adverbi = True
+                    elif '{{ca-adj' in text:
+                        adjectiu = True
 
-                    if verb is True or adverbi is True:
+                    if verb is True or adverbi is True or adjectiu is True:
                         en_label = _get_translation(text, '{{trad|en|')
                         es_label = _get_translation(text, '{{trad|es|')
                         fr_label = _get_translation(text, '{{trad|fr|')
@@ -148,7 +151,7 @@ def _process_xml():
                         if username is not None and len(username) > 0:
                             authors.add(username)
 
-        if verb is False and adverbi is False:
+        if verb is False and adverbi is False and adjectiu is False:
             continue
 
         # TODO: A better way to determine infinitives
