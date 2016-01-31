@@ -149,20 +149,21 @@ def _process_xml():
         # TODO: A better way to determine infinitives
         ca_label_str = to_str(ca_label)
         if ca_label_str[len(ca_label_str) - 1] != 'r':
+            logging.debug("Discard not infitive: " + ca_label)
             continue
 
         ca_desc = u''
         verbText = VerbText(text)
         s = verbText.GetDescription()
 
-        if len(s) > 0:
-            ca_desc = s
-            ca_descs += 1
-
         if len(en_label) == 0 and len(es_label) == 0 and len(fr_label) == 0 and \
            len(de_label) == 0 and len(it_label) == 0:
             logging.debug("Discard only ca_label:" + ca_label)
             continue
+
+        if len(s) > 0:
+            ca_desc = s
+            ca_descs += 1
 
         ca_labels += 1
         if len(en_label) > 0:
