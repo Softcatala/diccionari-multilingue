@@ -39,6 +39,7 @@ instance_of:
     - 11032 # Press (Marca)
     - 15416 # TV program (àgora)
     - 4022 # River (Acre)
+    - 5 # Human (Heliodor)
 
 # If the entry has an 'instance of' that is a 'subclass of' a value in this list, it will be skipped
 subclass_of:
