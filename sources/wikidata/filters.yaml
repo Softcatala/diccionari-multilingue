@@ -42,6 +42,7 @@ instance_of:
     - 5 # Human (Heliodor)
     - 178885 # Deïtat (Mitra)
     - 13127686  # mythical character (Narcís)
+    - 148578 # Nom d'observatori (Granat)
 
 
 # If the entry has an 'instance of' that is a 'subclass of' a value in this list, it will be skipped
