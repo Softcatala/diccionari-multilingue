@@ -79,7 +79,7 @@ class CheckContentQuality(object):
             if c != 'y':
                 self._assert_greater(words, 1)
 
-        self._assert_greater(total_words, 9000)
+        self._assert_greater(total_words, 8500)
 
     def _check_all_sources_uploaded(self):
         
