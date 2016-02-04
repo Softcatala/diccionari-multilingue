@@ -91,6 +91,10 @@ def _save_statistics(stats):
 
     with open(STATS_FILE, 'w') as jsonfile:
         json.dump(all_stats, jsonfile, indent=4)
+
+def read_english_word_list():
+    words = list(unicode(line.lower().strip(), 'utf-8') for line in open('../apertium/catalan_words.txt'))
+    return words
     
 def _process_xml():
  
@@ -103,6 +107,7 @@ def _process_xml():
     it_labels = 0
     ca_descs = 0
     it_descs = 0
+    words = read_english_word_list()
 
     index = IndexCreator()
     index.open()
@@ -150,14 +155,18 @@ def _process_xml():
                         username = _get_username(page_element)
                         if username is not None and len(username) > 0:
                             authors.add(username)
-
+        
         if verb is False and adverbi is False and adjectiu is False:
+            continue
+
+        if ca_label.lower().strip() not in words:
+            logging.debug("Discard not in word list: " + ca_label)
             continue
 
         # TODO: A better way to determine infinitives
         ca_label_str = to_str(ca_label)
         if verb is True and ca_label_str[len(ca_label_str) - 1] != 'r':
-            logging.debug("Discard not infitive: " + ca_label)
+            logging.debug("Discard verb is not infinitive: " + ca_label)
             continue
 
         ca_desc = u''
