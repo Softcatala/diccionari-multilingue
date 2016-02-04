@@ -24,6 +24,8 @@ import sys
 from whoosh.fields import TEXT, NUMERIC, STORED, Schema
 from whoosh.index import *
 from whoosh.analysis import StandardAnalyzer
+from whoosh.qparser import MultifieldParser
+from whoosh.highlight import WholeFragmenter
 
 class IndexCreator(object):
 
@@ -148,3 +150,15 @@ class IndexCreator(object):
 
         self.writer = self.index.writer()
         return self.index
+
+    def search(self, word):
+        self.searcher = self.index.searcher()
+        fields = []
+        field = u'word_ca'
+        qs = u'{0}:({1})'.format(field, word)
+        fields.append(field)
+
+        query = MultifieldParser(fields, self.index.schema).parse(qs)
+        results = self.searcher.search(query, limit=None)
+        results.fragmenter = WholeFragmenter()
+        return results

@@ -95,6 +95,26 @@ def _save_statistics(stats):
 def read_english_word_list():
     words = list(unicode(line.lower().strip(), 'utf-8') for line in open('../apertium/catalan_words.txt'))
     return words
+
+def term_exists_in_index(index, ca_label, en_label):
+
+    WIKIDICTIONARY = 2
+    results = index.search(ca_label)
+    for result in results:
+        source = result['source']
+        if source == WIKIDICTIONARY:
+            continue
+
+        idx_ca_label = result['word_ca']
+        idx_en_label = result['word_en']
+        if idx_en_label is None:
+            continue
+
+        if ca_label.lower() == idx_ca_label.lower() and en_label.lower() == idx_en_label.lower():
+            return True
+
+    return False
+    
     
 def _process_xml():
  
@@ -161,6 +181,10 @@ def _process_xml():
 
         if ca_label.lower().strip() not in words:
             logging.debug("Discard not in word list: " + ca_label)
+            continue
+
+        if term_exists_in_index(index, ca_label, en_label):
+            logging.debug("Discard already existing word in index: " + ca_label)
             continue
 
         # TODO: A better way to determine infinitives
