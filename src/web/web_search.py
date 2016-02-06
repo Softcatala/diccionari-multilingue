@@ -27,6 +27,7 @@ from indexview import IndexView
 
 sys.path.append('models/')
 from search import Search
+from statssql import Stats
 
 
 app = Flask(__name__)
@@ -69,6 +70,37 @@ def autocomplete_api(word):
     search.AutoComplete = True
     return Response(search.get_json(), mimetype='application/json')
 
+def save_stats(word, lang):
+    if lang is None:
+        lang = 'ca'
+
+    Stats.create_table(fail_silently=True)
+
+    try:
+        result = Stats.select().where((Stats.word==word) & (Stats.lang==lang)).get()
+
+    except:
+        result = None
+
+    if result is not None:
+        result.times = result.times + 1
+        result.save()
+    else:
+        times = 1
+        stats = Stats(word = word, lang = lang, times = times)
+        stats.save()
+
+@app.route('/usage', methods=['GET'])
+def usage_api():
+
+    out = 'Tracking enabled: {0}<br/><br/>'.format(str(is_tracking_enabled()))
+    results = Stats.select().order_by(Stats.times.desc())
+    for result in results:
+        msg = '{0} - {1} - {2}<br/>'.format(result.word, result.lang, result.times)
+        out += msg
+
+    return out
+
 @app.route('/search/<word>', methods=['GET'])
 def search_api(word):
     lang = request.args.get('lang')
@@ -77,6 +109,9 @@ def search_api(word):
     else:
         search = Search(word, lang)
         
+    if is_tracking_enabled():
+        save_stats(word, lang)
+
     return Response(search.get_json(), mimetype='application/json')
 
 @app.route('/index/<lletra>', methods=['GET'])
@@ -85,6 +120,28 @@ def index_letter_api(lletra):
     search.Index = True
     search.Duplicates = False
     return Response(search.get_json(), mimetype='application/json')
+
+def is_tracking_enabled():
+    enable = False
+    try:
+        f = open('tracking.txt','r')
+        line = f.readline()
+        f.close()
+        status = int(line)
+        if status == 1:
+            enable = True
+    except:
+        pass
+
+    return enable
+
+
+@app.route('/track/<enable>', methods=['GET'])
+def track_api(enable):
+    f = open('tracking.txt','w')
+    f.write(enable)
+    f.close()
+    return str(is_tracking_enabled())
 
 # Render calls
 @app.route('/render/statistics')
@@ -102,7 +159,7 @@ def render_statistics():
 
     for value in values_to_sum:
         set_stats_sum_for(values, value)
- 
+
     env = Environment(loader=FileSystemLoader('./'))
     template = env.get_template('templates/statistics.html')
     r = template.render(values).encode('utf-8')
