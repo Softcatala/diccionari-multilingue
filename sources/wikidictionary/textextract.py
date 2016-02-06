@@ -22,7 +22,7 @@ import logging
 import StringIO
 import re
 
-class VerbText:
+class TextExtract:
 
     def __init__(self, text):
         self.text = text

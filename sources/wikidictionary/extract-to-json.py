@@ -23,7 +23,7 @@ import logging
 import os
 import xml.etree.ElementTree
 import json
-from verbtext import VerbText
+from textextract import TextExtract
 
 import sys
 sys.path.append('../common/')
@@ -194,8 +194,8 @@ def _process_xml():
             continue
 
         ca_desc = u''
-        verbText = VerbText(text)
-        s = verbText.GetDescription()
+        textExtract = TextExtract(text)
+        s = textExtract.GetDescription()
 
         if len(en_label) == 0 and len(es_label) == 0 and len(fr_label) == 0 and \
            len(de_label) == 0 and len(it_label) == 0:
