@@ -61,7 +61,7 @@ class CheckApi(object):
         self._assert_contains(words, u'avís')
 
     def _check_search(self):
-        url = '{0}api/search/abat'
+        url = '{0}api/search/abat?it=1'
         url = url.format(self.url)
         json = self._get_results(url)
         self._assert_concret_word(json[0])
