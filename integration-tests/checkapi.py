@@ -71,7 +71,7 @@ class CheckApi(object):
 
         for lang in langs.keys():
             word = langs[lang]
-            url = '{0}api/search/{1}?lang={2}'
+            url = '{0}api/search/{1}?lang={2}&it=1'
             url = url.format(self.url, word, lang)
             json = self._get_results(url)
             self._assert_concret_word(json[0])

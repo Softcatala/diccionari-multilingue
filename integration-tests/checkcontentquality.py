@@ -51,9 +51,8 @@ class CheckContentQuality(object):
             for entry in doc:
                 word = unicode(entry['word_ca'])
                 definition = entry['definition_ca']
-                url = u'{0}api/search/' + word
-
-                url = url.format(self.url).encode('utf-8')
+                url = u'{0}api/search/{1}?it=1'
+                url = url.format(self.url, word).encode('utf-8')
                 json = self._get_results(url)
                 found = False
                 for rslt in json:

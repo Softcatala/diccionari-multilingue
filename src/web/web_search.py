@@ -96,7 +96,8 @@ def usage_api():
     out = 'Tracking enabled: {0}<br/><br/>'.format(str(is_tracking_enabled()))
     results = Stats.select().order_by(Stats.times.desc())
     for result in results:
-        msg = '{0} - {1} - {2}<br/>'.format(result.word, result.lang, result.times)
+        word = result.word.encode('utf-8')
+        msg = '{0} - {1} - {2}<br/>'.format(word, result.lang, result.times)
         out += msg
 
     return out
@@ -104,12 +105,13 @@ def usage_api():
 @app.route('/search/<word>', methods=['GET'])
 def search_api(word):
     lang = request.args.get('lang')
+    it = request.args.get('it')
     if lang is None:
         search = Search(word)
     else:
         search = Search(word, lang)
-        
-    if is_tracking_enabled():
+
+    if it is None and is_tracking_enabled():
         save_stats(word, lang)
 
     return Response(search.get_json(), mimetype='application/json')
