@@ -1,3 +1,4 @@
+# *** Wikidata ***
 
 # Astronomia
 - word_ca: lluna
@@ -22,4 +23,16 @@
 
 - word_ca: rectangle
   definition_ca: quadrilàter amb tots els seus angles rectes
+
+# *** Wikidictionary - advervi ***
+- word_ca: freqüentment
+  definition_ca: "# D'una manera freqüent.\n"
+
+# *** Wikidictionary - adjectiu ***
+- word_ca: immoral
+  definition_ca: "# Contrari a la moral.\n"
+
+# *** Wikidictionary - verb ***
+- word_ca: dormir
+  definition_ca: "#Agafar el son.\n"
 
