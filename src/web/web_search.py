@@ -49,6 +49,11 @@ def set_stats_sum_for(values, value):
     values[value] = result
 
 # API calls
+def json_answer(data):
+    resp = Response(data, mimetype='application/json')
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+
 @app.route('/statistics')
 def api_statistics():
     STATS_FILE = 'stats.json'
@@ -56,7 +61,7 @@ def api_statistics():
         values = json.load(data_file)
 
     values = json.dumps(values, indent=4)
-    return Response(values, mimetype='application/json')
+    return json_answer(values)
 
 @app.route('/autocomplete/<word>', methods=['GET'])
 def autocomplete_api(word):
@@ -68,7 +73,7 @@ def autocomplete_api(word):
         search = Search(word, lang)
 
     search.AutoComplete = True
-    return Response(search.get_json(), mimetype='application/json')
+    return json_answer(search.get_json())
 
 def save_stats(word, lang):
     if lang is None:
@@ -114,14 +119,14 @@ def search_api(word):
     if it is None and is_tracking_enabled():
         save_stats(word, lang)
 
-    return Response(search.get_json(), mimetype='application/json')
+    return json_answer(search.get_json())
 
 @app.route('/index/<lletra>', methods=['GET'])
 def index_letter_api(lletra):
     search = Search(lletra)
     search.Index = True
     search.Duplicates = False
-    return Response(search.get_json(), mimetype='application/json')
+    return json_answer(search.get_json())
 
 def is_tracking_enabled():
     enable = False
