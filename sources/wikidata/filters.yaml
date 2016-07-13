@@ -16,6 +16,8 @@ has_property:
     - P277 # Programming language (Dia, Mosaic). Helps to fiter out software
     - P236 # ISSN (Playboy)
     - P19 # place of birth (Marc)
+    - P195 # art, museum or bibliographic collection the subject is part of
+    - P1082 # number of people inhabiting the place
 
 # If the entry has an instance of value in this list, it will be skipped
 instance_of:
