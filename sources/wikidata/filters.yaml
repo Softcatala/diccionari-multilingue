@@ -17,7 +17,6 @@ has_property:
     - P236 # ISSN (Playboy)
     - P19 # place of birth (Marc)
     - P195 # art, museum or bibliographic collection the subject is part of
-    - P1082 # number of people inhabiting the place
 
 # If the entry has an instance of value in this list, it will be skipped
 instance_of:
@@ -46,6 +45,7 @@ instance_of:
     - 13127686  # mythical character (Narcís)
     - 148578 # Nom d'observatori (Granat)
     - 1336152 # princely state of the British Raj (Amb)
+    - 532 # village
 
 
 # If the entry has an 'instance of' that is a 'subclass of' a value in this list, it will be skipped

@@ -356,7 +356,7 @@ def main():
 
     init_logging()
     start_time = datetime.datetime.now()
-    #create_index()
+    create_index()
     _process_json()
     msg = 'Time {0}'.format(datetime.datetime.now() - start_time)
     logging.info(msg)
