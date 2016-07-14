@@ -46,6 +46,7 @@ instance_of:
     - 148578 # Nom d'observatori (Granat)
     - 1336152 # princely state of the British Raj (Amb)
     - 532 # village
+    - 134556 # type of music release usually containing one or two tracks
 
 
 # If the entry has an 'instance of' that is a 'subclass of' a value in this list, it will be skipped
