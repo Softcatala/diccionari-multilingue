@@ -125,10 +125,6 @@ def search_api(word):
         save_stats(word, lang)
 
     j, status = search._get_json_search()
-    if status == 404:
-        j = json.dumps([], indent=4, separators=(',', ': '))
-        return json_answer(j)
-
     return json_answer_status(j, status)
 
 @app.route('/index/<lletra>', methods=['GET'])

@@ -20,18 +20,29 @@
 
 import urllib
 import json
+import urllib2
 
 class CheckApi(object):
+
+    OK = 200
+    NOT_FOUND = 404
 
     def __init__(self, url):
         self.url = url
 
+    class DoNotRaiseExceptions(urllib2.BaseHandler):
+        def http_error_404(self, request, response, code, msg, hdrs):
+            return response
+
     def _get_results(self, url):
-        print(url)
-        urllib.urlretrieve(url, 'file.txt')
-        with open('file.txt') as json_data:
-            data = json.load(json_data)
-            return data
+
+        opener = urllib2.build_opener(self.DoNotRaiseExceptions)
+        urllib2.install_opener(opener)
+        req = urllib2.Request(url)
+
+        response = urllib2.urlopen(url)
+        data = json.load(response)
+        return data, response.getcode()
 
     def _assert_contains(self, actual, expected):
         if expected not in actual:
@@ -46,27 +57,37 @@ class CheckApi(object):
     def _check_autocomplete(self):
         url = '{0}autocomplete/tau'
         url = url.format(self.url)
-        json = self._get_results(url)
+        json, status = self._get_results(url)
 
         words = json['words']
+        self._assert_that(self.OK, status)
         self._assert_contains(words, 'taula')
         self._assert_contains(words, 'taulell')
 
     def _check_index(self):
         url = '{0}index/a'
         url = url.format(self.url)
-        json = self._get_results(url)
+        json, status = self._get_results(url)
 
         words = json['words']
+        self._assert_that(self.OK, status)        
         self._assert_contains(words, u'abadia')
         self._assert_contains(words, u'avís')
 
     def _check_search(self):
         url = '{0}search/abat?it=1'
         url = url.format(self.url)
-        json = self._get_results(url)
+        json, status = self._get_results(url)
+        self._assert_that(self.OK, status)
         self._assert_concret_word(json[0])
 
+    def _check_search_fuzzy(self):
+        url = '{0}search/taul?it=1'
+        url = url.format(self.url)
+        json, status = self._get_results(url)
+        self._assert_that(self.NOT_FOUND, status)
+        self._assert_that(json[0]['word_ca'], 'taula')
+        
     def _check_search_langs(self):
         langs = {"en" : "abbot", "fr" : "abbé", "es" : "abad", "it" : "abate", "de" : "Abt"}
 
@@ -74,7 +95,7 @@ class CheckApi(object):
             word = langs[lang]
             url = '{0}search/{1}?lang={2}&it=1'
             url = url.format(self.url, word, lang)
-            json = self._get_results(url)
+            json, code = self._get_results(url)
             self._assert_concret_word(json[0])
 
     def _assert_concret_word(self, term):
@@ -95,6 +116,7 @@ class CheckApi(object):
 
     def check(self):
 
+        self._check_search_fuzzy()
         self._check_autocomplete()
         self._check_index()
         self._check_search()
