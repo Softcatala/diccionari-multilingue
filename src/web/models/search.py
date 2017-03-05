@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 #
-# Copyright (c) 2015 Jordi Mas i Hernandez <jmas@softcatala.org>
+# Copyright (c) 2015-2017 Jordi Mas i Hernandez <jmas@softcatala.org>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -21,6 +21,7 @@
 from whoosh.highlight import WholeFragmenter
 from whoosh.index import open_dir
 from whoosh.qparser import MultifieldParser
+from whoosh.query import FuzzyTerm
 import json
 import cgi
 
@@ -35,6 +36,7 @@ class Search(object):
         self.Index = False
         self.Duplicates = True
         self.AutoComplete = False
+        self.FuzzyMatching = False
         self.field = self._get_field(lang)
 
     def _get_field(self, lang):
@@ -75,11 +77,19 @@ class Search(object):
                                            collapse=self.field)
         else:
             results = self.searcher.search(self.query, limit=None, sortedby='quality', reverse=True)
+    
+        if len(results) == 0:
+            results = self.get_fuzzy_matches()
 
         results.fragmenter = WholeFragmenter()
         return results
 
-    def search(self, ix=None):
+    def get_fuzzy_matches(self):
+        self.search(fuzzy=True)
+        results = self.searcher.search(self.query, limit=None, sortedby='quality', reverse=True)
+        return results
+
+    def search(self, ix=None, fuzzy=False):
         if ix is None:
             ix = open_dir(self.dir_name)
             self.search(ix)
@@ -98,8 +108,13 @@ class Search(object):
             if self.word is not None and len(self.word) > 0:
                 qs += u' {0}:({1})'.format(self.field, self.word)
                 fields.append(self.field)
+    
+        if fuzzy:
+            self.query = MultifieldParser(fields, ix.schema,termclass=FuzzyTerm).parse(qs)
+        else:
+            self.query = MultifieldParser(fields, ix.schema).parse(qs)
 
-        self.query = MultifieldParser(fields, ix.schema).parse(qs)
+        self.FuzzyMatching = fuzzy
 
     def get_json(self):
         if self.AutoComplete is True or self.Index is True:
@@ -108,6 +123,9 @@ class Search(object):
             return self._get_json_search()
 
     def _get_json_search(self):
+        OK = 200
+        NOT_FOUND = 404
+
         wordl = self.word.lower()
         results = self.get_results()
         all_results = []
@@ -115,10 +133,13 @@ class Search(object):
         for result in results:
             # Whoosh returns any document containg the word. For example, for 
             # 'lluna' contains 'lluna de mel' but we only want exact matches
-            if result[self.field].lower() == wordl:
+            if self.FuzzyMatching:
+                all_results.append(self.get_result(result))
+            elif result[self.field].lower() == wordl:
                 all_results.append(self.get_result(result))
 
-        return json.dumps(all_results, indent=4, separators=(',', ': '))
+        status = NOT_FOUND if self.FuzzyMatching else OK
+        return json.dumps(all_results, indent=4, separators=(',', ': ')), status
 
     def _get_json_index_autocomplete(self):
         results = self.get_results()
@@ -132,7 +153,7 @@ class Search(object):
 
         all_results = {}
         all_results["words"] = words
-        return json.dumps(all_results, indent=4, separators=(',', ': '))
+        return json.dumps(all_results, indent=4, separators=(',', ': ')),
 
     def _get_result(self, result, key):
         if key in result:

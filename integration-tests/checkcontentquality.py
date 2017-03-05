@@ -51,7 +51,7 @@ class CheckContentQuality(object):
             for entry in doc:
                 word = unicode(entry['word_ca'])
                 definition = entry['definition_ca']
-                url = u'{0}api/search/{1}?it=1'
+                url = u'{0}search/{1}?it=1'
                 url = url.format(self.url, word).encode('utf-8')
                 json = self._get_results(url)
                 found = False
@@ -70,7 +70,7 @@ class CheckContentQuality(object):
         total_words = 0
         for c in map(chr, range(ord('a'), ord('z')+1)):
             c = '{0}'.format(c)
-            url = '{0}api/index/' + c
+            url = '{0}index/' + c
             url = url.format(self.url)
             json = self._get_results(url)
             words = len(json['words'])
@@ -82,7 +82,7 @@ class CheckContentQuality(object):
 
     def _check_all_sources_uploaded(self):
         
-        url = '{0}api/statistics'
+        url = '{0}statistics'
         url = url.format(self.url)
         json = self._get_results(url)
         self._assert_that('wikidata' in json, True, 'wikidata')

@@ -52,6 +52,7 @@ if __name__ == '__main__':
     print("Integration tests for: " + site_url)
     print("Use --help for assistance")
 
+    print("Checking {0}".format(site_url))
     api = CheckApi(site_url)
     api.check()
     

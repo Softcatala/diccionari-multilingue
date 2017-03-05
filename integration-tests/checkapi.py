@@ -27,6 +27,7 @@ class CheckApi(object):
         self.url = url
 
     def _get_results(self, url):
+        print(url)
         urllib.urlretrieve(url, 'file.txt')
         with open('file.txt') as json_data:
             data = json.load(json_data)
@@ -43,7 +44,7 @@ class CheckApi(object):
             raise Exception(text.format(expected, actual))
 
     def _check_autocomplete(self):
-        url = '{0}api/autocomplete/tau'
+        url = '{0}autocomplete/tau'
         url = url.format(self.url)
         json = self._get_results(url)
 
@@ -52,7 +53,7 @@ class CheckApi(object):
         self._assert_contains(words, 'taulell')
 
     def _check_index(self):
-        url = '{0}api/index/a'
+        url = '{0}index/a'
         url = url.format(self.url)
         json = self._get_results(url)
 
@@ -61,7 +62,7 @@ class CheckApi(object):
         self._assert_contains(words, u'avís')
 
     def _check_search(self):
-        url = '{0}api/search/abat?it=1'
+        url = '{0}search/abat?it=1'
         url = url.format(self.url)
         json = self._get_results(url)
         self._assert_concret_word(json[0])
@@ -71,7 +72,7 @@ class CheckApi(object):
 
         for lang in langs.keys():
             word = langs[lang]
-            url = '{0}api/search/{1}?lang={2}&it=1'
+            url = '{0}search/{1}?lang={2}&it=1'
             url = url.format(self.url, word, lang)
             json = self._get_results(url)
             self._assert_concret_word(json[0])

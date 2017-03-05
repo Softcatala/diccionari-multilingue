@@ -54,6 +54,11 @@ def json_answer(data):
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
 
+def json_answer_status(data, status):
+    resp = json_answer(data)
+    resp.status = str(status)
+    return resp
+
 @app.route('/statistics')
 def api_statistics():
     STATS_FILE = 'stats.json'
@@ -119,7 +124,12 @@ def search_api(word):
     if it is None and is_tracking_enabled():
         save_stats(word, lang)
 
-    return json_answer(search.get_json())
+    j, status = search._get_json_search()
+    if status == 404:
+        j = json.dumps([], indent=4, separators=(',', ': '))
+        return json_answer(j)
+
+    return json_answer_status(j, status)
 
 @app.route('/index/<lletra>', methods=['GET'])
 def index_letter_api(lletra):
