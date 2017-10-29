@@ -65,10 +65,10 @@ class CommonsImage(object):
 
         try:
             image = Image.select().where(Image.name==self.image).get()
-  
+
         except Exception as e:
             image = None
-    
+
         if image is not None:
             msg = "Image exists {0}".format(image.url)
             logging.debug(msg)
@@ -80,6 +80,11 @@ class CommonsImage(object):
         result = self.download()
 
         if result is None:
+            return None, None
+
+        if '.svg' in self.image.lower():
+            msg = "Skipping svg image {0}".format(self.image)
+            logging.debug(msg)
             return None, None
 
         try:
@@ -101,8 +106,8 @@ class CommonsImage(object):
                                 permission = permission)
             saved_image.save()
             msg = "Saved {0}".format(self.image)
+            print(msg)
             logging.debug(msg)
-            print msg
             return self.image, permission
 
         except Exception as e:
