@@ -102,7 +102,7 @@ class CheckApi(object):
         self._assert_that(term['word_ca'], 'abat')
         self._assert_that(term["definition_es"], u"título dado al superior de una abadía o monasterio")
         self._assert_that(term["references"]["wikiquote_ca"], "Abat")
-        self._assert_that(term["image"], "Abbatia CIST Sbernadiensis 27a.jpg")
+        self._assert_that(term["image"], "Abbatia%20CIST%20Sbernadiensis%2027a.jpg")
         self._assert_that(term["definition_fr"], u"titre religieux donné à celui qui dirige une abbaye")
         self._assert_that(term["references"]["gec"], "0073593")
         self._assert_that(term["definition_de"], "Vorsteher einer Abtei und kirchliches Amt")
