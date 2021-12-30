@@ -55,7 +55,6 @@ def load_label_spanish():
     with open('data/3.0/es/wei_spa-30_synset.tsv') as f:
         lines = [line.rstrip() for line in f]
 
-    print("load_label_spanish")
     for line in lines:
         if line[0] == '#':
             continue
@@ -135,7 +134,6 @@ def load_label_catalan():
     with open('data/3.0/ca/wei_cat-30_synset.tsv') as f:
         lines = [line.rstrip() for line in f]
 
-    print("load_label_catalan")
     for line in lines:
         if line[0] == '#':
             continue
@@ -259,8 +257,15 @@ def main():
 
             terms.append(term)
 
-    with open('terms.json', 'w') as outfile:
+    with open('terms-short.json', 'w') as outfile:
         json.dump(terms[:200], outfile, indent=4, ensure_ascii=False)
+
+    with open('terms.json', 'w') as outfile:
+        json.dump(terms, outfile, indent=4, ensure_ascii=False)
+
+    with open('words.txt', 'w') as outfile:
+        for term in terms:
+            outfile.write(f"{term['en']} - {term['ca']} - {term['es']} - {term['en_label']} - {term['ca_label']} - {term['es_label']}\n")
         
     print(f"English {english_def}, catalan {catalan_def}, written {len(terms)}")
 if __name__ == "__main__":
