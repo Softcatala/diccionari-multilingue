@@ -5,7 +5,9 @@ import unicodedata
 # http://wordnetweb.princeton.edu/
 # http://compling.hss.ntu.edu.sg/omw/cgi-bin/wn-gridx.cgi?usrname=&gridmode=grid
 
-def load_catalan():
+
+
+def load_term_catalan():
     synset_ids = {}
 
     # Format 'Brussel·les	1	cat-30-08850450-n	n	99.0	None	------'
@@ -21,7 +23,49 @@ def load_catalan():
 
         components = line.split('\t')
         word = components[0].strip()
-        synset_id = components[CAT_ID].strip().replace('cat-30-', '')
+
+        cat_synset_id = components[CAT_ID].strip()
+        synset_id = cat_synset_id.replace('cat-30-', '')
+#        print(f"{word} - {synset_id}")
+        
+        if synset_id in synset_ids:
+            ids = synset_ids[synset_id]
+            ids.append(word)
+            synset_ids[synset_id] = ids
+        else:
+            words = [word]
+            synset_ids[synset_id] = words
+
+       
+    for synset_id in synset_ids.keys():
+#        print(f"'{synset_id}'")
+        for value in synset_ids[synset_id]:
+#            print(f" {value}")
+            continue
+
+    print(f"load_term_catalan {len(synset_ids)}")
+    return synset_ids
+
+
+def load_label_catalan():
+    synset_ids = {}
+
+    # Format 'cat-30-00001740-n	n	82546	-	-	0	Realitat considerada per abstracció com a unitat (amb o sense vida)	19	0	------'
+    with open('data/3.0/ca/wei_cat-30_variant.tsv') as f:
+        lines = [line.rstrip() for line in f]
+
+    for line in lines:
+        if line[0] == '#':
+            continue
+
+        WORD = 0
+        CAT_ID = 2
+
+        components = line.split('\t')
+        word = components[0].strip()
+
+        cat_synset_id = components[CAT_ID].strip()
+        synset_id = cat_synset_id.replace('cat-30-', '')
 #        print(f"{word} - {synset_id}")
         
         if synset_id in synset_ids:
@@ -40,6 +84,11 @@ def load_catalan():
             continue
 
     print(f"Loaded catalan terms {len(synset_ids)}")
+    return synset_ids
+
+def load_catalan():
+    synset_ids = load_term_catalan()
+    synset_ids = load_label_catalan(synset_ids)
     return synset_ids
 
 def show_item(id, terms):
@@ -67,7 +116,6 @@ def main():
        
             # Read <synset> tag attributes
             for item in synset.attrib:
-                #print(f"{item} - {synset.attrib[item]}")
                 if item == 'id':
                     id = synset.attrib[item]
 
@@ -86,11 +134,13 @@ def main():
             en_label = ''
             for item in synset.iter('gloss'):
                 for attrib in item.attrib:
-#                    print(attrib)
                     if attrib == 'desc':
                         if item.attrib[attrib] == 'text':
                             for text_tag in item.iter('text'):
-                                en_label = unicodedata.normalize('NFC', text_tag.text)
+                                en_label = text_tag.text
+                                en_label = en_label.replace('â', '')
+                                en_label = en_label.replace('', '')
+
             
             catalan_id = f"{id[1:]}-{id[0]}"
     #        print(f"cat_id: '{catalan_id}'")
@@ -113,7 +163,7 @@ def main():
             terms.append(term)
 
     with open('terms.json', 'w') as outfile:
-        json.dump(terms, outfile, indent=4, ensure_ascii=False)
+        json.dump(terms[:100], outfile, indent=4, ensure_ascii=False)
         
     print(f"English {english_def}, catalan {catalan_def}, written {len(terms)}")
 if __name__ == "__main__":
