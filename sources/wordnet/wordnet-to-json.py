@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET
 import json
+import unicodedata
 
 # http://wordnetweb.princeton.edu/
 # http://compling.hss.ntu.edu.sg/omw/cgi-bin/wn-gridx.cgi?usrname=&gridmode=grid
@@ -7,17 +8,22 @@ import json
 def load_catalan():
     synset_ids = {}
 
-    with open('catalan/mcr/wn-data-cat.tab') as f:        
+    # Format 'Brussel·les	1	cat-30-08850450-n	n	99.0	None	------'
+    with open('data/3.0/ca/wei_cat-30_variant.tsv') as f:
         lines = [line.rstrip() for line in f]
 
     for line in lines:
         if line[0] == '#':
             continue
 
-        components = line.split('\t')
+        WORD = 0
+        CAT_ID = 2
 
-        synset_id = components[0].strip()
-        word = components[2].strip()
+        components = line.split('\t')
+        word = components[0].strip()
+        synset_id = components[CAT_ID].strip().replace('cat-30-', '')
+#        print(f"{word} - {synset_id}")
+        
         if synset_id in synset_ids:
             ids = synset_ids[synset_id]
             ids.append(word)
@@ -26,6 +32,7 @@ def load_catalan():
             words = [word]
             synset_ids[synset_id] = words
 
+       
     for synset_id in synset_ids.keys():
 #        print(f"'{synset_id}'")
         for value in synset_ids[synset_id]:
@@ -83,7 +90,7 @@ def main():
                     if attrib == 'desc':
                         if item.attrib[attrib] == 'text':
                             for text_tag in item.iter('text'):
-                                en_label = text_tag.text
+                                en_label = unicodedata.normalize('NFC', text_tag.text)
             
             catalan_id = f"{id[1:]}-{id[0]}"
     #        print(f"cat_id: '{catalan_id}'")
