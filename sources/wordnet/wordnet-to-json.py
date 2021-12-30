@@ -1,4 +1,4 @@
-import xml.etree.ElementTree as ET
+ import xml.etree.ElementTree as ET
 import json
 import unicodedata
 
@@ -8,6 +8,9 @@ import unicodedata
 
 
 def load_term_catalan():
+    WORD = 0
+    CAT_ID = 2
+
     synset_ids = {}
 
     # Format 'Brussel·les	1	cat-30-08850450-n	n	99.0	None	------'
@@ -18,15 +21,10 @@ def load_term_catalan():
         if line[0] == '#':
             continue
 
-        WORD = 0
-        CAT_ID = 2
-
         components = line.split('\t')
-        word = components[0].strip()
-
+        word = components[WORD].strip()
         cat_synset_id = components[CAT_ID].strip()
         synset_id = cat_synset_id.replace('cat-30-', '')
-#        print(f"{word} - {synset_id}")
         
         if synset_id in synset_ids:
             ids = synset_ids[synset_id]
@@ -48,48 +46,42 @@ def load_term_catalan():
 
 
 def load_label_catalan():
+
+    DEFINITION = 6
+    CAT_ID = 0
     synset_ids = {}
 
     # Format 'cat-30-00001740-n	n	82546	-	-	0	Realitat considerada per abstracció com a unitat (amb o sense vida)	19	0	------'
-    with open('data/3.0/ca/wei_cat-30_variant.tsv') as f:
+    with open('data/3.0/ca/wei_cat-30_synset.tsv') as f:
         lines = [line.rstrip() for line in f]
 
     for line in lines:
         if line[0] == '#':
             continue
 
-        WORD = 0
-        CAT_ID = 2
-
         components = line.split('\t')
-        word = components[0].strip()
+        label = components[DEFINITION].strip()
 
         cat_synset_id = components[CAT_ID].strip()
         synset_id = cat_synset_id.replace('cat-30-', '')
-#        print(f"{word} - {synset_id}")
-        
-        if synset_id in synset_ids:
-            ids = synset_ids[synset_id]
-            ids.append(word)
-            synset_ids[synset_id] = ids
-        else:
-            words = [word]
-            synset_ids[synset_id] = words
+        if label == 'None' or len(label) == 0:
+            continue
 
-       
+        synset_ids[synset_id] = label
+
     for synset_id in synset_ids.keys():
 #        print(f"'{synset_id}'")
         for value in synset_ids[synset_id]:
 #            print(f" {value}")
             continue
 
-    print(f"Loaded catalan terms {len(synset_ids)}")
+    print(f"load_label_catalan {len(synset_ids)}")
     return synset_ids
 
 def load_catalan():
-    synset_ids = load_term_catalan()
-    synset_ids = load_label_catalan(synset_ids)
-    return synset_ids
+    terms = load_term_catalan()
+    labels = load_label_catalan()
+    return terms, labels
 
 def show_item(id, terms):
     print("---")
@@ -103,7 +95,7 @@ def main():
     english_def = 0
 
 
-    synset_ids_catalan = load_catalan()
+    synset_ids_catalan, labels_catalan = load_catalan()
     terms = []
     for filename in ['verb.xml', 'noun.xml', 'adv.xml', 'adj.xml']:
         path = 'WordNet-3.0/glosstag/merged/'
@@ -160,6 +152,10 @@ def main():
             term['en'] = en_terms
             term['en_label'] = en_label
             term['ca'] = ca_terms
+
+            if id in labels_catalan:
+                term['ca_label'] = labels_catalan[id]
+
             terms.append(term)
 
     with open('terms.json', 'w') as outfile:
