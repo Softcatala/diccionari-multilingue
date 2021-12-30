@@ -7,6 +7,86 @@ import unicodedata
 
 
 
+def load_term_spanish():
+    WORD = 0
+    CAT_ID = 2
+
+    synset_ids = {}
+
+    # Format 'Brussel·les	1	cat-30-08850450-n	n	99.0	None	------'
+    with open('data/3.0/ca/wei_cat-30_variant.tsv') as f:
+        lines = [line.rstrip() for line in f]
+
+    for line in lines:
+        if line[0] == '#':
+            continue
+
+        components = line.split('\t')
+        word = components[WORD].strip()
+        cat_synset_id = components[CAT_ID].strip()
+        synset_id = cat_synset_id.replace('cat-30-', '')
+        
+        if synset_id in synset_ids:
+            ids = synset_ids[synset_id]
+            ids.append(word)
+            synset_ids[synset_id] = ids
+        else:
+            words = [word]
+            synset_ids[synset_id] = words
+
+       
+    for synset_id in synset_ids.keys():
+#        print(f"'{synset_id}'")
+        for value in synset_ids[synset_id]:
+#            print(f" {value}")
+            continue
+
+    print(f"load_term_spanish {len(synset_ids)}")
+    return synset_ids
+
+
+def load_label_spanish():
+
+    DEFINITION = 6
+    CAT_ID = 0
+    synset_ids = {}
+
+    # Format 'cat-30-00001740-n	n	82546	-	-	0	Realitat considerada per abstracció com a unitat (amb o sense vida)	19	0	------'
+    with open('data/3.0/ca/wei_cat-30_synset.tsv') as f:
+        lines = [line.rstrip() for line in f]
+
+    print("load_label_spanish")
+    for line in lines:
+        if line[0] == '#':
+            continue
+
+        components = line.split('\t')
+        label = components[DEFINITION].strip()
+
+        cat_synset_id = components[CAT_ID].strip()
+        synset_id = cat_synset_id.replace('cat-30-', '')
+        if label == 'None' or len(label) == 0:
+            continue
+
+        #print(synset_id)
+        synset_ids[synset_id] = label
+        #print(f"-->{synset_id}->{label}")
+
+    for synset_id in synset_ids.keys():
+        #print(f"'{synset_id}'")
+        for value in synset_ids[synset_id]:
+#            print(f" {value}")
+            continue
+
+    print(f"load_label_spanish {len(synset_ids)}")
+    return synset_ids
+
+def load_spanish():
+    terms = load_term_spanish()
+    labels = load_label_spanish()
+    return terms, labels
+
+
 def load_term_catalan():
     WORD = 0
     CAT_ID = 2
@@ -98,6 +178,7 @@ def main():
     english_def = 0
 
     synset_ids_catalan, labels_catalan = load_catalan()
+    synset_ids_spanish, labels_spanish = load_spanish()
     terms = []
     for filename in ['verb.xml', 'noun.xml', 'adv.xml', 'adj.xml']:
         path = 'WordNet-3.0/glosstag/merged/'
