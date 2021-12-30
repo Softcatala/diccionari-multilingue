@@ -1,4 +1,4 @@
- import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as ET
 import json
 import unicodedata
 
@@ -55,6 +55,7 @@ def load_label_catalan():
     with open('data/3.0/ca/wei_cat-30_synset.tsv') as f:
         lines = [line.rstrip() for line in f]
 
+    print("load_label_catalan")
     for line in lines:
         if line[0] == '#':
             continue
@@ -67,10 +68,12 @@ def load_label_catalan():
         if label == 'None' or len(label) == 0:
             continue
 
+        #print(synset_id)
         synset_ids[synset_id] = label
+        #print(f"-->{synset_id}->{label}")
 
     for synset_id in synset_ids.keys():
-#        print(f"'{synset_id}'")
+        #print(f"'{synset_id}'")
         for value in synset_ids[synset_id]:
 #            print(f" {value}")
             continue
@@ -93,7 +96,6 @@ def main():
 
     catalan_def = 0
     english_def = 0
-
 
     synset_ids_catalan, labels_catalan = load_catalan()
     terms = []
@@ -132,6 +134,8 @@ def main():
                                 en_label = text_tag.text
                                 en_label = en_label.replace('â', '')
                                 en_label = en_label.replace('', '')
+                                en_label = en_label.replace('', '')
+                                en_label = en_label.replace('', '')
 
             
             catalan_id = f"{id[1:]}-{id[0]}"
@@ -143,7 +147,12 @@ def main():
                     ca_terms.append(value)
                     #print(f"catalan: {value}")
 #                    pass
-            if len(ca_terms) == 0 or len(en_label) == 0:
+
+            label_ca = ''
+            if catalan_id in labels_catalan:
+                label_ca = labels_catalan[catalan_id]
+
+            if len(ca_terms) == 0 or len(en_label) == 0 or len(label_ca) == 0:
                 continue
 
             term = {}
@@ -152,14 +161,17 @@ def main():
             term['en'] = en_terms
             term['en_label'] = en_label
             term['ca'] = ca_terms
+            term['ca_label'] = label_ca
 
-            if id in labels_catalan:
-                term['ca_label'] = labels_catalan[id]
+#            print(f"** {id} -> {labels_catalan.keys()[0]}")
+#            for label in labels_catalan:
+#                print(label)
+
 
             terms.append(term)
 
     with open('terms.json', 'w') as outfile:
-        json.dump(terms[:100], outfile, indent=4, ensure_ascii=False)
+        json.dump(terms[:200], outfile, indent=4, ensure_ascii=False)
         
     print(f"English {english_def}, catalan {catalan_def}, written {len(terms)}")
 if __name__ == "__main__":
