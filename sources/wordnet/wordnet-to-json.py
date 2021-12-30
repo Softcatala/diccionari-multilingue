@@ -14,7 +14,7 @@ def load_term_spanish():
     synset_ids = {}
 
     # Format 'Brussel·les	1	cat-30-08850450-n	n	99.0	None	------'
-    with open('data/3.0/ca/wei_cat-30_variant.tsv') as f:
+    with open('data/3.0/es/wei_spa-30_variant.tsv') as f:
         lines = [line.rstrip() for line in f]
 
     for line in lines:
@@ -24,7 +24,7 @@ def load_term_spanish():
         components = line.split('\t')
         word = components[WORD].strip()
         cat_synset_id = components[CAT_ID].strip()
-        synset_id = cat_synset_id.replace('cat-30-', '')
+        synset_id = cat_synset_id.replace('spa-30-', '')
         
         if synset_id in synset_ids:
             ids = synset_ids[synset_id]
@@ -52,7 +52,7 @@ def load_label_spanish():
     synset_ids = {}
 
     # Format 'cat-30-00001740-n	n	82546	-	-	0	Realitat considerada per abstracció com a unitat (amb o sense vida)	19	0	------'
-    with open('data/3.0/ca/wei_cat-30_synset.tsv') as f:
+    with open('data/3.0/es/wei_spa-30_synset.tsv') as f:
         lines = [line.rstrip() for line in f]
 
     print("load_label_spanish")
@@ -64,7 +64,7 @@ def load_label_spanish():
         label = components[DEFINITION].strip()
 
         cat_synset_id = components[CAT_ID].strip()
-        synset_id = cat_synset_id.replace('cat-30-', '')
+        synset_id = cat_synset_id.replace('spa-30-', '')
         if label == 'None' or len(label) == 0:
             continue
 
@@ -176,6 +176,7 @@ def main():
 
     catalan_def = 0
     english_def = 0
+    spanish_def = 0
 
     synset_ids_catalan, labels_catalan = load_catalan()
     synset_ids_spanish, labels_spanish = load_spanish()
@@ -233,7 +234,17 @@ def main():
             if catalan_id in labels_catalan:
                 label_ca = labels_catalan[catalan_id]
 
-            if len(ca_terms) == 0 or len(en_label) == 0 or len(label_ca) == 0:
+            # Spanish
+            es_terms = []
+            if catalan_id in synset_ids_spanish:
+                for value in synset_ids_spanish[catalan_id]:
+                    es_terms.append(value)
+
+            label_es = ''
+            if catalan_id in labels_spanish:
+                label_es = labels_spanish[catalan_id]
+
+            if len(ca_terms) == 0 or len(en_label) == 0 or len(ca_terms) == 0 or len(es_terms) == 0:
                 continue
 
             term = {}
@@ -243,11 +254,8 @@ def main():
             term['en_label'] = en_label
             term['ca'] = ca_terms
             term['ca_label'] = label_ca
-
-#            print(f"** {id} -> {labels_catalan.keys()[0]}")
-#            for label in labels_catalan:
-#                print(label)
-
+            term['es'] = es_terms
+            term['es_label'] = label_es
 
             terms.append(term)
 
