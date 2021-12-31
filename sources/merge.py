@@ -27,7 +27,7 @@ def save(values, append = False):
         json.dump(values, outfile, skipkeys=True, indent=4, ensure_ascii=False)
 
 def _load_wikidata():
-    with open('wikidata/terms.json', 'r') as fh:
+    with open('wikidata/terms1.json', 'r') as fh:
         wikidata = json.load(fh)
 
     print(f"Wikidata read {len(wikidata)} items")
@@ -75,14 +75,14 @@ def get_synset_id(item):
 
     return synset_id
 
-def get_en_label_description(item):
+def get_label_description(item, language):
     label = ''
     description = ''
 
     try:
-        label = item['labels']['en']['value']
-        if 'en' in item['descriptions']:
-            description = item['descriptions']['en']['value']
+        label = item['labels'][language]['value']
+        if language in item['descriptions']:
+            description = item['descriptions'][language]['value']
         
     except:
         pass
@@ -94,31 +94,55 @@ def _wikidata_todict(items):
     id_item = {}
     
     for item in items:
-        en_label, en_description = get_en_label_description(item)
+        en_label, en_description = get_label_description(item, 'en')
         synset_id = get_synset_id(item)
 
         new_item = {}
-        new_item['en_label'] = en_label
-        new_item['en_description'] = en_description
+
+        label, description = get_label_description(item, 'en')
+        new_item['en_label'] = label
+        new_item['en_description'] = description
+
+        label, description = get_label_description(item, 'ca')
+        new_item['ca_label'] = label
+        new_item['ca_description'] = description
+
+        label, description = get_label_description(item, 'es')
+        new_item['es_label'] = label
+        new_item['es_description'] = description
+
         id_item[synset_id] = new_item
 
     return id_item
 
+def show_item(item):cccz
+
+    print("---")
+    print(item['en_label'])
+    print(item['en_description'])
+
+    print(item['ca_label'])
+    print(item['ca_description'])
+
+    print(item['es_label'])
+    print(item['es_description'])
+
+
 def main():
-    wordnet_list = _load_wordnet()
-    wordnet_dict = _wordnet_todict(wordnet_list)
+ #    wordnet_list = _load_wordnet()
+ #   wordnet_dict = _wordnet_todict(wordnet_list)
     wikidata = _load_wikidata()
     wikidata_dict = _wikidata_todict(wikidata)
 
     items_found = 0
     for synset_id in wikidata_dict:
-        if synset_id not in wordnet_dict:
-            continue
+        #if synset_id not in wordnet_dict:
+        #    continue
 
-        print("---")
-        print(synset_id)
-        print(f"wikidata: {wikidata_dict[synset_id]}")
-        print(f"wordnet: {wordnet_dict[synset_id]}")
+#        print(synset_id)
+        show_item(wikidata_dict[synset_id])
+        #print(f"{wikidata_dict[synset_id]}")
+        #print(f"wordnet: {wordnet_dict[synset_id]}")
         items_found += 1
 
     print(f"items_found: {items_found}")
