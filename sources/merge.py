@@ -105,6 +105,7 @@ def _wikidata_todict(items):
         label, description = get_label_description(item, 'es')
         new_item['es_label'] = label
         new_item['es_description'] = description
+        new_item['id'] = synset_id
 
         id_item[synset_id] = new_item
 
@@ -112,7 +113,7 @@ def _wikidata_todict(items):
 
 def show_item(item):
 
-    print("---")
+    print(f"--- {item['id']} ")
     print(item['en_label'])
     print(item['en_description'])
 
@@ -132,15 +133,18 @@ def main():
 #    wikidata_dict = _load_wikidata()
 
     items_found = 0
-    for synset_id in wikidata_dict:
-        #if synset_id not in wordnet_dict:
-        #    continue
 
-#        print(synset_id)
-        show_item(wikidata_dict[synset_id])
-        #print(f"{wikidata_dict[synset_id]}")
-        #print(f"wordnet: {wordnet_dict[synset_id]}")
-        items_found += 1
+    with open('wordnet31-synset-ids.txt', 'w') as wordnet31_fh:
+
+        for synset_id in wikidata_dict:
+            #if synset_id not in wordnet_dict:
+            #    continue
+
+            show_item(wikidata_dict[synset_id])
+            #print(f"{wikidata_dict[synset_id]}")
+            #print(f"wordnet: {wordnet_dict[synset_id]}")
+            items_found += 1
+            wordnet31_fh.write(synset_id + "\n")
 
     print(f"items_found: {items_found}")
     
