@@ -71,8 +71,11 @@ def main():
 
                 key_31 = get_mapping_keys_31(data)
                 keys = get_mapping_keys_30(data)
+                if len(keys) == 0:
+                    continue
+
                 for key in keys:
-                    fh_out.write(f"{key_31}\t{key}\r")
+                    fh_out.write(f"{key_31}\t{key}\n")
                     mappings_written += 1
 
     print(f"Mappings written: {mappings_written}")
