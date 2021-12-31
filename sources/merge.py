@@ -147,8 +147,6 @@ def main():
 
     key31_to_key30 = read_mappings()
 
-#    wikidata_dict = _load_wikidata()
-
     items_wikidata = 0
     items_both = 0
 
@@ -156,10 +154,14 @@ def main():
 
         for synset_id in wikidata_dict:
             synset_id_30 = key31_to_key30.get(synset_id)
-            if synset_id and synset_id and synset_id in wordnet_dict:
+            if synset_id and synset_id and synset_id_30 in wordnet_dict:
 #                print(synset_id)
 #                print(wordnet_dict[synset_id])
                 items_both += 1
+            else:
+                pass
+                #print(synset_id)
+                #show_item(wikidata_dict[synset_id])
 
             items_wikidata += 1
             wordnet31_fh.write(synset_id + "\n")
