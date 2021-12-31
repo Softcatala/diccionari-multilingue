@@ -22,14 +22,29 @@ import json
 import sys
 import ijson
 
-def save(values, append = False):
-    with open('terms.json', 'w') as outfile:
-        json.dump(values, outfile, skipkeys=True, indent=4, ensure_ascii=False)
+#def save(values, append = False):
+#    with open('terms.json', 'w') as outfile:
+#        json.dump(values, outfile, skipkeys=True, indent=4, ensure_ascii=False)
+
+
+def read_mappings():
+    mappings = {}
+    with open('wordnet/WordNet-3.1/wn30-to-31-mapping.txt', 'r') as fh:
+        lines = fh.readlines()
+
+        for line in lines:
+            components = line.split('\t')
+            key_31 = components[0].strip()
+            key_30 = components[1].strip()
+            mappings[key_31] = key_30
+
+    print(f"Readed {len(mappings)} mappings")
+    return mappings
 
 def _load_wikidata():
 
     id_item = {}
-    fh = open('wikidata/terms.json', 'r')
+    fh = open('wikidata/terms1.json', 'r')
     items = ijson.items(fh, 'item', use_float=True)        
 
     return items
@@ -125,28 +140,32 @@ def show_item(item):
 
 
 def main():
- #    wordnet_list = _load_wordnet()
- #   wordnet_dict = _wordnet_todict(wordnet_list)
+    wordnet_list = _load_wordnet()
+    wordnet_dict = _wordnet_todict(wordnet_list)
     wikidata = _load_wikidata()
     wikidata_dict = _wikidata_todict(wikidata)
 
+    key31_to_key30 = read_mappings()
+
 #    wikidata_dict = _load_wikidata()
 
-    items_found = 0
+    items_wikidata = 0
+    items_both = 0
 
     with open('wordnet31-synset-ids.txt', 'w') as wordnet31_fh:
 
         for synset_id in wikidata_dict:
-            #if synset_id not in wordnet_dict:
-            #    continue
+            synset_id_30 = key31_to_key30.get(synset_id)
+            if synset_id and synset_id and synset_id in wordnet_dict:
+#                print(synset_id)
+#                print(wordnet_dict[synset_id])
+                items_both += 1
 
-            show_item(wikidata_dict[synset_id])
-            #print(f"{wikidata_dict[synset_id]}")
-            #print(f"wordnet: {wordnet_dict[synset_id]}")
-            items_found += 1
+            items_wikidata += 1
             wordnet31_fh.write(synset_id + "\n")
 
-    print(f"items_found: {items_found}")
+    print(f"Items in Wikidata: {items_wikidata}")
+    print(f"Items in Wikidata and Wordnet: {items_both}")
     
 if __name__ == "__main__":
     print("Merge sources")
