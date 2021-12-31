@@ -60,6 +60,10 @@ def get_mapping_keys_31(data):
     for item in data:
         return item['id']
 
+def get_mapping_keys_subject(data):
+    for item in data:
+        return item['subject']
+
 def main():
     print("Creates a mapping file between Wordnet 3.0 and 3.1 synset ids")
 
@@ -74,8 +78,9 @@ def main():
                 if len(keys) == 0:
                     continue
 
+                subject = get_mapping_keys_subject(data)
                 for key in keys:
-                    fh_out.write(f"{key_31}\t{key}\n")
+                    fh_out.write(f"{key_31}\t{key}\t{subject}\n")
                     mappings_written += 1
 
     print(f"Mappings written: {mappings_written}")
