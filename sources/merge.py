@@ -126,17 +126,30 @@ def _wikidata_todict(items):
 
     return id_item
 
-def show_item(item):
+def show_item_wikidata(item):
 
-    print(f"--- {item['id']} ")
-    print(item['en_label'])
-    print(item['en_description'])
+    print(f"--- synset_id 31  {item['id']} ")
+    print(f"Wikidata en term: {item['en_label']}")
+    print(f"Wikidata en description: {item['en_description']}")
 
-    print(item['ca_label'])
-    print(item['ca_description'])
+    print(f"Wikidata ca term: {item['ca_label']}")
+    print(f"Wikidata ca description: {item['ca_description']}")
 
-    print(item['es_label'])
-    print(item['es_description'])
+    print(f"Wikidata es term: {item['es_label']}")
+    print(f"Wikidata es description:  {item['es_description']}")
+
+def show_item_wordnet(item):
+
+    print(f"Wordnet pos: {item['pos']}")
+    print(f"Wordnet en term: {item['en']}")
+    print(f"Wordnet en description: {item['en_label']}")
+
+    print(f"Wordnet ca term: {item['ca']}")
+    print(f"Wordnet ca description: {item['ca_label']}")
+
+    print(f"Wordnet es term: {item['es']}")
+    print(f"Wordnet es description:  {item['es_label']}")
+
 
 
 def main():
@@ -155,13 +168,13 @@ def main():
         for synset_id in wikidata_dict:
             synset_id_30 = key31_to_key30.get(synset_id)
             if synset_id and synset_id and synset_id_30 in wordnet_dict:
-#                print(synset_id)
-#                print(wordnet_dict[synset_id])
+                show_item_wikidata(wikidata_dict[synset_id])
+                show_item_wordnet(wordnet_dict[synset_id_30])
                 items_both += 1
             else:
                 pass
                 #print(synset_id)
-                #show_item(wikidata_dict[synset_id])
+                #
 
             items_wikidata += 1
             wordnet31_fh.write(synset_id + "\n")
