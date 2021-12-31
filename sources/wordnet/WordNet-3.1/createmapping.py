@@ -63,6 +63,7 @@ def get_mapping_keys_31(data):
 def main():
     print("Creates a mapping file between Wordnet 3.0 and 3.1 synset ids")
 
+    mappings_written = 0
     with open("wn30-to-31-mapping.txt", 'w') as fh_out:
         for file in find("data/", "*"):
             with open(file, 'r') as fh:
@@ -72,7 +73,9 @@ def main():
                 keys = get_mapping_keys_30(data)
                 for key in keys:
                     fh_out.write(f"{key_31}\t{key}\r")
+                    mappings_written += 1
 
+    print(f"Mappings written: {mappings_written}")
         
 if __name__ == "__main__":
     main()
