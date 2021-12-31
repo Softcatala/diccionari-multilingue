@@ -35,11 +35,11 @@ class IndexCreator(object):
         self.index = None
 
     def open(self):
-        print "Index exists: " + str(exists_in(self.dir_name))
+        print("Index exists: " + str(exists_in(self.dir_name)))
         self.index = open_dir(self.dir_name)
         self.writer = self.index.writer()
-        print "Index (open) documents: " + str(self.index.doc_count())
-        print "Index (open) last_modified: " + str(self.index.last_modified())
+        print("Index (open) documents: " + str(self.index.doc_count()))
+        print("Index (open) last_modified: " + str(self.index.last_modified()))
 
     def _get_first_letter_for_index(self, word_ca):
 
@@ -116,8 +116,8 @@ class IndexCreator(object):
 
     def save(self):
         self.writer.commit()
-        print "Index documents: " + str(self.index.doc_count())
-        print "Index last_modified: " + str(self.index.last_modified())
+        print("Index documents: " + str(self.index.doc_count()))
+        print("Index last_modified: " + str(self.index.last_modified()))
 
     def create(self):
         analyzer = StandardAnalyzer(minsize=1, stoplist=None)

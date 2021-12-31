@@ -204,7 +204,6 @@ def main():
             english_def += 1
 
             # gloss desc="orig"
-            en_terms = []
             en_label = ''
             for item in synset.iter('gloss'):
                 for attrib in item.attrib:

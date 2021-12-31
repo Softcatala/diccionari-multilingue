@@ -39,24 +39,24 @@ def init_logging():
     logger = logging.getLogger('')
 
 def _get_revision_text(revision):
-    for child in revision.getchildren():
+    for child in list(revision):
         if 'text' in child.tag:
             return child.text
 
     return ''
 
 def _get_username(revision):
-    for child in revision.getchildren():
+    for child in list(revision):
         if 'contributor' in child.tag:
-            for uchild in child.getchildren():
+            for uchild in list(child):
                 if 'username' in uchild.tag:
                     return uchild.text
     return ''
 
 
 def to_str(text):
-    if type(text) is unicode:
-        text = str(text.encode('utf-8'))
+#    if type(text) is unicode:
+#        text = str(text.encode('utf-8'))
 
     return text
 
@@ -68,7 +68,7 @@ def _get_translation(text, marker):
         start += len(marker)
         end = text.find('}}', start)
         label = text[start:end]
-        label = unicode(label)
+        label = label
 
     return label
 
@@ -93,8 +93,12 @@ def _save_statistics(stats):
         json.dump(all_stats, jsonfile, indent=4)
 
 def read_english_word_list():
-    words = list(unicode(line.lower().strip(), 'utf-8') for line in open('../apertium/catalan_words.txt'))
-    return words
+#    words = list(line.lower().strip(), 'utf-8') for line in open('../apertium/catalan_words.txt'))
+    with open('../apertium/catalan_words.txt') as f:
+#        lines = f.readlines()
+         lines = [line.strip() for line in f]
+
+    return lines
 
 def term_exists_in_index(index, ca_label, en_label):
 
@@ -129,14 +133,20 @@ def _process_xml():
     it_descs = 0
     words = read_english_word_list()
 
-    index = IndexCreator()
-    index.open()
+ #   index = IndexCreator()
+ #   index.open()
     authors = set()
     words_file_ca = open('words-ca.txt','w')
     descriptions_file_ca = open('descriptions-ca.txt','w')
  
-    e = xml.etree.ElementTree.parse('cawiktionary-20160701-pages-meta-current.xml').getroot()
-    for page in e.getchildren():
+    json_entries = []
+
+#cawiktionary-20211201-pages-meta-
+current.xml
+#    e = xml.etree.ElementTree.parse('cawiktionary-20160701-pages-meta-current.xml').getroot()
+    e = xml.etree.ElementTree.parse('cawiktionary-20211201-pages-meta-current.xml').getroot()
+
+    for page in list(e):
         verb = False
         adverbi = False
         adjectiu = False
@@ -147,9 +157,9 @@ def _process_xml():
         es_label = u''
         it_label = u''
 
-        for page_element in page.getchildren():
+        for page_element in list(page):
             if 'title' in page_element.tag:
-                ca_label = unicode(page_element.text)
+                ca_label = page_element.text
 
             if 'revision' in page_element.tag:
                 text = _get_revision_text(page_element)
@@ -183,9 +193,9 @@ def _process_xml():
             logging.debug("Discard not in word list: " + ca_label)
             continue
 
-        if term_exists_in_index(index, ca_label, en_label):
-            logging.debug("Discard already existing word in index: " + ca_label)
-            continue
+        #if term_exists_in_index(index, ca_label, en_label):
+        #    logging.debug("Discard already existing word in index: " + ca_label)
+        #    continue
 
         # TODO: A better way to determine infinitives
         ca_label_str = to_str(ca_label)
@@ -222,13 +232,20 @@ def _process_xml():
         if len(it_label) > 0:
             it_labels += 1
 
-        words_file_ca.write(ca_label.encode('utf-8') + '\r\n')
+        words_file_ca.write(ca_label + '\r\n')
 
         if ca_desc is not None:
-            s = '{0} - {1}\r\n'.format(ca_label.encode('utf-8'), ca_desc.encode('utf-8'))
+            s = '{0} - {1}\r\n'.format(ca_label, ca_desc)
             descriptions_file_ca.write(s)
+
+        json_entry = {}
+        json_entry['ca_label'] = ca_label
+        json_entry['fr_label'] = fr_label
+        json_entry['es_label'] =  es_label
+        json_entry['definition_ca'] =  ca_desc
+        json_entries.append(json_entry)
    
-        index.write_entry(word_en=en_label,
+        '''index.write_entry(word_en=en_label,
                           word_ca=ca_label,
                           word_fr=fr_label,
                           word_de=de_label,
@@ -246,7 +263,7 @@ def _process_xml():
                           wikidata_id=None,
                           wikiquote_ca=None,
                           wikidictionary_ca=ca_label,
-                          source=WIKIDICTIONARY)
+                          source=WIKIDICTIONARY)'''
 
     stats = {
              "ca_labels": ca_labels,
@@ -259,9 +276,12 @@ def _process_xml():
              "it_labels": it_labels
         }
 
+    with open("entries.json", 'w') as jsonfile:
+        json.dump(json_entries, jsonfile, indent=4, ensure_ascii=False)
+
     _show_statistics(stats)
     _save_statistics(stats)
-    index.save()
+    #index.save()
     words_file_ca.close()
     descriptions_file_ca.close()
 

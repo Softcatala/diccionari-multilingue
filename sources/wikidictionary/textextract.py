@@ -19,7 +19,7 @@
 # Boston, MA 02111-1307, USA.
 
 import logging
-import StringIO
+import io
 import re
 
 class TextExtract:
@@ -129,7 +129,7 @@ class TextExtract:
             return verb
 
         s = self.text[start:end]
-        buf = StringIO.StringIO(s)
+        buf = io.StringIO(s)
 
         while True:
             s = buf.readline()
