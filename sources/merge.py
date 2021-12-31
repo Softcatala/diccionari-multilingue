@@ -20,18 +20,19 @@
 
 import json
 import sys
-#import ijson
+import ijson
 
 def save(values, append = False):
     with open('terms.json', 'w') as outfile:
         json.dump(values, outfile, skipkeys=True, indent=4, ensure_ascii=False)
 
 def _load_wikidata():
-    with open('wikidata/terms1.json', 'r') as fh:
-        wikidata = json.load(fh)
 
-    print(f"Wikidata read {len(wikidata)} items")
-    return wikidata
+    id_item = {}
+    fh = open('wikidata/terms.json', 'r')
+    items = ijson.items(fh, 'item', use_float=True)        
+
+    return items
 
 def _load_wordnet():
     with open('wordnet/terms.json', 'r') as fh:
@@ -39,12 +40,6 @@ def _load_wordnet():
 
     print(f"Wordnet read {len(wordnet)} items")
     return wordnet
-
-
-#    wikidata = ijson.items('wikidata/terms.json', 'item', use_float=True)
-
-#    print(f"Wikidata read")
- #   return wikidata
 
 
 def _wordnet_todict(wordnet):
@@ -115,7 +110,7 @@ def _wikidata_todict(items):
 
     return id_item
 
-def show_item(item):cccz
+def show_item(item):
 
     print("---")
     print(item['en_label'])
@@ -133,6 +128,8 @@ def main():
  #   wordnet_dict = _wordnet_todict(wordnet_list)
     wikidata = _load_wikidata()
     wikidata_dict = _wikidata_todict(wikidata)
+
+#    wikidata_dict = _load_wikidata()
 
     items_found = 0
     for synset_id in wikidata_dict:
