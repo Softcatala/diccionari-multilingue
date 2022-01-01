@@ -17,10 +17,12 @@ def load_term_spanish():
     with open('data/3.0/es/wei_spa-30_variant.tsv') as f:
         lines = [line.rstrip() for line in f]
 
+    total = 0
     for line in lines:
         if line[0] == '#':
             continue
 
+        total += 1
         components = line.split('\t')
         word = components[WORD].strip()
         cat_synset_id = components[CAT_ID].strip()
@@ -33,15 +35,14 @@ def load_term_spanish():
         else:
             words = [word]
             synset_ids[synset_id] = words
-
-       
+      
     for synset_id in synset_ids.keys():
 #        print(f"'{synset_id}'")
         for value in synset_ids[synset_id]:
 #            print(f" {value}")
             continue
 
-    print(f"load_term_spanish {len(synset_ids)}")
+    print(f"load_term_spanish {len(synset_ids)} from {total} entries")
     return synset_ids
 
 
@@ -92,6 +93,7 @@ def load_term_catalan():
     CAT_ID = 2
 
     synset_ids = {}
+    total = 0
 
     # Format 'Brussel·les	1	cat-30-08850450-n	n	99.0	None	------'
     with open('data/3.0/ca/wei_cat-30_variant.tsv') as f:
@@ -101,6 +103,7 @@ def load_term_catalan():
         if line[0] == '#':
             continue
 
+        total += 1
         components = line.split('\t')
         word = components[WORD].strip()
         cat_synset_id = components[CAT_ID].strip()
@@ -121,7 +124,7 @@ def load_term_catalan():
 #            print(f" {value}")
             continue
 
-    print(f"load_term_catalan {len(synset_ids)}")
+    print(f"load_term_catalan {len(synset_ids)} from {total} entries")
     return synset_ids
 
 
