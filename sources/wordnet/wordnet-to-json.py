@@ -45,11 +45,12 @@ def load_term_spanish():
     return synset_ids
 
 
-def load_label_spanish():
+def load_definitions_spanish():
 
     DEFINITION = 6
     CAT_ID = 0
     synset_ids = {}
+    total = 0
 
     # Format 'cat-30-00001740-n	n	82546	-	-	0	Realitat considerada per abstracció com a unitat (amb o sense vida)	19	0	------'
     with open('data/3.0/es/wei_spa-30_synset.tsv') as f:
@@ -59,17 +60,17 @@ def load_label_spanish():
         if line[0] == '#':
             continue
 
+        total += 1
         components = line.split('\t')
-        label = components[DEFINITION].strip()
+        definition = components[DEFINITION].strip()
 
         cat_synset_id = components[CAT_ID].strip()
         synset_id = cat_synset_id.replace('spa-30-', '')
-        if label == 'None' or len(label) == 0:
+        if definition == 'None' or len(definition) == 0:
             continue
 
         #print(synset_id)
-        synset_ids[synset_id] = label
-        #print(f"-->{synset_id}->{label}")
+        synset_ids[synset_id] = definition
 
     for synset_id in synset_ids.keys():
         #print(f"'{synset_id}'")
@@ -77,12 +78,12 @@ def load_label_spanish():
 #            print(f" {value}")
             continue
 
-    print(f"load_label_spanish {len(synset_ids)}")
+    print(f"load_definitions_spanish {len(synset_ids)} from {total} entries")
     return synset_ids
 
 def load_spanish():
     terms = load_term_spanish()
-    labels = load_label_spanish()
+    labels = load_definitions_spanish()
     return terms, labels
 
 
