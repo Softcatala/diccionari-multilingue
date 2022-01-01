@@ -83,8 +83,8 @@ def load_definitions_spanish():
 
 def load_spanish():
     terms = load_term_spanish()
-    labels = load_definitions_spanish()
-    return terms, labels
+    definitions = load_definitions_spanish()
+    return terms, definitions
 
 
 def load_term_catalan():
@@ -125,11 +125,12 @@ def load_term_catalan():
     return synset_ids
 
 
-def load_label_catalan():
+def load_definitions_catalan():
 
     DEFINITION = 6
     CAT_ID = 0
     synset_ids = {}
+    total = 0
 
     # Format 'cat-30-00001740-n	n	82546	-	-	0	Realitat considerada per abstracció com a unitat (amb o sense vida)	19	0	------'
     with open('data/3.0/ca/wei_cat-30_synset.tsv') as f:
@@ -139,17 +140,17 @@ def load_label_catalan():
         if line[0] == '#':
             continue
 
+        total+ = 0
         components = line.split('\t')
-        label = components[DEFINITION].strip()
+        definition = components[DEFINITION].strip()
 
         cat_synset_id = components[CAT_ID].strip()
         synset_id = cat_synset_id.replace('cat-30-', '')
-        if label == 'None' or len(label) == 0:
+        if definition == 'None' or len(definition) == 0:
             continue
 
         #print(synset_id)
-        synset_ids[synset_id] = label
-        #print(f"-->{synset_id}->{label}")
+        synset_ids[synset_id] = definition
 
     for synset_id in synset_ids.keys():
         #print(f"'{synset_id}'")
@@ -157,13 +158,13 @@ def load_label_catalan():
 #            print(f" {value}")
             continue
 
-    print(f"load_label_catalan {len(synset_ids)}")
+    print(f"load_definitions_catalan {len(synset_ids)} from {total} entries")
     return synset_ids
 
 def load_catalan():
     terms = load_term_catalan()
-    labels = load_label_catalan()
-    return terms, labels
+    definitions = load_definitions_catalan()
+    return terms, definitions
 
 def show_item(id, terms):
     print("---")
@@ -177,8 +178,8 @@ def main():
     english_def = 0
     spanish_def = 0
 
-    synset_ids_catalan, labels_catalan = load_catalan()
-    synset_ids_spanish, labels_spanish = load_spanish()
+    synset_ids_catalan, definitions_catalan = load_catalan()
+    synset_ids_spanish, definitions_spanish = load_spanish()
     terms = []
     for filename in ['verb.xml', 'noun.xml', 'adv.xml', 'adj.xml']:
         path = 'WordNet-3.0/glosstag/merged/'
@@ -229,8 +230,8 @@ def main():
 #                    pass
 
             label_ca = ''
-            if catalan_id in labels_catalan:
-                label_ca = labels_catalan[catalan_id]
+            if catalan_id in definitions_catalan:
+                label_ca = definitions_catalan[catalan_id]
 
             # Spanish
             es_terms = []
@@ -239,8 +240,8 @@ def main():
                     es_terms.append(value)
 
             label_es = ''
-            if catalan_id in labels_spanish:
-                label_es = labels_spanish[catalan_id]
+            if catalan_id in definitions_spanish:
+                label_es = definitions_spanish[catalan_id]
 
             if len(ca_terms) == 0 or len(en_label) == 0 or len(ca_terms) == 0 or len(es_terms) == 0:
                 continue
