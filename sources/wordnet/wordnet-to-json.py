@@ -140,7 +140,7 @@ def load_definitions_catalan():
         if line[0] == '#':
             continue
 
-        total+ = 0
+        total += 1
         components = line.split('\t')
         definition = components[DEFINITION].strip()
 
